@@ -39,6 +39,9 @@
 .tophive-buddypress-groups .item-entry .list-wrap{
     overflow: hidden;
 }
+#buddypress .groups-list > li{
+    margin-bottom: 0;
+}
 #buddypress .item-avatar img {
     transform: translate(var(--avatar-x, 0), var(--avatar-y, 0));
 }

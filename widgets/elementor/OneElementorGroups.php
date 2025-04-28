@@ -82,6 +82,21 @@ class OneElementorGroups extends Widget_Base
                 '{{WRAPPER}} #buddypress .groups-list > li.item-entry .list-wrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
         ]);
+
+        $this->add_control('gap', [
+            'label' => __('Gap Between Cards', 'text-domain'),
+            'type' => \Elementor\Controls_Manager::SLIDER,
+            'range' => [
+                'px' => ['min' => 0, 'max' => 100],
+            ],
+            'default' => [
+                'size' => 20,
+                'unit' => 'px',
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .tophive-buddypress-groups #groups-list' => 'gap: {{SIZE}}{{UNIT}};',
+            ],
+        ]);        
         
         $this->add_control('card_radius', [
             'label' => __('Border Radius', 'text-domain'),
@@ -415,7 +430,7 @@ class OneElementorGroups extends Widget_Base
 
                 bp_nouveau_pagination('top');
                 ?>
-                <ul id="groups-list" class="item-list groups-list bp-list" style="display: grid; grid-template-columns: repeat(<?php echo esc_attr($columns); ?>, 1fr); gap: 20px;">
+                <ul id="groups-list" class="item-list groups-list bp-list" style="display: grid; grid-template-columns: repeat(<?php echo esc_attr($columns); ?>, 1fr);">
                     <?php
                     while (bp_groups()) :
                         bp_the_group();
