@@ -44,11 +44,23 @@ class OneElementorGroups extends Widget_Base
 
         $this->add_control('columns', [
             'label' => __('Columns', 'text-domain'),
-            'type' => Controls_Manager::NUMBER,
-            'default' => 3,
-            'min' => 1,
-            'max' => 6,
+            'type' => Controls_Manager::SLIDER,
+            'default' => [
+                'size' => 3,
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 6,
+                    'step' => 1,
+                ],
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .tophive-buddypress-groups #groups-list' => 'grid-template-columns: repeat({{SIZE}}, 1fr); display: grid;',
+            ],
         ]);
+        
+        
 
         $this->add_control('per_page', [
             'label' => __('Groups Per Page', 'text-domain'),
@@ -430,7 +442,7 @@ class OneElementorGroups extends Widget_Base
 
                 bp_nouveau_pagination('top');
                 ?>
-                <ul id="groups-list" class="item-list groups-list bp-list" style="display: grid; grid-template-columns: repeat(<?php echo esc_attr($columns); ?>, 1fr);">
+                <ul id="groups-list" class="item-list groups-list bp-list">
                     <?php
                     while (bp_groups()) :
                         bp_the_group();
