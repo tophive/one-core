@@ -26,6 +26,7 @@ use ONECORE\widgets\elementor\OneElementorInstructorFormPopup;
 use ONECORE\widgets\elementor\OneElementorAdvanceSearch;
 use ONECORE\widgets\elementor\OneElementorAdvanceFilter;
 use ONECORE\widgets\elementor\OneElementorAdvancedTabs;
+use ONECORE\widgets\elementor\OneElementorActivity;
 use ONECORE\widgets\elementor\OneElementorGroups;
 use ONECORE\widgets\elementor\OneElementorCourseCategory;
 use ONECORE\widgets\elementor\OneElementorForumTabs;
@@ -94,7 +95,16 @@ class OneCore
 			add_action( 'elementor/widgets/widgets_registered', array(self::getInstance(), 'OneElementorWidgetInit') );
 			add_action( 'elementor/elements/categories_registered', array(self::getInstance(), 'OneElementorCat') );
 		}
-
+		add_action( 'elementor/preview/enqueue_scripts', function() {
+			wp_enqueue_script(
+				'tophive-elementor-scripts',
+				get_theme_file_uri( 'assets/js/compatibility/buddypress.js' ),
+				[ 'jquery' ],
+				defined('TH_ELEMENTOR_PLUGIN_VERSION') ? TH_ELEMENTOR_PLUGIN_VERSION : false,
+				true
+			);
+		});
+	
 		remove_action( 'wp_head', 'feed_links_extra', 3 );
 		remove_action( 'wp_head', 'learn_press_print_custom_styles' );
 	}
@@ -149,6 +159,7 @@ class OneCore
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorAdvanceSearch() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorAdvanceFilter() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorAdvancedTabs() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorActivity() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorGroups() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorForumTabs() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorBBPressNewPost() );
