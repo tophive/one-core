@@ -634,7 +634,7 @@ class OneElementorMembers extends Widget_Base {
 
         bp_nouveau_before_loop(); ?>
 
-        <div class="directory members">
+        <div class="directory members tophive-buddypress-members">
             <div id="buddypress" class="buddypress-wrap one bp-dir-hori-nav">
                 
                 <div id="members-dir-list" class="members dir-list" data-bp-list="members" style="">
