@@ -60,8 +60,6 @@ class OneElementorGroups extends Widget_Base
             ],
         ]);
         
-        
-
         $this->add_control('per_page', [
             'label' => __('Groups Per Page', 'text-domain'),
             'type' => Controls_Manager::NUMBER,

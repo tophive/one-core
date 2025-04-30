@@ -27,6 +27,7 @@ use ONECORE\widgets\elementor\OneElementorAdvanceSearch;
 use ONECORE\widgets\elementor\OneElementorAdvanceFilter;
 use ONECORE\widgets\elementor\OneElementorAdvancedTabs;
 use ONECORE\widgets\elementor\OneElementorActivity;
+use ONECORE\widgets\elementor\OneElementorMembers;
 use ONECORE\widgets\elementor\OneElementorGroups;
 use ONECORE\widgets\elementor\OneElementorCourseCategory;
 use ONECORE\widgets\elementor\OneElementorForumTabs;
@@ -160,6 +161,7 @@ class OneCore
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorAdvanceFilter() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorAdvancedTabs() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorActivity() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorMembers() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorGroups() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorForumTabs() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new OneElementorBBPressNewPost() );
