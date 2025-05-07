@@ -201,6 +201,7 @@ class OneCore
 	}
 	public static function widgetRegistrar(){
 		require_once('widgets/onewidgets/OneRecentPostsWidget.php');
+		require_once('widgets/onewidgets/OneSidebarMenuWidget.php');
 		require_once('widgets/onewidgets/OneMailChimpWidget.php');
 		require_once('widgets/onewidgets/OneBPGroupsInfo.php');
 		require_once('widgets/onewidgets/OneBPProfileInfo.php');
@@ -208,6 +209,7 @@ class OneCore
 		require_once('widgets/onewidgets/OneBPProfileMedia.php');
 
 		register_widget( 'OneRecentPostsWidget' );
+		register_widget( 'OneSidebarMenuWidget' );
 		register_widget( 'OneMailChimpWidget' );
 		register_widget( 'OneBPGroupsInfo' );
 		register_widget( 'OneBPGroupMembers' );

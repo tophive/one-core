@@ -10667,6 +10667,7 @@ a.th-bbpress-create-new-topic svg {
 .tophive-forum-topic-loop-single.recent-topics
   .tophive-forum-topic-loop-single-footer-meta {
   width: 100%;
+  gap: 15px;
 }
 .tophive-forum-topic-loop-single.recent-topics
   .tophive-forum-topic-loop-single-details {

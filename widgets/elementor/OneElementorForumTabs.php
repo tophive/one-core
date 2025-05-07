@@ -99,6 +99,32 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 									while( $topics->have_posts() ){
 										$topics->the_post();
 
+										$post_id = get_the_ID();
+										$likes = get_post_meta($post_id, '_bbp_likes', true);
+										$dislikes = get_post_meta($post_id, '_bbp_dislikes', true);
+										$views = get_post_meta($post_id, '_bbp_views', true);
+
+										$likes_count = is_array($likes) ? count($likes) : 0;
+										$dislikes_count = is_array($dislikes) ? count($dislikes) : 0;
+										$views_count = intval($views);
+
+										$reply_ids = get_posts([
+											'post_type'   => 'reply',
+											'post_parent' => $post_id,
+											'numberposts' => 5,
+											'orderby'     => 'date',
+											'order'       => 'DESC',
+											'fields'      => 'ids',
+										]);
+									
+										// Collect unique user IDs
+										$unique_user_ids = [];
+										foreach ($reply_ids as $rid) {
+											$uid = get_post_field('post_author', $rid);
+											$unique_user_ids[$uid] = $uid;
+										}
+									
+
 										if( function_exists('bbp_get_topic_forum_id') && function_exists('bbp_get_forum_title') ){
 											$forum_id = bbp_get_topic_forum_id( get_the_ID() );
 											$forum_title = ! empty( $forum_id ) ? bbp_get_forum_title( $forum_id ) : '';
@@ -133,15 +159,23 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 													<h6><a href="<?php echo bbp_get_topic_permalink(get_the_ID()); ?>"><?php the_title() ?></a></h6>
 													<p><?php echo get_the_excerpt() ?></p>
 
-													<div class="tophive-forum-topic-loop-single-footer-meta">
-														<span class="replies"><svg width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-chat-right-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-														  <path fill-rule="evenodd" d="M2 1h12a1 1 0 0 1 1 1v11.586l-2-2A2 2 0 0 0 11.586 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
-														  <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-														</svg> <?php echo bbp_topic_reply_count(get_the_ID()) . esc_html__( ' Replies', WP_MF_CORE_SLUG ); ?></span>
-														<span class="last-active-time">
-															<?php echo $last_updated_by . $last_active; ?>
-														</span>
+													<div class="tophive-forum-topic-loop-single-footer-meta d-flex align-items-center gap-2 flex-wrap">
+														<span class="mf-topic-meta-item">👍 <?php echo $likes_count; ?></span>
+														<span class="mf-topic-meta-item">👎 <?php echo $dislikes_count; ?></span>
+														<?php
+
+														// Render avatars
+														echo '<div class="mf-topic-avatars d-flex gap-1">';
+														foreach ($unique_user_ids as $uid) {
+															echo get_avatar($uid, 24, '', '', ['class' => 'mf-participant-avatar']);
+														}
+														echo '</div>';
+														?>
+														<span class="mf-topic-meta-item"><?php echo bbp_topic_reply_count($post_id); ?> replies</span>
+														<span class="mf-topic-meta-item"><?php echo $views_count; ?> views</span>
+														<span class="mf-topic-meta-item">Last reply <?php echo $last_active; ?></span>
 													</div>
+
 												</div>
 											</div>
 										<?php
