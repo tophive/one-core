@@ -260,6 +260,40 @@ jQuery(document).ready(function(jQuery) {
 		  placeholder: 'Your topic description...',
 		  theme: 'snow'  // or 'bubble'
 		});
+		quillEditor.getModule('toolbar').addHandler('image', () => {
+			selectLocalImage();
+		  });
+		  
+		  function selectLocalImage() {
+			const input = document.createElement('input');
+			input.setAttribute('type', 'file');
+			input.setAttribute('accept', 'image/*');
+			input.click();
+		  
+			input.onchange = async () => {
+			  const file = input.files[0];
+			  if (/^image\//.test(file.type)) {
+				const formData = new FormData();
+				formData.append('file', file);
+				formData.append('action', 'upload_quill_image'); // WordPress AJAX hook
+		  
+				const response = await fetch('/wp-admin/admin-ajax.php', {
+				  method: 'POST',
+				  body: formData,
+				});
+		  
+				const json = await response.json();
+				if (json.success && json.data.url) {
+				  insertToEditor(json.data.url);
+				}
+			  }
+			};
+		  }
+		  
+		function insertToEditor(url) {
+			const range = quillEditor.getSelection();
+			quillEditor.insertEmbed(range.index, 'image', url);
+		}
 	}
 
 	jQuery('.tophive-bbpress-new-post-form form').on('submit', function(e){
