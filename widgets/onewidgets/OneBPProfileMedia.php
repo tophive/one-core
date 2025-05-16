@@ -19,7 +19,7 @@ class OneBPProfileMedia extends WP_Widget {
             $user_id = bp_displayed_user_id();
             $all_images = [];
             $media_html = '';
-            $activities = $wpdb->get_results("SELECT id from {$wpdb->base_prefix}bp_activity WHERE user_id={$user_id} and type='activity_update'", ARRAY_N);
+            $activities = $wpdb->get_results("SELECT id from {$wpdb->base_prefix}bp_activity WHERE user_id={$user_id} and type='activity_update' ORDER BY id DESC", ARRAY_N);
 
             if( !empty($activities) ){
                 foreach ($activities as $key => $value) {
