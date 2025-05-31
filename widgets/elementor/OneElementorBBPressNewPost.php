@@ -112,6 +112,8 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 			'posts_per_page' => -1
 		);
 		$forum = new \WP_Query($forum_args);
+
+		$selected_forum_id = isset($_GET['forum_id']) ? absint($_GET['forum_id']) : 0;
 		?>
 			<div class="tophive-bbpress-new-post-form">
 				<h2 class="form-title"><?php echo $settings['bbp_new_post_title']; ?></h2>
@@ -128,14 +130,16 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 					<div class="form-group">
 						<label for="thbbpressposttopics"><?php esc_html_e( 'Forum (Important)', WP_MF_CORE_SLUG ); ?></label>
 						<select id="thbbpressposttopics" name="thbbpressposttopics" required>
-							<?php
-								if($forum->have_posts()) {
-									while ($forum->have_posts()) {
-										$forum->the_post();
-										echo '<option value="'. get_the_ID() .'">'. get_the_title() .'</option>';
-									}	    
-								}	
-							?>
+						<?php
+							if ( $forum->have_posts() ) {
+								while ( $forum->have_posts() ) {
+									$forum->the_post();
+									$current_id = get_the_ID();
+									$selected = selected( $selected_forum_id, $current_id, false );
+									echo '<option value="' . esc_attr( $current_id ) . '" ' . $selected . '>' . esc_html( get_the_title() ) . '</option>';
+								}
+							}
+						?>
 						</select>
 					</div>
 					<div class="form-group">
