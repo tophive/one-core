@@ -196,7 +196,7 @@ class OneCore
 		add_action( 'wp_ajax_nopriv_course_grid_pull_cats', array( OneElementorBase::getInstance(), 'AjaxCourseRequest' ) );
 		wp_enqueue_script( 'rich-text-quill', WP_MF_CORE_URL . 'widgets/elementor/assets/quill.min.js', array(), '4.0.6' );
 
-		wp_enqueue_style( 'rich-text-quill-css', WP_MF_CORE_URL . 'widgets/elementor/assets/quill.snow.css' );
+		wp_enqueue_style( 'rich-text-quill-css', WP_MF_CORE_URL . 'widgets/elementor/assets/quill.snow.min.css' );
 		wp_enqueue_script('th-elementor-js',WP_MF_CORE_URL . 'widgets/elementor/assets/script.js',array('jquery'));
 	}
 	public static function widgetRegistrar(){
