@@ -8,13 +8,13 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         return 'thelemblog';
     }
     public function get_title(){
-        return esc_html__( 'Blog', WP_MF_CORE_SLUG );
+        return esc_html__( 'Blog', ONE_CORE_SLUG );
     }
     public function get_icon(){
         return 'eicon-post-content';
     }
     public function get_categories(){
-        return [ WP_MF_CORE_SLUG ];
+        return [ ONE_CORE_SLUG ];
     }
     protected function register_controls() {
 
@@ -31,33 +31,33 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'blog_content_section',
 				[
-					'label' => esc_html__( 'Blog', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Blog', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			$this->add_control(
 				'blog_post_order',
 				[
-					'label' => esc_html__( 'Order Posts by', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Order Posts by', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'recent',
 					'options' => [
-						'recent'  		=> esc_html__( 'Recently Published', WP_MF_CORE_SLUG ),
-						'popularity'  	=> esc_html__( 'Popular', WP_MF_CORE_SLUG ),
+						'recent'  		=> esc_html__( 'Recently Published', ONE_CORE_SLUG ),
+						'popularity'  	=> esc_html__( 'Popular', ONE_CORE_SLUG ),
 					],
 				]
 			);
 			$this->add_control(
 				'select_blog_columns',
 				[
-					'label' => esc_html__( 'Select Columns', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select Columns', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'ec-col-md-12' 	=> esc_html__( '1 Column', WP_MF_CORE_SLUG ),
-						'ec-col-md-6' 	=> esc_html__( '2 Columns', WP_MF_CORE_SLUG ),
-						'ec-col-md-4'  	=> esc_html__( '3 Columns', WP_MF_CORE_SLUG ),
-						'ec-col-md-3' 	=> esc_html__( '4 Columns', WP_MF_CORE_SLUG ),
-						'ec-col-md-2' 	=> esc_html__( '6 Columns', WP_MF_CORE_SLUG ),
+						'ec-col-md-12' 	=> esc_html__( '1 Column', ONE_CORE_SLUG ),
+						'ec-col-md-6' 	=> esc_html__( '2 Columns', ONE_CORE_SLUG ),
+						'ec-col-md-4'  	=> esc_html__( '3 Columns', ONE_CORE_SLUG ),
+						'ec-col-md-3' 	=> esc_html__( '4 Columns', ONE_CORE_SLUG ),
+						'ec-col-md-2' 	=> esc_html__( '6 Columns', ONE_CORE_SLUG ),
 					],
 					'default' => 'ec-col-md-6',
 				]
@@ -65,25 +65,25 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_post_count',
 				[
-					'label' => esc_html__( 'Post Count', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Post Count', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'description' => esc_html__('-1 For showing all', WP_MF_CORE_SLUG),
+					'description' => esc_html__('-1 For showing all', ONE_CORE_SLUG),
 					'default' => 4,
 				]
 	        );
 			$this->add_control(
 				'blog_post_offset',
 				[
-					'label' => esc_html__( 'Post Offset', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Post Offset', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'description' => esc_html__('This number of posts will be excluded from first', WP_MF_CORE_SLUG),
+					'description' => esc_html__('This number of posts will be excluded from first', ONE_CORE_SLUG),
 					'default' => 0,
 				]
 	        );
 	        $this->add_control(
 	        	'blog_word_count',
 	        	[
-	        		'label' => esc_html__( 'Word Count for description', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Word Count for description', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::NUMBER,
 	        		'min' => 2,
 	        		'max' => 30,
@@ -95,10 +95,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_show_desc',
 	        	[
-	        		'label' => esc_html__( 'Show Description', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Description', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 	        		'return_value' => 'yes',
 	        		'default' => 'no',
 	        	]
@@ -116,7 +116,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'blog_filter_category',
 				[
-					'label' => esc_html__( 'Blog Category', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Blog Category', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
@@ -124,7 +124,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'select_blog_categories',
 				[
-					'label' => esc_html__( 'Select Categories', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select Categories', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT2,
 					'multiple' => true,
 					'options' => $this->parse_filter_categories(),
@@ -136,29 +136,29 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'blog_meta_section',
 				[
-					'label' => esc_html__( 'Meta Data', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Meta Data', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			$this->add_control(
 				'meta_position',
 				[
-					'label' => esc_html__( 'Select Meta Data Position', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select Meta Data Position', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'before-title',
 					'options' => [
-						'before-title'  => esc_html__( 'Before Title', WP_MF_CORE_SLUG ),
-						'after-title'  => esc_html__( 'After Title', WP_MF_CORE_SLUG ),
+						'before-title'  => esc_html__( 'Before Title', ONE_CORE_SLUG ),
+						'after-title'  => esc_html__( 'After Title', ONE_CORE_SLUG ),
 					],
 				]
 			);
 			$this->add_control(
 	        	'display_category',
 	        	[
-	        		'label' => esc_html__('Show category', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Show category', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 	        	]
@@ -166,10 +166,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 	        	'display_comments',
 	        	[
-	        		'label' => esc_html__('Show comments', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Show comments', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'no',
 	        	]
@@ -177,10 +177,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 	        	'display_author',
 	        	[
-	        		'label' => esc_html__('Show author', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Show author', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 	        	]
@@ -188,10 +188,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 	        	'display_views',
 	        	[
-	        		'label' => esc_html__('Show views', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Show views', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'no',
 	        	]
@@ -199,10 +199,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 	        	'display_date_meta',
 	        	[
-	        		'label' => esc_html__('Show date', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Show date', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 	        	]
@@ -215,24 +215,24 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	    $this->start_controls_section(
             'blog_carousel_navigation',
 	            [
-	                'label' => esc_html__( 'Navigation', WP_MF_CORE_SLUG ),
+	                'label' => esc_html__( 'Navigation', ONE_CORE_SLUG ),
 	                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 	            ]
 	        );
     		$this->add_control(
 				'blog_carousel_arrow_section',
 				[
-					'label' => esc_html__( 'Arrow', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
     		$this->add_control(
 				'blog_carousel_arrow',
 				[
-					'label' => esc_html__( 'Show Arrow', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Show Arrow', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'no',
 				]
@@ -240,7 +240,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_button',
 				[
-					'label' => esc_html__( 'Arrow Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -252,7 +252,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_button_bg',
 				[
-					'label' => esc_html__( 'Arrow Background', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow Background', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -264,7 +264,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_slider',
 				[
-					'label' => esc_html__( 'Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -282,18 +282,18 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_position',
 				[
-					'label' => esc_html__( 'Select arrow position', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select arrow position', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 4,
 					'options' => [
-						'default'  => esc_html__( 'Default', WP_MF_CORE_SLUG ),
-						'top-right'  => esc_html__( 'Top right', WP_MF_CORE_SLUG ),
-						'top-left'  => esc_html__( 'Top left', WP_MF_CORE_SLUG ),
-						'top-center'  => esc_html__( 'Top center', WP_MF_CORE_SLUG ),
+						'default'  => esc_html__( 'Default', ONE_CORE_SLUG ),
+						'top-right'  => esc_html__( 'Top right', ONE_CORE_SLUG ),
+						'top-left'  => esc_html__( 'Top left', ONE_CORE_SLUG ),
+						'top-center'  => esc_html__( 'Top center', ONE_CORE_SLUG ),
 
-						'bottom-right'  => esc_html__( 'bottom right', WP_MF_CORE_SLUG ),
-						'bottom-left'  => esc_html__( 'bottom left', WP_MF_CORE_SLUG ),
-						'bottom-center'  => esc_html__( 'bottom center', WP_MF_CORE_SLUG ),
+						'bottom-right'  => esc_html__( 'bottom right', ONE_CORE_SLUG ),
+						'bottom-left'  => esc_html__( 'bottom left', ONE_CORE_SLUG ),
+						'bottom-center'  => esc_html__( 'bottom center', ONE_CORE_SLUG ),
 					],
 					'default' => 'bottom-center'
 				]
@@ -305,7 +305,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->start_controls_tab(
 				'blog_arrow_normal_tab',
 				[
-					'label' => esc_html__( 'Normal', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Normal', ONE_CORE_SLUG ),
 
 				]
 			);
@@ -313,7 +313,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_background_color',
 				[
-					'label' => esc_html__( 'Background Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -326,7 +326,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_icon_color',
 				[
-					'label' => esc_html__( 'Icon Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Icon Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -340,14 +340,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'blog_arrow_border_control',
-					'label' => esc_html__( 'Border', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
 					'selector' => '{{WRAPPER}} .ec-switch-button-next i, {{WRAPPER}} .ec-switch-button-prev i'
 				]
 			);
 			$this->add_control(
 				'blog_arrow_border_rad',
 				[
-					'label' => esc_html__( 'Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px'],
 					'range' => [
@@ -368,14 +368,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->start_controls_tab(
 				'blog_arrow_hover_tab',
 				[
-					'label' => esc_html__( 'Hover', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Hover', ONE_CORE_SLUG ),
 				]
 			);
 
 			$this->add_control(
 				'blog_arrow_background_color_hover',
 				[
-					'label' => esc_html__( 'Background Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -388,7 +388,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_icon_color_hover',
 				[
-					'label' => esc_html__( 'Icon Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Icon Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -402,7 +402,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'blog_arrow_border_control_hover',
-					'label' => esc_html__( 'Border', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
 					'selector' => '{{WRAPPER}} .ec-switch-button-next i:hover, {{WRAPPER}} .ec-switch-button-prev i:hover'
 				]
 			);
@@ -411,14 +411,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->start_controls_tab(
 				'arrow_inactive_tab',
 				[
-					'label' => esc_html__( 'Inactive', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Inactive', ONE_CORE_SLUG ),
 
 				]
 			);
 			$this->add_control(
 				'blog_arrow_background_color_inactive',
 				[
-					'label' => esc_html__( 'Background Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -430,7 +430,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'blog_arrow_icon_color_inactive',
 				[
-					'label' => esc_html__( 'Icon Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Icon Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -443,7 +443,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'blog_arrow_border_control_inactive',
-					'label' => esc_html__( 'Border', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
 					'selector' => '{{WRAPPER}} .ec-switch-button.disabled i, 
 					{{WRAPPER}} .ec-switch-button.disabled i:hover'
 				]
@@ -468,7 +468,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	    $this->start_controls_section(
             'blog_box_style_section',
 	            [
-	                'label' => esc_html__( 'Box Style', WP_MF_CORE_SLUG ),
+	                'label' => esc_html__( 'Box Style', ONE_CORE_SLUG ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -476,7 +476,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         		\Elementor\Group_Control_Border::get_type(),
         		[
         			'name' => 'blog_border',
-        			'label' => esc_html__( 'Box Border', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Border', ONE_CORE_SLUG ),
         			'selector' => '{{WRAPPER}} .th-blog-block',
         		]
         	);
@@ -489,13 +489,13 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_control(
 				'select_blog_layout',
 				[
-					'label' => esc_html__( 'Select Blog Layout', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select Blog Layout', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'top',
 					'options' => [
-						'top'  		=> esc_html__( 'Image Top', WP_MF_CORE_SLUG ),
-						'thumb-left'  	=> esc_html__( 'Image Left', WP_MF_CORE_SLUG ),
-						'thumb-right'  	=> esc_html__( 'Image Right', WP_MF_CORE_SLUG ),
+						'top'  		=> esc_html__( 'Image Top', ONE_CORE_SLUG ),
+						'thumb-left'  	=> esc_html__( 'Image Left', ONE_CORE_SLUG ),
+						'thumb-right'  	=> esc_html__( 'Image Right', ONE_CORE_SLUG ),
 					],
 					'default' => 'thumb-right'
 				]
@@ -503,7 +503,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'blog_box_margin',
         		[
-        			'label' => esc_html__( 'Box margin', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Box margin', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			'selectors' => [
@@ -522,7 +522,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'blog_box_padding',
         		[
-        			'label' => esc_html__( 'Box Padding', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Padding', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			'selectors' => [
@@ -533,7 +533,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'blog_content_padding',
         		[
-        			'label' => esc_html__( 'Content Padding', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Content Padding', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			'selectors' => [
@@ -551,7 +551,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'blog_box_border_radius',
         		[
-        			'label' => esc_html__( 'Box Border Radius', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Border Radius', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::SLIDER,
         			'size_units' => [ 'px', '%' ],
         			'range' => [
@@ -578,7 +578,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         		\Elementor\Group_Control_Box_Shadow::get_type(),
         		[
         			'name' => 'blog_course_box_shadow',
-        			'label' => esc_html__( 'Box Shadow', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
         			'selector' => '{{WRAPPER}} .th-blog-block',
         		]
         	);
@@ -586,14 +586,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         		\Elementor\Group_Control_Box_Shadow::get_type(),
         		[
         			'name' => 'blog_course_box_shadow_hover',
-        			'label' => esc_html__( 'Box Shadow on hover', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Shadow on hover', ONE_CORE_SLUG ),
         			'selector' => '{{WRAPPER}} .th-blog-block:hover',
         		]
         	);
         	$this->add_control(
         		'blog_block_bg',
         		[
-        			'label' => esc_html__( 'Background', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::COLOR,
         			'selectors' => [
         				'{{WRAPPER}} .th-blog-block' => 'background-color: {{VALUE}}',
@@ -612,7 +612,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	    $this->start_controls_section(
             'blog_thumb_style_section',
 	            [
-	                'label' => esc_html__( 'Thumbnail', WP_MF_CORE_SLUG ),
+	                'label' => esc_html__( 'Thumbnail', ONE_CORE_SLUG ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -620,10 +620,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_control(
 				'show_blog_thumb',
 				[
-					'label' => esc_html__( 'Show thumbnail', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Show thumbnail', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -631,7 +631,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'thumb_width',
 				[
-					'label' => esc_html__( 'Thumbnail Width', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Thumbnail Width', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -663,7 +663,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'blog_thumb_height',
         		[
-        			'label' => esc_html__( 'Thumbnail Height', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Thumbnail Height', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::SLIDER,
         			'size_units' => [ 'px' ],
         			'range' => [
@@ -685,7 +685,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'blog_image_border_radius',
         		[
-        			'label' => esc_html__( 'Image Border Radius', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Image Border Radius', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			
@@ -713,7 +713,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'blog_desc_style_section',
 	            [
-	                'label' => esc_html__( 'Content style', WP_MF_CORE_SLUG ),
+	                'label' => esc_html__( 'Content style', ONE_CORE_SLUG ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -721,7 +721,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'title_header_blog',
 	        	[
-	        		'label' => esc_html__('Title', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Title', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -731,14 +731,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'blog_title_typo',
-	        		'label' => esc_html__( 'Typography', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
 	        		'selector' => '{{WRAPPER}} .blog-block-title',
 	        	]
 	        );
 	        $this->add_control(
 	        	'blog_title_color',
 	        	[
-	        		'label' => esc_html__( 'Title Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Title Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -750,7 +750,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_title_hover_color',
 	        	[
-	        		'label' => esc_html__( 'Title Hover Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Title Hover Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -761,7 +761,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_title_margin',
 	        	[
-	        		'label' => esc_html__( 'Title Margin', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Title Margin', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px' ],
 	        		'selectors' => [
@@ -779,7 +779,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'desc_header',
 	        	[
-	        		'label' => esc_html__('Description', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Description', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -788,14 +788,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'blog_desc_typography',
-	        		'label' => esc_html__( 'Typography', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
 	        		'selector' => '{{WRAPPER}} .th-description',
 	        	]
 	        );
 	        $this->add_control(
 	        	'blog_desc_typography_color',
 	        	[
-	        		'label' => esc_html__( 'Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -806,7 +806,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_desc_margin',
 	        	[
-	        		'label' => esc_html__( 'Description Margin', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Description Margin', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px'],
 	        		'selectors' => [
@@ -832,14 +832,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'blog_meta_style_section',
 	            [
-	                'label' => esc_html__( 'Meta Data', WP_MF_CORE_SLUG ),
+	                'label' => esc_html__( 'Meta Data', ONE_CORE_SLUG ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
         	$this->add_control(
         		'blog_meta_spacing',
         		[
-        			'label' => esc_html__( 'Spacing', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px', '%', 'em' ],
         			'selectors' => [
@@ -851,7 +851,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'blog_meta_content_typography',
-	        		'label' => esc_html__( 'Typography', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
 	        		// 'scheme' => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 	        		'selector' => '{{WRAPPER}} .th-blog-details .th-elem-blog-meta i,{{WRAPPER}} .th-blog-details .th-elem-blog-meta a, {{WRAPPER}} .th-blog-details .th-elem-blog-meta span',
 	        	]
@@ -859,7 +859,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_meta_content_colors',
 	        	[
-	        		'label' => esc_html__( 'Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -871,7 +871,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_meta_spacing_between',
 	        	[
-	        		'label' => esc_html__( 'Space between items', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Space between items', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px', '%' ],
 	        		'range' => [
@@ -899,14 +899,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_date_format',
 	        	[
-	        		'label' => esc_html__( 'Select Date Format', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Select Date Format', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::SELECT,
 	        		'default' => 'solid',
 	        		'options' => [
-	        			'FjY'  => esc_html__( 'i.e: January 11,2020', WP_MF_CORE_SLUG ),
-	        			'DMj'  => esc_html__( 'i.e: Wed Jan 9', WP_MF_CORE_SLUG ),
-	        			'dSMY'  => esc_html__( 'i.e: 15th Jan 2020', WP_MF_CORE_SLUG ),
-	        			'FY'  => esc_html__( 'i.e: January 2020', WP_MF_CORE_SLUG ),
+	        			'FjY'  => esc_html__( 'i.e: January 11,2020', ONE_CORE_SLUG ),
+	        			'DMj'  => esc_html__( 'i.e: Wed Jan 9', ONE_CORE_SLUG ),
+	        			'dSMY'  => esc_html__( 'i.e: 15th Jan 2020', ONE_CORE_SLUG ),
+	        			'FY'  => esc_html__( 'i.e: January 2020', ONE_CORE_SLUG ),
 	        		],
 	        	]
 	        );
@@ -914,14 +914,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'blog_footer_style_section',
 	            [
-	                'label' => esc_html__( 'Footer', WP_MF_CORE_SLUG ),
+	                'label' => esc_html__( 'Footer', ONE_CORE_SLUG ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
         	$this->add_responsive_control(
         		'footerpadding',
         		[
-        			'label' => esc_html__( 'Padding', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px', '%', 'em' ],
         			'selectors' => [
@@ -939,10 +939,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_control(
         		'display_footer_view',
         		[
-        			'label' => esc_html__( 'Show views', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Show views', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::SWITCHER,
-        			'label_on' => __( 'Show', WP_MF_CORE_SLUG ),
-        			'label_off' => __( 'Hide', WP_MF_CORE_SLUG ),
+        			'label_on' => __( 'Show', ONE_CORE_SLUG ),
+        			'label_off' => __( 'Hide', ONE_CORE_SLUG ),
         			'return_value' => 'yes',
         			'default' => 'no',
         		]
@@ -950,10 +950,10 @@ class OneElementorBlog extends \Elementor\Widget_Base {
         	$this->add_control(
         		'display_footer_author',
         		[
-        			'label' => esc_html__( 'Show author', WP_MF_CORE_SLUG ),
+        			'label' => esc_html__( 'Show author', ONE_CORE_SLUG ),
         			'type' => \Elementor\Controls_Manager::SWITCHER,
-        			'label_on' => __( 'Show', WP_MF_CORE_SLUG ),
-        			'label_off' => __( 'Hide', WP_MF_CORE_SLUG ),
+        			'label_on' => __( 'Show', ONE_CORE_SLUG ),
+        			'label_off' => __( 'Hide', ONE_CORE_SLUG ),
         			'return_value' => 'yes',
         			'default' => 'yes',
         		]
@@ -961,7 +961,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'read_more_header',
 	        	[
-	        		'label' => esc_html__('Read more', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Read more', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -969,7 +969,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_read_more_text',
 	        	[
-	        		'label' => esc_html__( 'Read more text', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Read more text', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::TEXT,
 	        		'default' => '',
 	        	]
@@ -978,14 +978,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'blog_read_more_typo',
-	        		'label' => esc_html__( 'Read More Typography', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Read More Typography', ONE_CORE_SLUG ),
 	        		'selector' => '{{WRAPPER}} .blog-read-more',
 	        	]
 	        );
 	        $this->add_control(
 	        	'blog_read_more',
 	        	[
-	        		'label' => esc_html__( 'Readmore Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Readmore Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'default' => '#20AD96',
@@ -997,7 +997,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'blog_read_more_hover',
 	        	[
-	        		'label' => esc_html__( 'Readmore Color hover', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Readmore Color hover', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'default' => '#20AD96',
@@ -1009,7 +1009,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'footer_auther_header',
 	        	[
-	        		'label' => esc_html__('Author', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('Author', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -1018,14 +1018,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'blog_author_typography',
-	        		'label' => esc_html__( 'Author Typography', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Author Typography', ONE_CORE_SLUG ),
 	        		'selector' => '{{WRAPPER}} .blog-author a',
 	        	]
 	        );
 	        $this->add_control(
 	        	'author_color',
 	        	[
-	        		'label' => esc_html__( 'Author Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Author Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -1037,7 +1037,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'view_count_header',
 	        	[
-	        		'label' => esc_html__('View Count', WP_MF_CORE_SLUG),
+	        		'label' => esc_html__('View Count', ONE_CORE_SLUG),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -1046,14 +1046,14 @@ class OneElementorBlog extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'blog_footer_view_typo',
-	        		'label' => esc_html__( 'View Typography', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'View Typography', ONE_CORE_SLUG ),
 	        		'selector' => '{{WRAPPER}} .blog-view',
 	        	]
 	        );
 	        $this->add_control(
 	        	'blog_view_color',
 	        	[
-	        		'label' => esc_html__( 'View Color', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'View Color', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -1216,7 +1216,7 @@ class OneElementorBlog extends \Elementor\Widget_Base {
     	$categories_count = count($categories);
     	$html = '';
     	if( $categories_count > 1 ){
-	    	$html .= '<li data-id="'. $id .'" data-cat="all">'. esc_html__('All', WP_MF_CORE_SLUG) .'</li>';
+	    	$html .= '<li data-id="'. $id .'" data-cat="all">'. esc_html__('All', ONE_CORE_SLUG) .'</li>';
 	    	foreach ($categories as $key => $value) {
 	    		$html .= '<li data-id="'. $id .'" data-cat="'. $value .'">'. $value .'</li>';
 	    	}

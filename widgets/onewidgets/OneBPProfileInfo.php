@@ -4,8 +4,8 @@ class OneBPProfileInfo extends WP_Widget {
  
     public function __construct() {
         $widget_options = array(
-            'classname' => 'tophive-mf-profile-info-widget',
-            'description' => esc_html__( 'BuddyPress - One profile descriptions', 'WP_MF_CORE_SLUG' )
+            'classname' => 'tophive-one-profile-info-widget',
+            'description' => esc_html__( 'BuddyPress - One profile descriptions', 'ONE_CORE_SLUG' )
         );
         parent::__construct('buddypress_profile_desc', 'Buddypress profile info [one]', $widget_options);
     }

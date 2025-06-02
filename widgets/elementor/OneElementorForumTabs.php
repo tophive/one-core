@@ -16,7 +16,7 @@ if ( ! class_exists( 'bbPress' ) ) {
 class OneElementorForumTabs extends \Elementor\Widget_base
 {
 	public function get_title(){
-		return esc_html__( 'BBPress Forum', WP_MF_CORE_SLUG );
+		return esc_html__( 'BBPress Forum', ONE_CORE_SLUG );
 	}
 	public function get_name(){
 		return 'th-forum-tabs';
@@ -25,7 +25,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 		return 'eicon-tabs';
 	}
 	public function get_categories(){
-        return [ WP_MF_CORE_SLUG ];
+        return [ ONE_CORE_SLUG ];
     }
 	public function get_keywords() {
 		return [ 'tabs', 'forum' ];
@@ -34,17 +34,17 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 		$this->start_controls_section(
 			'th_adv_tabs_section',
 			[
-				'label' => esc_html__( 'Activity Tab', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Activity Tab', ONE_CORE_SLUG ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);			
 		$this->add_control(
 			'tab_show_activities',
 			[
-				'label' => esc_html__( 'Show Latest Activities', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Show Latest Activities', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => __( 'Show', WP_MF_CORE_SLUG ),
-				'label_off' => __( 'Hide', WP_MF_CORE_SLUG ),
+				'label_on' => __( 'Show', ONE_CORE_SLUG ),
+				'label_off' => __( 'Hide', ONE_CORE_SLUG ),
 				'return_value' => 'yes',
 				'default' => 'yes',
 			]
@@ -52,10 +52,10 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 		$this->add_control(
 			'tab_show_forums',
 			[
-				'label' => esc_html__( 'Show Forums', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Show Forums', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => __( 'Show', WP_MF_CORE_SLUG ),
-				'label_off' => __( 'Hide', WP_MF_CORE_SLUG ),
+				'label_on' => __( 'Show', ONE_CORE_SLUG ),
+				'label_off' => __( 'Hide', ONE_CORE_SLUG ),
 				'return_value' => 'yes',
 				'default' => 'yes',
 			]
@@ -86,8 +86,8 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 				<div class="tophive-forum-tabs">
 					<?php if( 'yes' == $settings['tab_show_activities'] && 'yes' == $settings['tab_show_forums'] ){ ?>
 						<ul>
-							<li class="active"><a href="#th_topics"><?php echo esc_html__( 'Recent Activity', WP_MF_CORE_SLUG ); ?></a></li>
-							<li><a href="#th_forums"><?php echo esc_html__( 'Forums', WP_MF_CORE_SLUG ); ?></a></li>
+							<li class="active"><a href="#th_topics"><?php echo esc_html__( 'Recent Activity', ONE_CORE_SLUG ); ?></a></li>
+							<li><a href="#th_forums"><?php echo esc_html__( 'Forums', ONE_CORE_SLUG ); ?></a></li>
 						</ul>
 					<?php } ?>
 				</div>
@@ -160,20 +160,20 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 													<p><?php echo get_the_excerpt() ?></p>
 
 													<div class="tophive-forum-topic-loop-single-footer-meta d-flex align-items-center gap-2 flex-wrap">
-														<span class="mf-topic-meta-item">👍 <?php echo $likes_count; ?></span>
-														<span class="mf-topic-meta-item">👎 <?php echo $dislikes_count; ?></span>
+														<span class="one-topic-meta-item">👍 <?php echo $likes_count; ?></span>
+														<span class="one-topic-meta-item">👎 <?php echo $dislikes_count; ?></span>
 														<?php
 
 														// Render avatars
-														echo '<div class="mf-topic-avatars d-flex gap-1">';
+														echo '<div class="one-topic-avatars d-flex gap-1">';
 														foreach ($unique_user_ids as $uid) {
-															echo get_avatar($uid, 24, '', '', ['class' => 'mf-participant-avatar']);
+															echo get_avatar($uid, 24, '', '', ['class' => 'one-participant-avatar']);
 														}
 														echo '</div>';
 														?>
-														<span class="mf-topic-meta-item"><?php echo bbp_topic_reply_count($post_id); ?> replies</span>
-														<span class="mf-topic-meta-item"><?php echo $views_count; ?> views</span>
-														<span class="mf-topic-meta-item">Last reply <?php echo $last_active; ?></span>
+														<span class="one-topic-meta-item"><?php echo bbp_topic_reply_count($post_id); ?> replies</span>
+														<span class="one-topic-meta-item"><?php echo $views_count; ?> views</span>
+														<span class="one-topic-meta-item">Last reply <?php echo $last_active; ?></span>
 													</div>
 
 												</div>
@@ -236,14 +236,14 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 																			$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}posts WHERE post_parent={$post_ide} and post_type='topic'");
 																			echo count($results);
 																			echo '</span>';
-																			esc_html_e( ' Topics', WP_MF_CORE_SLUG ); ?>
+																			esc_html_e( ' Topics', ONE_CORE_SLUG ); ?>
 																	</div>
 																	<div class="meta-item last-active-time">
 																		<?php 
 																			echo '<span>';
 																			echo bbp_forum_reply_count(get_the_ID());
 																			echo '</span>';
-																			esc_html_e( ' Replies', WP_MF_CORE_SLUG ); ?>
+																			esc_html_e( ' Replies', ONE_CORE_SLUG ); ?>
 																	</div>
 																</div>
 																<div class="tophive-forum-last-topic">
@@ -298,14 +298,14 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 																			
 																			echo count($results);
 																			echo '</span>';
-																			esc_html_e( ' Topics', WP_MF_CORE_SLUG ); ?>
+																			esc_html_e( ' Topics', ONE_CORE_SLUG ); ?>
 																	</div>
 																	<div class="meta-item last-active-time">
 																		<?php 
 																			echo '<span>';
 																			echo bbp_forum_reply_count(get_the_ID());
 																			echo '</span>';
-																			esc_html_e( ' Replies', WP_MF_CORE_SLUG ); ?>
+																			esc_html_e( ' Replies', ONE_CORE_SLUG ); ?>
 																	</div>
 																</div>
 																<div class="tophive-forum-last-topic">

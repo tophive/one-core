@@ -4,8 +4,8 @@ class OneBPGroupMembers extends WP_Widget {
  
     public function __construct() {
         $widget_options = array(
-            'classname' => 'tophive-mf-groups-members-widget',
-            'description' => esc_html__( 'BuddyPress - One Groups members lists', 'WP_MF_CORE_SLUG' )
+            'classname' => 'tophive-one-groups-members-widget',
+            'description' => esc_html__( 'BuddyPress - One Groups members lists', 'ONE_CORE_SLUG' )
         );
         parent::__construct('buddypress_groups_members', 'BuddyPress Group Members', $widget_options);
     }

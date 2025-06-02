@@ -32,7 +32,7 @@ class OneElementorGroups extends Widget_Base
 
     public function get_categories()
     {
-        return [ WP_MF_CORE_SLUG ];
+        return [ ONE_CORE_SLUG ];
     }
 
     protected function register_controls()

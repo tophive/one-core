@@ -16,10 +16,10 @@ class OneThemeUpdater{
 		wp_localize_script( 'th-theme-updater', 'th_theme_updater_ajax',
 	        array(
 	            'ajaxurl' => admin_url( 'admin-ajax.php' ),
-	            'btn_text' => esc_html__( 'Update Fundocean', WP_MF_CORE_SLUG ),
-	            'updating' => esc_html__( 'Updating...', WP_MF_CORE_SLUG ),
-	            'update_failed' => esc_html__( 'Theme Update Failed.Please try again after few moments', WP_MF_CORE_SLUG ),
-	            'update_success' => esc_html__( 'Theme Updated Successfully', WP_MF_CORE_SLUG ),
+	            'btn_text' => esc_html__( 'Update Fundocean', ONE_CORE_SLUG ),
+	            'updating' => esc_html__( 'Updating...', ONE_CORE_SLUG ),
+	            'update_failed' => esc_html__( 'Theme Update Failed.Please try again after few moments', ONE_CORE_SLUG ),
+	            'update_success' => esc_html__( 'Theme Updated Successfully', ONE_CORE_SLUG ),
 	            'update_available' => $update
 	        )
 	    );
@@ -39,7 +39,7 @@ class OneThemeUpdater{
 		}
 	}
 	private static function verify_purchase_code( $key ){
-		$request = wp_remote_get( 'https://api.tophivetheme.com/themes/mf-data.php?type=activation&key=' . $key );
+		$request = wp_remote_get( 'https://api.tophivetheme.com/themes/one-data.php?type=activation&key=' . $key );
 		$body = wp_remote_retrieve_body( $request );
 		return $body;
 	}
@@ -99,8 +99,8 @@ class OneThemeUpdater{
 	public function themePlaceHolder(){
 		if( version_compare( $this->getCurrentVersion(), $this->getInstalledVersion(), '>') ){
 			?>
-				<h3 class="tophive-section-heading"><?php esc_html_e( 'A new version of one is available', WP_MF_CORE_SLUG ); ?></h3>
-				<a href="" class="tophive-admin-big-button tophive-update-theme"><?php esc_html_e( 'Update One', WP_MF_CORE_SLUG ); ?></a>
+				<h3 class="tophive-section-heading"><?php esc_html_e( 'A new version of one is available', ONE_CORE_SLUG ); ?></h3>
+				<a href="" class="tophive-admin-big-button tophive-update-theme"><?php esc_html_e( 'Update One', ONE_CORE_SLUG ); ?></a>
 				<span class="tophive-messages"></span>
 			<?php
 		}else{
@@ -120,13 +120,13 @@ class OneThemeUpdater{
 	}
 	public function getThemeUrl(){
 		$key = get_theme_mod( 'fo_activation_key' );
-		$request = wp_remote_get( 'https://api.tophivetheme.com/themes/mf-data.php?type=theme_data&key=' . $key );
+		$request = wp_remote_get( 'https://api.tophivetheme.com/themes/one-data.php?type=theme_data&key=' . $key );
 		$body = wp_remote_retrieve_body( $request );
 		$theme_data = json_decode($body);
 		return $theme_data->theme_url;
 	}
 	public function getCurrentVersion(){
-		// $request = wp_remote_get( 'https://api.tophivetheme.com/themes/mf-data.php?type=theme_data' );
+		// $request = wp_remote_get( 'https://api.tophivetheme.com/themes/one-data.php?type=theme_data' );
 		// $body = wp_remote_retrieve_body( $request );
 		// $theme_data = json_decode($body);
 		return 4.0;

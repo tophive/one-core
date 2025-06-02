@@ -141,10 +141,10 @@ class OneElementorBase
 			    		if(!empty($added_to_wishlist))
 			    			{
 			    				$wishlist = in_array(get_the_ID(), $added_to_wishlist) ? 'on ' : '';
-								$wishlist_text = in_array(get_the_ID(), $added_to_wishlist) ? esc_html__('Remove From  wishlist', WP_MF_CORE_SLUG) : esc_html__('Add to wishlist', WP_MF_CORE_SLUG);
+								$wishlist_text = in_array(get_the_ID(), $added_to_wishlist) ? esc_html__('Remove From  wishlist', ONE_CORE_SLUG) : esc_html__('Add to wishlist', ONE_CORE_SLUG);
 							}else{
 								$wishlist = '';
-								$wishlist_text = esc_html__('Add to wishlist', WP_MF_CORE_SLUG);
+								$wishlist_text = esc_html__('Add to wishlist', ONE_CORE_SLUG);
 							}
 			    		$html .= '<div class="hover-info-wishlist"><a class="'. $wishlist .'hover-wishlist-'. get_the_ID() .' th-tooltip" data-id="'. get_the_ID() .'" data-nonce="'. wp_create_nonce( 'course-toggle-wishlist' ) .'" href="#"><i class="'. $settings['wishlist_icon'] .'"></i><span class="th-tooltip-text">'. $wishlist_text .'</span></a></div>';
 			    	}
@@ -205,7 +205,7 @@ class OneElementorBase
 	public static function getCourseLessons(){
 		if(function_exists('learn_press_get_course')){		
 			$course = learn_press_get_course( get_the_ID() );
-	    	$lessons = $course->count_items( LP_LESSON_CPT ) . esc_html__(' lessons', WP_MF_CORE_SLUG);
+	    	$lessons = $course->count_items( LP_LESSON_CPT ) . esc_html__(' lessons', ONE_CORE_SLUG);
 		}
 		return $lessons;
 	}
@@ -358,7 +358,7 @@ class OneElementorBase
 			    $html .= '</div>';
 			}
 		}else{
-			$html = '<div class="ec-text-center">' . esc_html__('No Courses have been Found', WP_MF_CORE_SLUG) . '</div>';
+			$html = '<div class="ec-text-center">' . esc_html__('No Courses have been Found', ONE_CORE_SLUG) . '</div>';
 		}
 		return $html;
 	}
@@ -495,7 +495,7 @@ class OneElementorBase
 				}
 			}
 		}else{
-			$html = '<div class="ec-text-center">' . esc_html__('No Posts have been Found', WP_MF_CORE_SLUG) . '</div>';
+			$html = '<div class="ec-text-center">' . esc_html__('No Posts have been Found', ONE_CORE_SLUG) . '</div>';
 		}
 		return $html;
 	}
@@ -657,7 +657,7 @@ class OneElementorBase
 			}
 			$html .= '</ul>';
 		}else{
-			$html .= '<p class="ec-mb-0 ec-p-3">'. esc_html__( 'Nothing found for ' . $text , WP_MF_CORE_SLUG ) .'</p>';
+			$html .= '<p class="ec-mb-0 ec-p-3">'. esc_html__( 'Nothing found for ' . $text , ONE_CORE_SLUG ) .'</p>';
 		}
 		echo $html;
 		die();
@@ -695,20 +695,20 @@ class OneElementorBase
 		if( empty($post_data['post_title']) ){
 			$res = array(
 				'post_id' => null,
-				'status' => esc_html__( 'failed', WP_MF_CORE_SLUG ),
-				'msg' => esc_html__( 'Title is empty', WP_MF_CORE_SLUG ),
+				'status' => esc_html__( 'failed', ONE_CORE_SLUG ),
+				'msg' => esc_html__( 'Title is empty', ONE_CORE_SLUG ),
 			);
 		}elseif( empty(strip_tags($post_data['post_content'])) ){
 			$res = array(
 				'post_id' => null,
-				'status' => esc_html__( 'failed', WP_MF_CORE_SLUG ),
-				'msg' => esc_html__( 'Topic content is empty', WP_MF_CORE_SLUG ),
+				'status' => esc_html__( 'failed', ONE_CORE_SLUG ),
+				'msg' => esc_html__( 'Topic content is empty', ONE_CORE_SLUG ),
 			);
 		}elseif( empty($post_data['post_parent']) ){
 			$res = array(
 				'post_id' => null,
-				'status' => esc_html__( 'failed', WP_MF_CORE_SLUG ),
-				'msg' => esc_html_e( 'You need to select a forum', WP_MF_CORE_SLUG ),
+				'status' => esc_html__( 'failed', ONE_CORE_SLUG ),
+				'msg' => esc_html_e( 'You need to select a forum', ONE_CORE_SLUG ),
 			);
 		}elseif( function_exists('bbp_insert_topic') ){
 			$post_id = bbp_insert_topic( $post_data );
@@ -736,8 +736,8 @@ class OneElementorBase
 		 		);
 				$res = array(
 					'post_id' => $post_id,
-					'status' => esc_html__( 'success', WP_MF_CORE_SLUG ),
-					'msg' => esc_html__( 'Topic Created Successfully', WP_MF_CORE_SLUG ),
+					'status' => esc_html__( 'success', ONE_CORE_SLUG ),
+					'msg' => esc_html__( 'Topic Created Successfully', ONE_CORE_SLUG ),
 					'redirect_url' => get_the_permalink($post_id),
 				);
 			}else{

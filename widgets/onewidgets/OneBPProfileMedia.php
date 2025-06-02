@@ -4,8 +4,8 @@ class OneBPProfileMedia extends WP_Widget {
  
     public function __construct() {
         $widget_options = array(
-            'classname' => 'tophive-mf-profile-media-widget',
-            'description' => esc_html__( 'BuddyPress - One Profile Media', 'WP_MF_CORE_SLUG' )
+            'classname' => 'tophive-one-profile-media-widget',
+            'description' => esc_html__( 'BuddyPress - One Profile Media', 'ONE_CORE_SLUG' )
         );
         parent::__construct('buddypress_profile_media', 'Buddypress profile media [one]', $widget_options);
     }

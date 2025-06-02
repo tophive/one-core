@@ -4,6 +4,7 @@ namespace ONECORE\widgets\elementor;
 if ( ! class_exists( 'bbPress' ) ) {
 	return;
 }
+
 /**
  **
  * One elementor Forum tabs
@@ -16,7 +17,7 @@ if ( ! class_exists( 'bbPress' ) ) {
 class OneElementorBBPressNewPost extends \Elementor\Widget_base
 {
 	public function get_title(){
-		return esc_html__( 'BBPress Post Topic', WP_MF_CORE_SLUG );
+		return esc_html__( 'BBPress Post Topic', ONE_CORE_SLUG );
 	}
 	public function get_name(){
 		return 'th-bbpress-topic-post';
@@ -25,7 +26,7 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 		return 'eicon-time-line';
 	}
 	public function get_categories(){
-        return [ WP_MF_CORE_SLUG ];
+        return [ ONE_CORE_SLUG ];
     }
 	public function get_keywords() {
 		return [ 'topic' ];
@@ -34,33 +35,33 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 		$this->start_controls_section(
 			'th_new_post_section',
 			[
-				'label' => esc_html__( 'New Post Form', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'New Post Form', ONE_CORE_SLUG ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);			
 		$this->add_control(
 			'bbp_new_post_title',
 			[
-				'label' => esc_html__( 'Title', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Write New Post', WP_MF_CORE_SLUG ),
-				'placeholder' => esc_html__( 'Type your title here', WP_MF_CORE_SLUG ),
+				'default' => esc_html__( 'Write New Post', ONE_CORE_SLUG ),
+				'placeholder' => esc_html__( 'Type your title here', ONE_CORE_SLUG ),
 			]
 		);
 		$this->add_control(
 			'bbp_new_post_text',
 			[
-				'label' => __( 'Description', WP_MF_CORE_SLUG ),
+				'label' => __( 'Description', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::WYSIWYG,
 				'rows' => 10,
-				'placeholder' => __( 'Type your description here', WP_MF_CORE_SLUG ),
+				'placeholder' => __( 'Type your description here', ONE_CORE_SLUG ),
 			]
 		);
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'th_new_post_section_style',
 			[
-				'label' => esc_html__( 'Styles', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Styles', ONE_CORE_SLUG ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);			
@@ -120,15 +121,15 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 				<div class="form-description"><?php echo $settings['bbp_new_post_text']; ?></div>
 				<form>
 					<div class="form-group">
-						<label for="thbbpressposttitle"><?php esc_html_e( 'Title', WP_MF_CORE_SLUG ); ?></label>
-						<input type="text" id="thbbpressposttitle" name="thbbpressposttitle" placeholder="<?php esc_html_e( 'Provide a short and descriptive title', WP_MF_CORE_SLUG ); ?>">
+						<label for="thbbpressposttitle"><?php esc_html_e( 'Title', ONE_CORE_SLUG ); ?></label>
+						<input type="text" id="thbbpressposttitle" name="thbbpressposttitle" placeholder="<?php esc_html_e( 'Provide a short and descriptive title', ONE_CORE_SLUG ); ?>">
 					</div>
 					<div class="form-group">
-						<label for="thbbpresspostdesc"><?php esc_html_e( 'Description', WP_MF_CORE_SLUG ); ?></label>
+						<label for="thbbpresspostdesc"><?php esc_html_e( 'Description', ONE_CORE_SLUG ); ?></label>
 						<div id="thbbpresspostdesc"></div>
 					</div>
 					<div class="form-group">
-						<label for="thbbpressposttopics"><?php esc_html_e( 'Forum (Important)', WP_MF_CORE_SLUG ); ?></label>
+						<label for="thbbpressposttopics"><?php esc_html_e( 'Forum (Important)', ONE_CORE_SLUG ); ?></label>
 						<select id="thbbpressposttopics" name="thbbpressposttopics" required>
 						<?php
 							if ( $forum->have_posts() ) {
@@ -143,14 +144,14 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="thbbpressposttags"><?php esc_html_e( 'Tags (optional)', WP_MF_CORE_SLUG ); ?></label>
-						<input type="text" id="thbbpressposttags" name="thbbpressposttags" placeholder="<?php esc_html_e( 'Input tags seperated by commas', WP_MF_CORE_SLUG ); ?>">
+						<label for="thbbpressposttags"><?php esc_html_e( 'Tags (optional)', ONE_CORE_SLUG ); ?></label>
+						<input type="text" id="thbbpressposttags" name="thbbpressposttags" placeholder="<?php esc_html_e( 'Input tags seperated by commas', ONE_CORE_SLUG ); ?>">
 					</div>
 					<div class="form-group">
 						<?php if( is_user_logged_in() ){ ?>
-							<input type="submit" class="thbbpresspostsubmit" name="thbbpresspostsubmit" value="<?php echo esc_html_e( 'Submit', WP_MF_CORE_SLUG ); ?>">
+							<input type="submit" class="thbbpresspostsubmit" name="thbbpresspostsubmit" value="<?php echo esc_html_e( 'Submit', ONE_CORE_SLUG ); ?>">
 						<?php }else{ ?>
-							<input type="button" class="show-signin-form-modal" value="<?php echo esc_html_e( 'Submit', WP_MF_CORE_SLUG ); ?>">
+							<input type="button" class="show-signin-form-modal" value="<?php echo esc_html_e( 'Submit', ONE_CORE_SLUG ); ?>">
 						<?php } ?>
 					</div>
 

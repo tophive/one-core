@@ -5,7 +5,7 @@ class OneCopyrightWidget extends WP_Widget {
     public function __construct() {
         $widget_options = array(
             'classname' => 'tophive-mc-recent-post-widget',
-            'description' => esc_html__( 'Fundocean Recent Posts', 'WP_MF_CORE_SLUG' )
+            'description' => esc_html__( 'Fundocean Recent Posts', 'ONE_CORE_SLUG' )
         );
         parent::__construct('tophive_fo_recent_post_widget', 'MC Recent Posts', $widget_options);
     }
@@ -44,7 +44,7 @@ class OneCopyrightWidget extends WP_Widget {
                             $html .= '</div>';
                             $html .= '<p class="widget-blog-date ec-mb-0 ec-mt-n1"><small>'. get_the_date('F j, Y', get_the_ID()) .'</small></p>';
                             $html .= '<a class="text-decoration-none" href="'. get_the_permalink() .'"><h5 class="ec-mb-3">'. get_the_title() .'</h5></a>';
-                            $html .= '<span class="mc-blog-readmore">'. esc_html__( 'Read more', WP_MF_CORE_SLUG ) .'<i class="ti-arrow-right"></i></span>';
+                            $html .= '<span class="mc-blog-readmore">'. esc_html__( 'Read more', ONE_CORE_SLUG ) .'<i class="ti-arrow-right"></i></span>';
                         $html .= '</div>';
                     }else{
                         $html .= '<div class="ec-col-12 display-date-'. $display_date .' display-more-'. $display_more .'">';
@@ -85,7 +85,7 @@ class OneCopyrightWidget extends WP_Widget {
             <div class="tophive_fo_recent_post_widget_form">
                 <p>
                     <label 
-                        for="<?php echo $this->get_field_id( 'title' ); ?>"><?php echo esc_html__( 'Title : ', WP_MF_CORE_SLUG ); ?></label>
+                        for="<?php echo $this->get_field_id( 'title' ); ?>"><?php echo esc_html__( 'Title : ', ONE_CORE_SLUG ); ?></label>
                     <input 
                         id="<?php echo $this->get_field_id( 'title' ); ?>" 
                         type="text" 
@@ -95,7 +95,7 @@ class OneCopyrightWidget extends WP_Widget {
                 </p>
                 <p>
                     <label 
-                        for="<?php echo $this->get_field_id('post_count'); ?>"><?php echo esc_html__( 'Post Count', WP_MF_CORE_SLUG ); ?></label>
+                        for="<?php echo $this->get_field_id('post_count'); ?>"><?php echo esc_html__( 'Post Count', ONE_CORE_SLUG ); ?></label>
                     <input 
                         type="number"
                         min="3" 
@@ -106,7 +106,7 @@ class OneCopyrightWidget extends WP_Widget {
                 </p>
                 <p>
                     <label 
-                        for="<?php echo $this->get_field_id('post_date'); ?>"><?php echo esc_html__( 'Show Date', WP_MF_CORE_SLUG ); ?></label>
+                        for="<?php echo $this->get_field_id('post_date'); ?>"><?php echo esc_html__( 'Show Date', ONE_CORE_SLUG ); ?></label>
                     <input 
                         type="checkbox"
                         name="<?php echo $this->get_field_name('post_date'); ?>" 
@@ -117,7 +117,7 @@ class OneCopyrightWidget extends WP_Widget {
                 </p>
                 <p>
                     <label 
-                        for="<?php echo $this->get_field_id('read_more'); ?>"><?php echo esc_html__( 'Show readmore', WP_MF_CORE_SLUG ); ?></label>
+                        for="<?php echo $this->get_field_id('read_more'); ?>"><?php echo esc_html__( 'Show readmore', ONE_CORE_SLUG ); ?></label>
                     <input 
                         type="checkbox"
                         name="<?php echo $this->get_field_name('read_more'); ?>" 
@@ -128,27 +128,27 @@ class OneCopyrightWidget extends WP_Widget {
                 </p>
                 <p>
                     <label 
-                        for="<?php echo $this->get_field_id('post_layout'); ?>"><?php echo esc_html__( 'Post Count', WP_MF_CORE_SLUG ); ?></label>
+                        for="<?php echo $this->get_field_id('post_layout'); ?>"><?php echo esc_html__( 'Post Count', ONE_CORE_SLUG ); ?></label>
                     <select 
                         name="<?php echo $this->get_field_name('post_layout') ?>" 
                         id="<?php echo $this->get_field_id('post_layout') ?>"
                     >
-                        <option <?php selected( $post_layout , 'one-big-col'); ?>  value="one-big-col"><?php echo esc_html__( 'One Column + Big First', WP_MF_CORE_SLUG ) ?></option>
-                        <option <?php selected( $post_layout , 'one-col'); ?>  value="one-col"><?php echo esc_html__( 'One Column', WP_MF_CORE_SLUG ) ?></option>
-                        <option <?php selected( $post_layout , 'two-col'); ?>  value="two-col"><?php echo esc_html__( 'Two Column', WP_MF_CORE_SLUG ) ?></option>
-                        <option <?php selected( $post_layout , 'three-col'); ?>  value="three-col"><?php echo esc_html__( 'Three Column', WP_MF_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_layout , 'one-big-col'); ?>  value="one-big-col"><?php echo esc_html__( 'One Column + Big First', ONE_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_layout , 'one-col'); ?>  value="one-col"><?php echo esc_html__( 'One Column', ONE_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_layout , 'two-col'); ?>  value="two-col"><?php echo esc_html__( 'Two Column', ONE_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_layout , 'three-col'); ?>  value="three-col"><?php echo esc_html__( 'Three Column', ONE_CORE_SLUG ) ?></option>
                     </select>
                 </p>
                 <p>
                     <label 
-                        for="<?php echo $this->get_field_id('post_img_pos'); ?>"><?php echo esc_html__( 'Post Count', WP_MF_CORE_SLUG ); ?></label>
+                        for="<?php echo $this->get_field_id('post_img_pos'); ?>"><?php echo esc_html__( 'Post Count', ONE_CORE_SLUG ); ?></label>
                     <select 
                         name="<?php echo $this->get_field_name('post_img_pos') ?>" 
                         id="<?php echo $this->get_field_id('post_img_pos') ?>"
                     >
-                        <option <?php selected( $post_img_pos , 'img-top'); ?>  value="img-top"><?php echo esc_html__( 'Image top', WP_MF_CORE_SLUG ) ?></option>
-                        <option <?php selected( $post_img_pos , 'img-left'); ?>  value="img-left"><?php echo esc_html__( 'Image left', WP_MF_CORE_SLUG ) ?></option>
-                        <option <?php selected( $post_img_pos , 'img-right'); ?>  value="img-right"><?php echo esc_html__( 'Image Right', WP_MF_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_img_pos , 'img-top'); ?>  value="img-top"><?php echo esc_html__( 'Image top', ONE_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_img_pos , 'img-left'); ?>  value="img-left"><?php echo esc_html__( 'Image left', ONE_CORE_SLUG ) ?></option>
+                        <option <?php selected( $post_img_pos , 'img-right'); ?>  value="img-right"><?php echo esc_html__( 'Image Right', ONE_CORE_SLUG ) ?></option>
                     </select>
                 </p>
             </div>

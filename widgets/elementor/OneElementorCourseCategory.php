@@ -7,19 +7,19 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
         return 'thcoursescategory';
     }
     public function get_title(){
-        return esc_html__( 'LP Course Category', WP_MF_CORE_SLUG );
+        return esc_html__( 'LP Course Category', ONE_CORE_SLUG );
     }
     public function get_icon(){
         return 'eicon-single-post';
     }
     public function get_categories(){
-        return [ WP_MF_CORE_SLUG ];
+        return [ ONE_CORE_SLUG ];
     }
     protected function register_controls() {
     	$this->start_controls_section(
 			'content_section',
 				[
-					'label' => esc_html__( 'Course Category', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Course Category', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
@@ -27,10 +27,10 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thumbnail_show_hide',
 				[
-					'label' => esc_html__( 'Show Image', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Show Image', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -38,14 +38,14 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'select_columns',
 				[
-					'label' => esc_html__( 'Select Columns', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select Columns', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'ec-col-md-12' 	=> esc_html__( '1 Column', WP_MF_CORE_SLUG ),
-						'ec-col-md-6' 	=> esc_html__( '2 Columns', WP_MF_CORE_SLUG ),
-						'ec-col-md-4'  	=> esc_html__( '3 Columns', WP_MF_CORE_SLUG ),
-						'ec-col-md-3' 	=> esc_html__( '4 Columns', WP_MF_CORE_SLUG ),
-						'ec-col-md-2' 	=> esc_html__( '6 Columns', WP_MF_CORE_SLUG ),
+						'ec-col-md-12' 	=> esc_html__( '1 Column', ONE_CORE_SLUG ),
+						'ec-col-md-6' 	=> esc_html__( '2 Columns', ONE_CORE_SLUG ),
+						'ec-col-md-4'  	=> esc_html__( '3 Columns', ONE_CORE_SLUG ),
+						'ec-col-md-3' 	=> esc_html__( '4 Columns', ONE_CORE_SLUG ),
+						'ec-col-md-2' 	=> esc_html__( '6 Columns', ONE_CORE_SLUG ),
 					],
 					'default' => 'ec-col-md-4',
 				]
@@ -53,16 +53,16 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'category_count',
 				[
-					'label' => esc_html__( 'Category Count', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Category Count', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'description' => esc_html__('-1 For showing all', WP_MF_CORE_SLUG),
+					'description' => esc_html__('-1 For showing all', ONE_CORE_SLUG),
 					'default' => 4,
 				]
 	        );
 	        $this->add_control(
 	        	'word_count',
 	        	[
-	        		'label' => esc_html__( 'Word Count for description', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Word Count for description', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::NUMBER,
 	        		'min' => 2,
 	        		'max' => 30,
@@ -73,10 +73,10 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'show_desc',
 	        	[
-	        		'label' => esc_html__( 'Show Description', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Description', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -84,10 +84,10 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'show_course_count',
 	        	[
-	        		'label' => esc_html__( 'Show Course Count', WP_MF_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Course Count', ONE_CORE_SLUG ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', WP_MF_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', WP_MF_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -97,20 +97,20 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section_style',
 				[
-					'label' => esc_html__( 'Category Box', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Category Box', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
 			$this->add_control(
 				'category_box_layout',
 				[
-					'label' => esc_html__( 'Select Layout', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Select Layout', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'img-top',
 					'options' => [
-						'img-top'  => esc_html__( 'Image Top', WP_MF_CORE_SLUG ),
-						'img-left'  => esc_html__( 'Image Left', WP_MF_CORE_SLUG ),
-						'img-right'  => esc_html__( 'Image Right', WP_MF_CORE_SLUG ),
+						'img-top'  => esc_html__( 'Image Top', ONE_CORE_SLUG ),
+						'img-left'  => esc_html__( 'Image Left', ONE_CORE_SLUG ),
+						'img-right'  => esc_html__( 'Image Right', ONE_CORE_SLUG ),
 					],
 				]
 			);
@@ -120,13 +120,13 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 				$this->start_controls_tab(
 					'filter_content_box_normal',
 						[
-							'label' => esc_html__( 'Normal', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Normal', ONE_CORE_SLUG ),
 						]
 					);
 					$this->add_control(
 						'box_margin',
 						[
-							'label' => esc_html__( 'Margin', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px' ],
 							'selectors' => [
@@ -137,7 +137,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 					$this->add_control(
 						'box_padding',
 						[
-							'label' => esc_html__( 'Padding', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px', '%', 'em' ],
 							'selectors' => [
@@ -149,14 +149,14 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'box_border',
-							'label' => __( 'Border', WP_MF_CORE_SLUG ),
+							'label' => __( 'Border', ONE_CORE_SLUG ),
 							'selector' => '{{WRAPPER}} .th-course-category-grid',
 						]
 					);
 					$this->add_control(
 						'box_br',
 						[
-							'label' => esc_html__( 'Border Radius', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px' ],
 							'selectors' => [
@@ -167,19 +167,19 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 					$this->add_control(
 						'category_box_align',
 						[
-							'label' => esc_html__( 'Alignment', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Alignment', ONE_CORE_SLUG ),
 							'type' => \Elementor\Controls_Manager::CHOOSE,
 							'options' => [
 								'ec-text-left' => [
-									'title' => esc_html__( 'Left', WP_MF_CORE_SLUG ),
+									'title' => esc_html__( 'Left', ONE_CORE_SLUG ),
 									'icon' => 'fa fa-align-left',
 								],
 								'ec-text-center' => [
-									'title' => esc_html__( 'Center', WP_MF_CORE_SLUG ),
+									'title' => esc_html__( 'Center', ONE_CORE_SLUG ),
 									'icon' => 'fa fa-align-center',
 								],
 								'ec-text-right' => [
-									'title' => esc_html__( 'Right', WP_MF_CORE_SLUG ),
+									'title' => esc_html__( 'Right', ONE_CORE_SLUG ),
 									'icon' => 'fa fa-align-right',
 								],
 							],
@@ -191,7 +191,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Box_Shadow::get_type(),
 						[
 							'name' => 'box_shadow_normal',
-							'label' => esc_html__( 'Box Shadow', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
 							'selector' => '{{WRAPPER}} .th-course-category-grid',
 						]
 					);
@@ -199,14 +199,14 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 				$this->start_controls_tab(
 					'filter_content_box_hover',
 						[
-							'label' => esc_html__( 'Hover', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Hover', ONE_CORE_SLUG ),
 						]
 					);
 					$this->add_group_control(
 						\Elementor\Group_Control_Box_Shadow::get_type(),
 						[
 							'name' => 'box_shadow_hover',
-							'label' => esc_html__( 'Box Shadow', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
 							'selector' => '{{WRAPPER}} .th-course-category-grid:hover',
 						]
 					);
@@ -214,7 +214,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'box_border_hover',
-							'label' => esc_html__( 'Border', WP_MF_CORE_SLUG ),
+							'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
 							'selector' => '{{WRAPPER}} .th-course-category-grid:hover, {{WRAPPER}} .th-course-category-grid:hover .th-course-category-content',
 						]
 					);
@@ -225,14 +225,14 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section_image_style',
 				[
-					'label' => esc_html__( 'Image', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Image', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
 			$this->add_control(
 				'thumb_height',
 				[
-					'label' => esc_html__( 'Thumbnail Height', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Thumbnail Height', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -250,7 +250,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thumb_width',
 				[
-					'label' => esc_html__( 'Thumbnail Width', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Thumbnail Width', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -268,7 +268,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thumb_img_height',
 				[
-					'label' => esc_html__( 'Icon/Image size', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Icon/Image size', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -286,7 +286,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thumb_bg_width',
 				[
-					'label' => esc_html__( 'Background Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -298,7 +298,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thumb_br',
 				[
-					'label' => esc_html__( 'Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors' => [
@@ -312,14 +312,14 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section_content_style',
 				[
-					'label' => esc_html__( 'Content', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Content', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
 			$this->add_control(
 				'elem_padding',
 				[
-					'label' => esc_html__( 'Content Padding', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Content Padding', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors' => [
@@ -331,14 +331,14 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'content_border',
-					'label' => __( 'Content Border', WP_MF_CORE_SLUG ),
+					'label' => __( 'Content Border', ONE_CORE_SLUG ),
 					'selector' => '{{WRAPPER}} .th-course-category-grid .th-course-category-content',
 				]
 			);
 			$this->add_control(
 				'content_br',
 				[
-					'label' => esc_html__( 'Content Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Content Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors' => [
@@ -349,7 +349,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_section_heading',
 				[
-					'label' => esc_html__( 'Category Title', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Category Title', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -358,7 +358,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'title_typography',
-					'label' => esc_html__( 'Typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} .th-course-category-grid .th-course-category-content h3',
 				]
@@ -366,7 +366,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_color',
 				[
-					'label' => esc_html__( 'Title Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Title Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -377,7 +377,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_hover_color',
 				[
-					'label' => esc_html__( 'Title Hover Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Title Hover Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -388,7 +388,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_padding',
 				[
-					'label' => esc_html__( 'Margin', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -399,7 +399,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'course_category_count_heading',
 				[
-					'label' => esc_html__( 'Course Counts', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Course Counts', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -408,7 +408,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'count_typography',
-					'label' => esc_html__( 'Typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} .th-course-category-grid .th-course-category-content .course-count',
 				]
@@ -416,7 +416,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'count_color',
 				[
-					'label' => esc_html__( 'Course Count Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Course Count Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -427,7 +427,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 			$this->add_control(
 				'count_padding',
 				[
-					'label' => esc_html__( 'Margin', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -467,7 +467,7 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
 						    				$html .= '<p>'. $category->description .'</p>';		
 						    			}
 						    			if( 'yes' == $settings['show_course_count'] ){
-						    				$html .= '<p class="course-count">'. $category->count . esc_html__( ' Courses', WP_MF_CORE_SLUG ) .'</p>';		
+						    				$html .= '<p class="course-count">'. $category->count . esc_html__( ' Courses', ONE_CORE_SLUG ) .'</p>';		
 						    			}
 			    					$html .= '</div>';
 					    		$html .= '</a>';

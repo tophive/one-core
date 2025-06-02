@@ -45,7 +45,7 @@ class OneCore
 	{
 		define( 'WP_MF_CORE_VERSION' , 	'1.0');
 		define( 'WP_MF_CORE_PREFIX' , 	'thcore');
-		define( 'WP_MF_CORE_SLUG' , 	'onecore');
+		define( 'ONE_CORE_SLUG' , 	'onecore');
 
 		// Need to add extra links on plugin activation
 		define( 'WP_MF_CORE_BASENAME', plugin_basename( __FILE__ ));
@@ -170,9 +170,9 @@ class OneCore
 	}
 	public static function OneElementorCat( $elements_manager ) {
 		$elements_manager->add_category(
-			WP_MF_CORE_SLUG,
+			ONE_CORE_SLUG,
 			[
-				'title' => esc_html__( 'One Widgets', WP_MF_CORE_SLUG ),
+				'title' => esc_html__( 'One Widgets', ONE_CORE_SLUG ),
 				'icon' => 'eicon-t-letter',
 			]
 		);
@@ -187,7 +187,7 @@ class OneCore
 		);
 		wp_enqueue_script( 'th-widget-js', WP_MF_CORE_URL . 'widgets/onewidgets/assets/js/frontend.js' );
 		wp_enqueue_style( 'th-wp-widget-styles', WP_MF_CORE_URL . 'widgets/wordpress/assets/styles.css' );
-		wp_enqueue_style( 'th-elementor-css', WP_MF_CORE_URL . 'widgets/elementor/assets/style.css' );
+		wp_enqueue_style( 'th-elementor-css', WP_MF_CORE_URL . 'widgets/elementor/assets/style.min.css' );
 		wp_enqueue_style( 'th-widget-css', WP_MF_CORE_URL . 'widgets/onewidgets/assets/css/frontend.css' );
 		wp_localize_script('th-elementor-js', 'th_elem_ajax_obj', 
 			array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )

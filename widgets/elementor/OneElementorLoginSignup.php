@@ -18,7 +18,7 @@
 	class OneElementorLoginSignup extends \Elementor\Widget_base
 	{
 		public function get_title(){
-			return esc_html__( 'Login Signup', WP_MF_CORE_SLUG );
+			return esc_html__( 'Login Signup', ONE_CORE_SLUG );
 		}
 		public function get_name(){
 			return 'th-login-signup-block';
@@ -27,7 +27,7 @@
 			return 'eicon-user-circle-o';
 		}
 		public function get_categories(){
-	        return [ WP_MF_CORE_SLUG ];
+	        return [ ONE_CORE_SLUG ];
 	    }
 		public function get_keywords() {
 			return [ 'login', 'signin', 'signup' ];
@@ -43,14 +43,14 @@
 			$this->start_controls_section(
 				'th_team_section',
 				[
-					'label' => esc_html__( 'Signin/Signup', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Signin/Signup', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			$this->add_control(
 				'th_login_signup_padding',
 				[
-					'label' => esc_html__( 'Padding', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -61,7 +61,7 @@
 			$this->add_control(
 				'th_login_signup_margin',
 				[
-					'label' => esc_html__( 'Margin', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -72,7 +72,7 @@
 			$this->add_control(
 				'border_rad',
 				[
-					'label' => esc_html__( 'Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -84,7 +84,7 @@
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'th_login_signup_box_shadow',
-					'label' => esc_html__( 'Box Shadow', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
 					'selector' => '{{WRAPPER}} .tophive-popup-content-wrapper',
 				]
 			);
@@ -100,26 +100,26 @@
 			$this->add_control(
 				'th_login_signup_login_title',
 				[
-					'label' => esc_html__( 'Login Form title', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Login Form title', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Default title', WP_MF_CORE_SLUG ),
-					'placeholder' => esc_html__( 'Type your title here', WP_MF_CORE_SLUG ),
+					'default' => esc_html__( 'Default title', ONE_CORE_SLUG ),
+					'placeholder' => esc_html__( 'Type your title here', ONE_CORE_SLUG ),
 				]
 			);
 			$this->add_control(
 				'th_login_signup_login_recover_pass_title',
 				[
-					'label' => esc_html__( 'Recover Password Form title', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Recover Password Form title', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Default title', WP_MF_CORE_SLUG ),
-					'placeholder' => esc_html__( 'Type your title here', WP_MF_CORE_SLUG ),
+					'default' => esc_html__( 'Default title', ONE_CORE_SLUG ),
+					'placeholder' => esc_html__( 'Type your title here', ONE_CORE_SLUG ),
 				]
 			);
 			$this->add_group_control(
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'heading_typography',
-					'label' => esc_html__( 'Heading typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Heading typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} .tophive-popup-content-wrapper h3',
 				]
@@ -127,7 +127,7 @@
 			$this->add_control(
 				'heading_typography_color',
 				[
-					'label' => esc_html__( 'Heading Typography Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Heading Typography Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -138,17 +138,17 @@
 			$this->add_control(
 				'th_login_signup_register_title',
 				[
-					'label' => esc_html__( 'Register title', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Register title', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Default title', WP_MF_CORE_SLUG ),
-					'placeholder' => esc_html__( 'Type your title here', WP_MF_CORE_SLUG ),
+					'default' => esc_html__( 'Default title', ONE_CORE_SLUG ),
+					'placeholder' => esc_html__( 'Type your title here', ONE_CORE_SLUG ),
 				]
 			);
 			$this->add_group_control(
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'meta_font_typography',
-					'label' => esc_html__( 'Meta font typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Meta font typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} .tophive-popup-content-wrapper .rememberme',
 				]
@@ -156,7 +156,7 @@
 			$this->add_control(
 				'meta_font_color',
 				[
-					'label' => esc_html__( 'Meta Font Color', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Meta Font Color', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -167,7 +167,7 @@
 			$this->add_control(
 				'th_login_signup_register_redirect',
 				[
-					'label' => esc_html__( 'Redirect page after login/signup', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Redirect page after login/signup', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'solid',
 					'options' => $this->get_pages_list(),
@@ -180,7 +180,7 @@
 			$this->start_controls_section(
 				'th_signin_signup_style_section',
 				[
-					'label' => esc_html__( 'Signin/Signup', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Signin/Signup', ONE_CORE_SLUG ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -188,14 +188,14 @@
 				   \Elementor\Group_Control_Border::get_type(),
 				   [
 					'name' => 'input_border',
-					'label' => esc_html__( 'Input field Border', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Input field Border', ONE_CORE_SLUG ),
 					'selector' => '{{WRAPPER}} #tophive-signin-signup .th-form-field input, #tophive-signin-signup select.th-form-field',
 				   ]
 			     );
 				$this->add_control(
 					'input_back_color',
 					[
-						'label' => esc_html__( 'Input background Color', WP_MF_CORE_SLUG ),
+						'label' => esc_html__( 'Input background Color', ONE_CORE_SLUG ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} #tophive-signin-signup .th-form-field input, #tophive-signin-signup select.th-form-field' => 'background-color: {{VALUE}} !important',
@@ -205,7 +205,7 @@
 				$this->add_control(
 					'input_text_color',
 					[
-						'label' => esc_html__( 'Input Text Color', WP_MF_CORE_SLUG ),
+						'label' => esc_html__( 'Input Text Color', ONE_CORE_SLUG ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} #tophive-signin-signup .th-form-field input, #tophive-signin-signup select.th-form-field' => 'color: {{VALUE}} !important',
@@ -215,7 +215,7 @@
 				 $this->add_control(
 				  'input_border_radius',
 				   [
-					'label' => esc_html__( 'Input Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Input Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -227,7 +227,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'rememberme_typo',
-					'label' => esc_html__( 'Remember me typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Remember me typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} .th-modal-login label',
 				]
@@ -235,7 +235,7 @@
 			$this->add_control(
 			'rememberme_color',
 			  [
-				'label' => esc_html__( 'Remember Color', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Remember Color', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .th-modal-login label' => 'color: {{VALUE}}',
@@ -246,7 +246,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'lostpass_typo',
-					'label' => esc_html__( 'Lost password typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Lost password typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} .switch-lost-pass',
 				]
@@ -254,7 +254,7 @@
 			 $this->add_control(
 			  'lostpass_color',
 			  [
-				'label' => esc_html__( 'Lost password Color', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Lost password Color', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .switch-lost-pass' => 'color: {{VALUE}}',
@@ -265,7 +265,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'btn_typo',
-					'label' => esc_html__( 'Button typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Button typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} #tophive-signin-signup button[type="submit"]',
 				]
@@ -273,7 +273,7 @@
 			 $this->add_control(
 			  'btn_color',
 			  [
-				'label' => esc_html__( 'Button Color', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Button Color', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}  #tophive-signin-signup button[type="submit"]' => 'color: {{VALUE}}',
@@ -283,7 +283,7 @@
 			 $this->add_control(
 				'btn_padding',
 				[
-					'label' => esc_html__( 'Button Padding', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Button Padding', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -294,7 +294,7 @@
 			$this->add_control(
 				  'btn_border_radius',
 				   [
-					'label' => esc_html__( 'Button Border Radius', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Button Border Radius', ONE_CORE_SLUG ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -305,7 +305,7 @@
 			$this->add_control(
 			  'btn_bg_color',
 			  [
-				'label' => esc_html__( 'Button Background Color', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Button Background Color', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}  #tophive-signin-signup button[type="submit"]' => 'background-color: {{VALUE}}',
@@ -316,7 +316,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'other_text_typo',
-					'label' => esc_html__( 'Other text typography', WP_MF_CORE_SLUG ),
+					'label' => esc_html__( 'Other text typography', ONE_CORE_SLUG ),
 					
 					'selector' => '{{WRAPPER}} #tophive-signin-signup p.ec-text-center',
 				]
@@ -324,7 +324,7 @@
 			 $this->add_control(
 			  'other_text_color',
 			  [
-				'label' => esc_html__( 'Other text Color', WP_MF_CORE_SLUG ),
+				'label' => esc_html__( 'Other text Color', ONE_CORE_SLUG ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}  #tophive-signin-signup p.ec-text-center,  #tophive-signin-signup p.ec-text-center a b,#tophive-signin-signup p.ec-text-center a' => 'color: {{VALUE}}',
@@ -368,7 +368,7 @@
 						</div>
 						<div class="ec-d-none recover-segment ec-py-5">
 						    <?php if( !empty($recover_text) ){ ?>
-					    	<h3 class="ec-text-center ec-mb-4"><?php esc_html_e( $recover_text, WP_MF_CORE_SLUG ); ?></h3>
+					    	<h3 class="ec-text-center ec-mb-4"><?php esc_html_e( $recover_text, ONE_CORE_SLUG ); ?></h3>
 					    	<?php } ?>
 						    <?php do_action( 'tophive/recover-pass/form' ); ?>
 						</div>
