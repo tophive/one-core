@@ -302,7 +302,10 @@ jQuery(document).ready(function(jQuery) {
 		var data = that.serializeArray();
 		var text = quillEditor.root.innerHTML;
 		data[data.length] = { name: "thbbpresspostdesc", value: text };
-		console.log(data);
+    if(data?.[0]?.value == "" || data?.[1]?.value == "" || data?.[3]?.value == "") {
+      return alert("Invalid Form Field! Please fill required field!");
+    }
+
 		jQuery.ajax({
 			url     : One_JS.ajaxurl,
 			type    : 'post',
