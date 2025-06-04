@@ -47,9 +47,11 @@ class OneBPProfileMedia extends WP_Widget {
                     $media_html .= '<span class="no-photos">' . esc_html__( 'No photos uploaded', 'one' ) . '</span>';
                 }
                 $media_html .= '</div>';
-            }
+          }else {
+              $media_html .= '<span class="no-photos">' . esc_html__( 'No photos uploaded', 'one' ) . '</span>';
+          }
 	        $html .= $media_html;
-            $html .= '</div>';
+          $html .= '</div>';
 	        $html .= $args['after_widget'];
 		// }
         echo $html;
