@@ -129,7 +129,7 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
 						<div id="thbbpresspostdesc"></div>
 					</div>
 					<div class="form-group">
-						<label for="thbbpressposttopics"><?php esc_html_e( 'Forum (Important)', ONE_CORE_SLUG ); ?></label>
+						<label for="thbbpressposttopics"><?php esc_html_e( 'Forum (required)', ONE_CORE_SLUG ); ?></label>
 						<select id="thbbpressposttopics" name="thbbpressposttopics" required>
 						<?php
 							if ( $forum->have_posts() ) {
