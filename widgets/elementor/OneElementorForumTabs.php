@@ -159,9 +159,10 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 													<h6><a href="<?php echo bbp_get_topic_permalink(get_the_ID()); ?>"><?php the_title() ?></a></h6>
 													<p><?php echo get_the_excerpt() ?></p>
 
-													<div class="tophive-forum-topic-loop-single-footer-meta d-flex align-items-center gap-2 flex-wrap">
-														<span class="one-topic-meta-item">👍 <?php echo $likes_count; ?></span>
-														<span class="one-topic-meta-item">👎 <?php echo $dislikes_count; ?></span>
+													<div class="bbp-like-dislike tophive-forum-topic-loop-single-footer-meta d-flex align-items-center gap-2 flex-wrap">
+
+														<span class="one-topic-meta-item bbp-like-btn">👍 <span><?php echo $likes_count; ?></span></span>
+														<span class="one-topic-meta-item bbp-dislike-btn">👎 <span><?php echo $dislikes_count; ?></span></span>														
 														<?php
 
 														// Render avatars
