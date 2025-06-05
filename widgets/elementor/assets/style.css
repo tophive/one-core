@@ -10430,10 +10430,13 @@ a.th-bbpress-create-new-topic svg {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .tophive-forum-topic-loop-single .tophive-forum-topic-loop-single-details h4 a {
   font-size: 16px;
   font-weight: 600;
 }
+
+
 .tophive-forum-topic-loop-single
   .tophive-forum-topic-loop-single-details
   h4
