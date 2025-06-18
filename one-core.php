@@ -259,6 +259,7 @@ add_action( 'plugins_loaded', array( OneCore::getInstance(), 'init' ) );
 require_once('MailChimp.php');
 require_once('t/class-tophive-modules.php');
 require_once('updater/theme-updater.php');
+require_once('inc/admin/demo-import.php');
 
 function autoload($class = '') {
     if (!strstr($class, 'ONECORE')){

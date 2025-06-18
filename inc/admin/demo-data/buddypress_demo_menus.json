@@ -1,0 +1,299 @@
+[
+    {
+        "menu": {
+            "id": 143,
+            "name": "BuddyPress - Logged in users(set02)",
+            "slug": "vertical-menu"
+        },
+        "items": [
+            {
+                "id": 3611,
+                "title": "My Timeline",
+                "url": "\/members\/one\/activity\/",
+                "parent": "0",
+                "order": 1,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/activity-1.svg"
+            },
+            {
+                "id": 3612,
+                "title": "My Profile",
+                "url": "\/members\/one\/profile\/",
+                "parent": "0",
+                "order": 2,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/profile.svg"
+            },
+            {
+                "id": 3613,
+                "title": "Notifications",
+                "url": "\/members\/one\/notifications\/",
+                "parent": "0",
+                "order": 3,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/notification.svg"
+            },
+            {
+                "id": 3614,
+                "title": "My Photos",
+                "url": "\/members\/one\/photos\/",
+                "parent": "0",
+                "order": 4,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/photos-1.svg"
+            },
+            {
+                "id": 3615,
+                "title": "Inbox",
+                "url": "\/members\/one\/messages\/",
+                "parent": "0",
+                "order": 5,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/inbox.svg"
+            },
+            {
+                "id": 3616,
+                "title": "My Friends",
+                "url": "\/members\/one\/friends\/",
+                "parent": "0",
+                "order": 6,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/friends.svg"
+            },
+            {
+                "id": 3617,
+                "title": "My Groups",
+                "url": "\/members\/one\/groups\/",
+                "parent": "0",
+                "order": 7,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/group.svg"
+            },
+            {
+                "id": 3618,
+                "title": "Settings",
+                "url": "\/members\/one\/settings\/",
+                "parent": "0",
+                "order": 8,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/settings.svg"
+            },
+            {
+                "id": 3619,
+                "title": "Log Out",
+                "url": "\/wp-login.php?action=logout&_wpnonce=8e64615da5&redirect_to=https%3A%2F%2Fdemo.tophivetheme.com%2Fone%2Fclassic%2Fwp-admin%2Fnav-menus.php%3Faction%3Dedit%26menu%3D0%26loggedout%3Dtrue",
+                "parent": "0",
+                "order": 9,
+                "icon": "https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/09/logout.svg"
+            }
+        ]
+    },
+    {
+        "menu": {
+            "id": 144,
+            "name": "Footer Menu",
+            "slug": "footer-menu"
+        },
+        "items": [
+            {
+                "id": 3643,
+                "title": "Privacy",
+                "url": "#",
+                "parent": "0",
+                "order": 1
+            },
+            {
+                "id": 3644,
+                "title": "Terms",
+                "url": "#",
+                "parent": "0",
+                "order": 2
+            },
+            {
+                "id": 3641,
+                "title": "Advertising",
+                "url": "#",
+                "parent": "0",
+                "order": 3
+            },
+            {
+                "id": 3645,
+                "title": "Ad Choices",
+                "url": "#",
+                "parent": "0",
+                "order": 4
+            }
+        ]
+    },
+    {
+        "menu": {
+            "id": 28,
+            "name": "Forums",
+            "slug": "menu-2"
+        },
+        "items": [
+            {
+                "id": 473,
+                "title": "Forums",
+                "url": "\/forum\/",
+                "parent": "0",
+                "order": 1
+            },
+            {
+                "id": 575,
+                "title": "Home",
+                "url": "\/forum\/",
+                "parent": "473",
+                "order": 2
+            },
+            {
+                "id": 472,
+                "title": "What\u2019s New",
+                "url": "\/whats-new\/",
+                "parent": "473",
+                "order": 3
+            },
+            {
+                "id": 479,
+                "title": "Most popular topics",
+                "url": "\/forums\/view\/popular\/",
+                "parent": "473",
+                "order": 4
+            },
+            {
+                "id": 489,
+                "title": "Write new post",
+                "url": "\/new-post\/",
+                "parent": "473",
+                "order": 5
+            }
+        ]
+    },
+    {
+        "menu": {
+            "id": 70,
+            "name": "Header Menu",
+            "slug": "menu-1"
+        },
+        "items": [
+            {
+                "id": 951,
+                "title": "Activity",
+                "url": "\/activity\/",
+                "parent": "0",
+                "order": 1
+            },
+            {
+                "id": 954,
+                "title": "Members",
+                "url": "\/members\/",
+                "parent": "0",
+                "order": 2
+            },
+            {
+                "id": 953,
+                "title": "Groups",
+                "url": "\/groups\/",
+                "parent": "0",
+                "order": 3
+            },
+            {
+                "id": 1479,
+                "title": "Forums",
+                "url": "\/forum\/",
+                "parent": "0",
+                "order": 4
+            },
+            {
+                "id": 1481,
+                "title": "Latest Activity",
+                "url": "\/forum\/",
+                "parent": "1479",
+                "order": 5
+            },
+            {
+                "id": 1483,
+                "title": "What\u2019s New",
+                "url": "\/whats-new\/",
+                "parent": "1479",
+                "order": 6
+            },
+            {
+                "id": 1484,
+                "title": "Most popular topics",
+                "url": "\/one\/classic\/forums\/view\/popular\/",
+                "parent": "1479",
+                "order": 7
+            },
+            {
+                "id": 1482,
+                "title": "Write New Post",
+                "url": "\/new-post\/",
+                "parent": "1479",
+                "order": 8
+            },
+            {
+                "id": 952,
+                "title": "Blog",
+                "url": "\/blog\/",
+                "parent": "0",
+                "order": 9
+            },
+            {
+                "id": 1889,
+                "title": "Blog Default",
+                "url": "\/blog\/",
+                "parent": "952",
+                "order": 10
+            },
+            {
+                "id": 1911,
+                "title": "Blog Classic",
+                "url": "\/blog-classic\/",
+                "parent": "952",
+                "order": 11
+            },
+            {
+                "id": 1890,
+                "title": "Blog Grid",
+                "url": "\/blog-grid\/",
+                "parent": "952",
+                "order": 12
+            },
+            {
+                "id": 1757,
+                "title": "Photos",
+                "url": "\/photos\/",
+                "parent": "0",
+                "order": 13
+            },
+            {
+                "id": 6838,
+                "title": "Shop",
+                "url": "\/shop\/",
+                "parent": "0",
+                "order": 14
+            },
+            {
+                "id": 6842,
+                "title": "Product",
+                "url": "\/shop\/",
+                "parent": "6838",
+                "order": 15
+            },
+            {
+                "id": 6839,
+                "title": "Cart",
+                "url": "\/cart\/",
+                "parent": "6838",
+                "order": 16
+            },
+            {
+                "id": 6840,
+                "title": "Checkout",
+                "url": "\/checkout\/",
+                "parent": "6838",
+                "order": 17
+            },
+            {
+                "id": 6841,
+                "title": "My account",
+                "url": "\/my-account\/",
+                "parent": "6838",
+                "order": 18
+            }
+        ]
+    }
+]
