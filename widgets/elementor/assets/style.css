@@ -12532,5 +12532,35 @@ li.mega-item > ul.sub-menu {
 .thbbpresspostsubmit[disabled="disabled"] {
   opacity: 0.6;
 }
+.elementor-widget-th-buddypress-activity{
+  .activity-list .activity-item div.item-avatar{
+    width: 50px;
+    margin: 10px;
+    margin-bottom: 0px;
+  }
+  .activity-list .activity-item div.item-avatar img,
+  .activity-list .activity-item.mini .activity-avatar img.avatar{
+    max-width: 100%;
+  }
+  .activity-list .activity-item .activity-content .activity-inner, .activity-list .activity-item .activity-content blockquote{
+    background: transparent;
+    padding: 0 10px;
+  }
+  .buddypress-wrap .activity-comments{
+    margin: 0;
+  }
+  .activity-comments-form img{
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+  }
+  .buddypress-wrap .activity-comments ul li{
+    padding: 5px 15px;
+    margin: 0;
+    position: relative;
+    border: none;
+  }
+}
+
 
 

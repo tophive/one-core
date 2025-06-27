@@ -309,18 +309,6 @@ function bp_demo_install_plugins() {
         }
     }
 
-    // Install one-core from GitHub
-    $core_plugin_url = 'https://github.com/tophive/one-core/releases/download/v1.2.0/one-core.zip';
-    $upgrader = new Plugin_Upgrader(new BP_Silent_Upgrader_Skin());
-    $result = $upgrader->install($core_plugin_url);
-
-    if ($result && is_dir(WP_PLUGIN_DIR . '/one-core')) {
-        $core_file = get_main_plugin_file('one-core');
-        if ($core_file && !is_plugin_active($core_file)) {
-            $to_activate[] = $core_file;
-        }
-    }
-
     if (!empty($to_activate)) {
         activate_plugins($to_activate);
     }
@@ -880,7 +868,7 @@ function bp_demo_import_groups() {
 function bp_demo_import_customizer() {
     $file = plugin_dir_path(__FILE__) . '/demo-data/customizer_one.dat';
     if (!file_exists($file)) return;
-
+    
     $customizer_data = file_get_contents($file);
     $mods = unserialize($customizer_data);
 
@@ -891,7 +879,7 @@ function bp_demo_import_customizer() {
     }
 
     // Upload and set logo
-    $logo_url = 'https://demo.tophivetheme.com/one/classic/wp-content/uploads/sites/10/2022/07/logo-300x58.png';
+    $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/06/logo.svg';
 
     require_once ABSPATH . 'wp-admin/includes/file.php';
     require_once ABSPATH . 'wp-admin/includes/media.php';

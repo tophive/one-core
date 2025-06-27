@@ -928,66 +928,71 @@ class OneElementorActivity extends Widget_Base
                                 <?php do_action( 'tophive/buddypress/activity/header',$activity_visibility_svg ); ?>
                                     <?php if( is_user_logged_in() ){ ?>
                                         <div class="activity-extension-links">
-                                            <span class="open-button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-                                                </svg>
-                                            </span>
-                                            <span class="more-option"> <?php esc_html_e("More Options", "one"); ?> </span>
-                                            <ul>
-                                            <?php if( bp_get_activity_is_favorite() ): ?>
-                                                <li>
-                                                    <a class="button bp-secondary-action bp-tooltip activity-remove-favourite" href="">
-                                                        <svg viewBox="0 0 212.045 212.045">
-                                                            <path d="M167.871,0H44.84C34.82,0,26.022,8.243,26.022,18v182c0,3.266,0.909,5.988,2.374,8.091c1.752,2.514,4.573,3.955,7.598,3.954  c2.86,0,5.905-1.273,8.717-3.675l55.044-46.735c1.7-1.452,4.142-2.284,6.681-2.284c2.538,0,4.975,0.832,6.68,2.288l54.86,46.724  c2.822,2.409,5.657,3.683,8.512,3.683c4.828,0,9.534-3.724,9.534-12.045V18C186.022,8.243,177.891,0,167.871,0z"></path>
-                                                        </svg>
-                                                        <div>
-                                                            <h4><?php esc_html_e( 'Unsave', 'one' );?></h4>
-                                                            <p><?php esc_html_e( 'Unsave this activity', 'one' ); ?></p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            <?php else: ?>
-                                                <li>
-                                                    <a class="button bp-secondary-action bp-tooltip activity-make-favourite" href="">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-                                                        <div>
-                                                            <h4><?php esc_html_e( 'Save', 'one' );?></h4>
-                                                            <p><?php esc_html_e( 'Save this post / add to favourite', 'one' ); ?></p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            <?php endif; ?>
+					<span class="open-button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+							<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+						</svg>
+					</span>
+				    <span class="more-option"> <?php esc_html_e("More Options", "one"); ?> </span>
+					<ul>
+					<?php if( bp_get_activity_is_favorite() ): ?>
+						<li>
+							<a class="button bp-secondary-action bp-tooltip activity-remove-favourite" href="">
+								<div>
+									<h4><?php esc_html_e( 'Unsave', 'one' );?></h4>
+								</div>
+								<svg viewBox="0 0 212.045 212.045">
+									<path d="M167.871,0H44.84C34.82,0,26.022,8.243,26.022,18v182c0,3.266,0.909,5.988,2.374,8.091c1.752,2.514,4.573,3.955,7.598,3.954  c2.86,0,5.905-1.273,8.717-3.675l55.044-46.735c1.7-1.452,4.142-2.284,6.681-2.284c2.538,0,4.975,0.832,6.68,2.288l54.86,46.724  c2.822,2.409,5.657,3.683,8.512,3.683c4.828,0,9.534-3.724,9.534-12.045V18C186.022,8.243,177.891,0,167.871,0z" fill="currentColor"></path>
+								</svg>
+							</a>
+						</li>
+					<?php else: ?>
+						<li>
+							<a class="button bp-secondary-action bp-tooltip activity-make-favourite" href="">
+								<div>
+									<h4><?php esc_html_e( 'Save', 'one' );?></h4>
+								</div>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" fill="none"></path>
+								</svg>
+							</a>
+						</li>
+					<?php endif; ?>
 
 
-                                                <?php if ( bp_get_activity_user_id()  === get_current_user_id() ): ?>
-                                                    <li>
-                                                        <a class="edite-activity">
-                                                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21,12a1,1,0,0,0-1,1v6a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5A1,1,0,0,1,5,4h6a1,1,0,0,0,0-2H5A3,3,0,0,0,2,5V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V13A1,1,0,0,0,21,12ZM6,12.76V17a1,1,0,0,0,1,1h4.24a1,1,0,0,0,.71-.29l6.92-6.93h0L21.71,8a1,1,0,0,0,0-1.42L17.47,2.29a1,1,0,0,0-1.42,0L13.23,5.12h0L6.29,12.05A1,1,0,0,0,6,12.76ZM16.76,4.41l2.83,2.83L18.17,8.66,15.34,5.83ZM8,13.17l5.93-5.93,2.83,2.83L10.83,16H8Z" fill="#1d2327"/></svg>
-                                                            <div>
-                                                                <h4><?php esc_html_e( 'Edit', 'one' ); ?></h4>
-                                                                <p><?php esc_html_e( 'Edit this activity', 'one' ); ?></p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                <?php endif; ?>
-                                                <?php 
-                                                        if ( bp_activity_user_can_delete( $activity ) ) {	
-                                                    ?>
-                                                    <li>
-                                                        <a class="button button-activity-delete" href="#" data-id="<?php bp_activity_id(); ?>" data-action="delete">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                            <div>
-                                                                <h4><?php esc_html_e( 'Delete', 'one' ); ?></h4>
-                                                                <p><?php esc_html_e( 'Move this activity to trash', 'one' ); ?></p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <?php 
-                                                    }
-                                                ?>
-                                            </ul>
-                                        </div>
+						<?php if ( bp_get_activity_user_id()  === get_current_user_id() && 'activity_update' == $activity->type ): ?>
+							<li class="edit-current-activity">
+								<a class="edite-activity">
+									<div>
+										<h4><?php esc_html_e( 'Edit', 'one' ); ?></h4>
+									</div>
+									<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M21,12a1,1,0,0,0-1,1v6a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5A1,1,0,0,1,5,4h6a1,1,0,0,0,0-2H5A3,3,0,0,0,2,5V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V13A1,1,0,0,0,21,12ZM6,12.76V17a1,1,0,0,0,1,1h4.24a1,1,0,0,0,.71-.29l6.92-6.93h0L21.71,8a1,1,0,0,0,0-1.42L17.47,2.29a1,1,0,0,0-1.42,0L13.23,5.12h0L6.29,12.05A1,1,0,0,0,6,12.76ZM16.76,4.41l2.83,2.83L18.17,8.66,15.34,5.83ZM8,13.17l5.93-5.93,2.83,2.83L10.83,16H8Z" fill="currentColor"/>
+									</svg>
+								</a>
+							</li>
+						<?php endif; ?>
+						<?php 
+								if ( bp_activity_user_can_delete( $activity ) ) {	
+							?>
+							<li>
+								<a class="button button-activity-delete" href="#" data-id="<?php bp_activity_id(); ?>" data-action="delete">
+									<div>
+										<h4><?php esc_html_e( 'Delete', 'one' ); ?></h4>
+									</div>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+										<line x1="10" y1="11" x2="10" y2="17"></line>
+										<line x1="14" y1="11" x2="14" y2="17"></line>
+									</svg>
+								</a>
+							</li>
+							<?php 
+							}
+						?>
+					</ul>
+				</div>
                                     <?php } ?>
                                 </div>
                                 <div class="activity-inner">
