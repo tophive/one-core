@@ -122,14 +122,23 @@ add_filter('get_avatar_url', 'bp_demo_custom_avatar_url', 10, 2);
 function bp_demo_custom_avatar_url($url, $id_or_email) {
     if (is_admin()) return $url; // optional: skip in admin
 
-    $user = is_numeric($id_or_email) ? get_user_by('id', $id_or_email) : get_user_by('email', $id_or_email);
-    if ($user) {
-        $custom_avatar = get_user_meta($user->ID, 'custom_avatar_url', true);
-        if (!empty($custom_avatar)) {
-            return esc_url($custom_avatar);
-        }
-    }
-    return $url;
+     $user = false;
+
+     if ( is_numeric( $id_or_email ) ) {
+         $user = get_user_by( 'id', (int) $id_or_email );
+     } elseif ( is_object( $id_or_email ) && isset( $id_or_email->user_id ) ) {
+         $user = get_user_by( 'id', (int) $id_or_email->user_id );
+     } elseif ( is_string( $id_or_email ) ) {
+         $user = get_user_by( 'email', $id_or_email );
+     }
+
+     if ($user) {
+         $custom_avatar = get_user_meta($user->ID, 'custom_avatar_url', true);
+         if (!empty($custom_avatar)) {
+             return esc_url($custom_avatar);
+         }
+     }
+     return $url;
 }
 
 add_filter('bp_core_fetch_avatar', 'bp_demo_custom_avatar_for_buddypress', 10, 2);
