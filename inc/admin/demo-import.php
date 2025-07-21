@@ -57,6 +57,7 @@ function bp_demo_import_page() {
             </div>
         </div>
     </div>';
+
 }
 
 // 3. AJAX Endpoints
@@ -291,7 +292,7 @@ function bp_demo_install_plugins() {
         return false;
     }
 
-    $slugs = ['buddypress', 'bbpress', 'elementor'];
+    $slugs = ['buddypress', 'elementor'];
     $to_activate = [];
 
     foreach ($slugs as $slug) {
@@ -879,7 +880,7 @@ function bp_demo_import_customizer() {
     }
 
     // Upload and set logo
-    $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/06/logo.svg';
+    $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/07/one-logo.svg';
 
     require_once ABSPATH . 'wp-admin/includes/file.php';
     require_once ABSPATH . 'wp-admin/includes/media.php';
