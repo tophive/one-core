@@ -135,6 +135,20 @@ class OneElementorActivityPostForm extends Widget_Base
         );
 
         $this->add_control(
+            'button_text_color',
+            [
+                'label' => __( 'Button color ', 'one' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .one-elementor-activity-post-form-btn' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'select_option' => 'button',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'button_bg_color',
             [
                 'label' => __( 'Button Background Color', 'one' ),
