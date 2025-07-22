@@ -252,8 +252,10 @@ function bp_import_elementor_template_page($controller, $template_id, $existing_
         return new WP_Error('missing_target', 'No page selected or created.');
     }
 
-    import_post($elementor_data, 'page');
+    // var_dump($res['data']['templates'][0]['json_code']);
+    // die();
 
+    import_post($elementor_data, 'page');
 }
 
 function download_image_from_url(string $url)

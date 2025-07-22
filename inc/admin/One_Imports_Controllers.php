@@ -220,8 +220,6 @@ class One_Imports_Controllers
     $domain = get_site_url();
     $url .= "&domain={$domain}";
 
-
-
     $res = wp_remote_request($url, [
       "method" => "GET",
       "headers" => [
