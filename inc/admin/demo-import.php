@@ -1,6 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+require_once __DIR__ . '/One_Imports_Controllers.php';
+
+
 // 1. Enqueue JS + Modal Styles + Localize Steps
 add_action('admin_enqueue_scripts', function() {
     wp_enqueue_script('bp-demo-import', plugin_dir_url(__FILE__) . '/demo-import.js', ['jquery'], null, true);
@@ -19,25 +22,22 @@ add_action('admin_enqueue_scripts', function() {
             'import_blog_posts',
             'import_forums',
             'setup_homepage'
-        ]
+        ],
+        'elementor_installed' => is_plugin_active('elementor/elementor.php') || file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php')
     ]);
 
     wp_enqueue_style('bp-demo-import-style', plugin_dir_url(__FILE__) . '/demo-import.css');
 });
 
 // 2. Add Admin Page with Import Button + Modal Container
-add_action('admin_menu', function () {
-    add_menu_page('One Demo Import', 'One Demo Import', 'manage_options', 'bp-demo-import', 'bp_demo_import_page');
-});
+add_action( 'tophive/admin/demo-content-container', 'bp_demo_import_page' );
 
 function bp_demo_import_page() {
-    echo '<div class="wrap" style="align-items: flex-start;">
-        <h1>Import One Demo</h1>
-        <button id="start-demo-import" class="button button-primary">Import One Demo</button>
-    </div>';
 
     $home_url   = esc_url( home_url( '/' ) );
     $admin_url  = esc_url( admin_url( 'themes.php?page=bp-demo-import' ) );
+    $importer = new One_Imports_Controllers();
+
 
     echo '<div id="bp-demo-modal" class="bp-demo-modal" style="display:none;">
         <div class="bp-demo-modal-content">
@@ -58,6 +58,93 @@ function bp_demo_import_page() {
         </div>
     </div>';
 
+
+
+    $url = get_theme_file_uri() . "/screenshot.png";
+    echo "<div class='wrap' style='display:flex;'>
+            <div class='demo-import-card'>
+                <div class='demo-import-card__image'>
+                  <img src='{$url}' alt='image' />
+                </div>
+                <div class='demo-import-card__action'>
+                    <h1>One Demo</h1>
+                    <button id='start-demo-import' class='button button-primary'>Import</button>
+                </div>
+            </div>
+         </div>";
+
+    echo '<br />';
+    echo '<h2>Page templates</h2>';
+
+    $templates = $importer->get_templates();
+
+    echo '<div class="template-grid">';
+
+    foreach ($templates as $template) {
+        $id           = esc_attr($template['id']);
+        $name         = esc_html($template['name']);
+        $type         = esc_html($template['type'] ?? 'Elementor');
+        $preview_img  = esc_url($template['preview_image'] ?? '');
+        $preview_url  = esc_url($template['preview_url'] ?? $preview_img); // fallback
+
+        echo '
+        <div class="template-card">
+            <div class="card-image">
+                <img src="' . $preview_img . '" alt="' . $name . '">
+                <a href="' . $preview_url . '" target="_blank" class="preview-icon" title="Preview">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z"/>
+                    </svg>
+                </a>
+                <span class="tooltip">' . $preview_url . '</span>
+            </div>
+            <div class="card-footer">
+                <div class="card-info">
+                    <h3>' . $name . '</h3>
+                </div>
+                <button class="import-button" data-template-id="' . $id . '">Import</button>
+            </div>
+        </div>';
+    }
+
+    echo '</div>';
+
+    echo '
+        <div id="template-import-modal" style="display:none;">
+        <div class="modal-content">
+            <h2>Import Page Template</h2>
+
+            <div class="elementor-warning" style="display:none; color: red;">
+            ⚠️ Elementor is not installed. 
+            <a href="' . esc_url(admin_url('plugin-install.php?s=elementor&tab=search&type=term')) . '" target="_blank">Install Elementor</a>
+            </div>
+
+            <div id="import-success-message" style="display:none; background: #e7fbe7; border: 1px solid #a6d8a8; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+            <span style="color: green; font-size: 24px; margin-right: 8px;">✔</span>
+            <strong>Import successful!</strong> 
+            <br>
+            <a id="imported-page-link" href="#" target="_blank">View Imported Page</a>
+            </div>
+
+            <p><label for="import-page-selector">Select existing page:</label></p>
+            <select id="import-page-selector">
+            <option value="">-- Select Page --</option>';
+            $pages = get_pages();
+            foreach ($pages as $page) {
+                echo '<option value="' . esc_attr($page->ID) . '">' . esc_html($page->post_title) . '</option>';
+            }
+        echo '</select>
+
+            <p style="margin-top:10px;">Or create a new page:</p>
+            <input type="text" id="new-page-title" placeholder="New Page Title" />
+
+            <div style="margin-top: 20px;">
+            <button id="confirm-import-button" class="button button-primary">Import Now</button>
+            <button id="cancel-import-button" class="button">Cancel</button>
+            </div>
+        </div>
+    </div>';
+    
 }
 
 // 3. AJAX Endpoints
@@ -65,10 +152,6 @@ add_action('wp_ajax_bp_demo_import_step', function() {
     $step = sanitize_text_field($_POST['step'] ?? '');
 
     $Tophovive_License_Instance = new Tophive_Licence();
-
-    // if(!$Tophovive_License_Instance->check_license()){
-    //   wp_send_json( "License faield", 400 );
-    // }
 
     try {
         switch ($step) {
@@ -108,6 +191,28 @@ add_action('wp_ajax_bp_demo_import_step', function() {
             case 'import_forums':
                 bp_demo_import_forums();
                 break;
+
+                case 'import_elementor_template':
+                    $template_id = intval($_POST['template_id']);
+                    $existing_page_id = isset($_POST['page_id']) ? intval($_POST['page_id']) : 0;
+                    $new_title = sanitize_text_field($_POST['new_title'] ?? '');
+                
+                    $controller = new One_Imports_Controllers();
+                    $result = bp_import_elementor_template_page($controller, $template_id, $existing_page_id, $new_title);
+                
+                    if (is_wp_error($result)) {
+                        wp_send_json_error(['message' => $result->get_error_message()]);
+                    } else {
+                        $page_url = get_permalink($result);
+                        wp_send_json_success([
+                            'message' => 'Import complete',
+                            'page_id' => $result,
+                            'page_url' => $page_url,
+                        ]);
+                    }
+                    break;
+                
+                
             default:
                 throw new Exception('Invalid step.');
         }
@@ -118,6 +223,101 @@ add_action('wp_ajax_bp_demo_import_step', function() {
         wp_send_json_error([ 'message' => $e->getMessage() ]);
     }
 });
+
+function bp_import_elementor_template_page($controller, $template_id, $existing_page_id = 0, $new_title = '') {
+    $res = $controller->_get_templates([
+        'resource_type' => 'page',
+        'id' => $template_id
+    ]);
+
+    if (!isset($res['data']['templates'][0]['json_code'])) {
+        return new WP_Error('template_missing', 'Template not found or invalid JSON.');
+    }
+
+    $elementor_data = json_decode($res['data']['templates'][0]['json_code'], true);
+    
+    if (!$elementor_data) {
+        return new WP_Error('json_invalid', 'Invalid Elementor JSON.');
+    }
+
+    if ($existing_page_id && get_post_type($existing_page_id) === 'page') {
+        $page_id = $existing_page_id;
+    } elseif (!empty($new_title)) {
+        $page_id = wp_insert_post([
+            'post_title' => $new_title,
+            'post_type' => 'page',
+            'post_status' => 'publish'
+        ]);
+    } else {
+        return new WP_Error('missing_target', 'No page selected or created.');
+    }
+
+    import_post($elementor_data, 'page');
+
+}
+
+function download_image_from_url(string $url)
+
+{
+  if (filter_var($url, FILTER_VALIDATE_URL) ==  false) {
+    error_log("validation fail of url {$url}");
+    return false;
+  };
+
+  $file_content = @file_get_contents($url);
+  if ($file_content == false) {
+    error_log("download fail of url {$url}");
+    return false;
+  }
+
+  return $file_content;
+}
+
+function upload_raw_image_data($image_data, $url)
+{
+  // Get the filename from the URL
+  $filename = basename(parse_url($url, PHP_URL_PATH));
+
+  // Upload to WordPress
+  $upload = wp_upload_bits($filename, null, $image_data);
+
+  if ($upload['error']) {
+    error_log("upload_raw_image_data fail url:--->{$url}");
+    return false;
+  }
+
+  // Get the file type
+  $wp_filetype = wp_check_filetype($upload['file'], null);
+
+  // Prepare attachment data
+  $attachment = [
+    'post_mime_type' => $wp_filetype['type'],
+    'post_title'     => sanitize_file_name($filename),
+    'post_content'   => '',
+    'post_status'    => 'inherit'
+  ];
+
+  // Insert the attachment into the Media Library
+  $attach_id = wp_insert_attachment($attachment, $upload['file'], 0);
+  if (is_wp_error($attach_id)) {
+    error_log("wp_insert_attachment fail url:--->{$url}");
+    return false;
+  }
+
+  // Include WordPress image functions
+  require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+  // GENERATE ATTACHMENT METADATA AND UPDATE USE THIS LINE IF YOU WANT TO MAKE MULTIPLE RESULATION OF SAME IMAGE
+  // $attach_data = wp_generate_attachment_metadata($attach_id, $upload['file']);
+  // wp_update_attachment_metadata($attach_id, $attach_data);
+
+  return [
+    'attachment_id' => $attach_id,
+    'file_url' => $upload['url']
+  ];
+}
+
+
 
 add_filter('get_avatar_url', 'bp_demo_custom_avatar_url', 10, 2);
 function bp_demo_custom_avatar_url($url, $id_or_email) {
@@ -484,7 +684,6 @@ function import_post(array $post, string $post_type){
       empty($post_type) ||
       empty($post["status"])
     ) {
-      error_log("validation fail import_post:id-->{$post["id"]}");
       return false;
     }
 
@@ -547,68 +746,22 @@ function import_post(array $post, string $post_type){
       }
     }
 
+    //if front page  or blog page update option
+    foreach (["page_on_front", "page_for_posts"] as $key) {
+        if (isset($post[$key]) && !empty($post[$key])) {
+          update_option("page_on_front", $result);
+        }
+    }
+
+    //if elementor page then regenarate cache css file
+    if (isset($post["meta"]["_elementor_data"]) && !empty($post["meta"]["_elementor_data"])) {
+        include_once WP_PLUGIN_DIR . '/elementor/elementor.php';
+        $css_file = Elementor\Core\Files\CSS\Post::create($result);
+        $css_file->update();
+    }
+
     return $result;
 }
-
-function download_image_from_url(string $url)
-  {
-    if (filter_var($url, FILTER_VALIDATE_URL) ==  false) {
-      error_log("validation fail of url {$url}");
-      return false;
-    };
-
-    $file_content = @file_get_contents($url);
-    if ($file_content == false) {
-      error_log("download fail of url {$url}");
-      return false;
-    }
-
-    return $file_content;
-  }
-
-  function upload_raw_image_data($image_data, $url)
-  {
-    // Get the filename from the URL
-    $filename = basename(parse_url($url, PHP_URL_PATH));
-
-    // Upload to WordPress
-    $upload = wp_upload_bits($filename, null, $image_data);
-
-    if ($upload['error']) {
-      error_log("upload_raw_image_data fail url:--->{$url}");
-      return false;
-    }
-
-    // Get the file type
-    $wp_filetype = wp_check_filetype($upload['file'], null);
-
-    // Prepare attachment data
-    $attachment = [
-      'post_mime_type' => $wp_filetype['type'],
-      'post_title'     => sanitize_file_name($filename),
-      'post_content'   => '',
-      'post_status'    => 'inherit'
-    ];
-
-    // Insert the attachment into the Media Library
-    $attach_id = wp_insert_attachment($attachment, $upload['file'], 0);
-    if (is_wp_error($attach_id)) {
-      error_log("wp_insert_attachment fail url:--->{$url}");
-      return false;
-    }
-
-    // Include WordPress image functions
-    require_once(ABSPATH . 'wp-admin/includes/image.php');
-
-    // GENERATE ATTACHMENT METADATA AND UPDATE USE THIS LINE IF YOU WANT TO MAKE MULTIPLE RESULATION OF SAME IMAGE
-    // $attach_data = wp_generate_attachment_metadata($attach_id, $upload['file']);
-    // wp_update_attachment_metadata($attach_id, $attach_data);
-
-    return [
-      'attachment_id' => $attach_id,
-      'file_url' => $upload['url']
-    ];
-  }
 
 function bp_demo_import_widgets_from_wie() {
     $file = plugin_dir_path(__FILE__) . '/demo-data/widgets.wie';

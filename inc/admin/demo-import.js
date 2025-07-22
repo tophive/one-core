@@ -75,3 +75,58 @@ jQuery(document).ready(function ($) {
     runNextStep();
   });
 });
+
+
+// TEmPLATES IMPORT MODAL
+
+jQuery(document).ready(function($) {
+  let selectedTemplateId = null;
+
+  $('.import-button').on('click', function () {
+    selectedTemplateId = $(this).data('template-id');
+
+    // Check if Elementor is installed
+    if (!BPDemoSteps.elementor_installed) {
+      $('.elementor-warning').show();
+    } else {
+      $('.elementor-warning').hide();
+    }
+
+    $('#import-page-selector').val('');
+    $('#new-page-title').val('');
+    $('#template-import-modal').fadeIn();
+  });
+
+  $('#cancel-import-button').on('click', function () {
+    $('#template-import-modal').fadeOut();
+  });
+
+  $('#confirm-import-button').on('click', function () {
+    const pageId = $('#import-page-selector').val();
+    const newTitle = $('#new-page-title').val();
+
+    $.post(BPDemoSteps.ajax_url, {
+      action: 'bp_demo_import_step',
+      step: 'import_elementor_template',
+      template_id: selectedTemplateId,
+      page_id: pageId,
+      new_title: newTitle
+    }, function(response) {
+      if (response.success) {
+        // Show success message
+        $('#import-success-message').show();
+        $('#imported-page-link').attr('href', response.data.page_url);
+  
+        // Hide all form-related inputs and buttons (to avoid confusion)
+        $('#import-page-selector').hide();
+        $('#new-page-title').hide();
+        $('#confirm-import-button').hide();
+        $('label[for="import-page-selector"]').hide();
+        $('#import-page-selector').prev('p').hide(); // hides "Select existing page:" <p>
+        $('#new-page-title').prev('p').hide();       // hides "Or create a new page:" <p>
+      } else {
+        alert('Import failed: ' + (response.data?.message || 'Unknown error'));
+      }
+    });
+  });
+});
