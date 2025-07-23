@@ -252,12 +252,11 @@ function bp_import_elementor_template_page($controller, $template_id, $existing_
     return new WP_Error('missing_target', 'No page selected or created.');
   }
 
-  // var_dump($elementor_data);
+  // wp_send_json($elementor_data, 200);
   // die();
-  // var_dump($elementor_data["meta"]["_elementor_data"]);
-  // var_dump("ola");
 
-  import_post($elementor_data, 'page');
+
+  return import_post($elementor_data, 'page', $page_id);
 }
 
 function download_image_from_url(string $url)
@@ -699,6 +698,7 @@ function bp_demo_import_forums()
 
 function restore_post_meta($post_id, $meta)
 {
+
   if (!is_array($meta)) {
     return false;
   }
@@ -716,18 +716,8 @@ function restore_post_meta($post_id, $meta)
 }
 
 
-function import_post(array $post, string $post_type)
+function import_post(array $post, string $post_type, int $post_id)
 {
-
-  if (
-    empty($post["title"]) ||
-    empty($post["content"]) ||
-    empty($post["slug"]) ||
-    empty($post_type) ||
-    empty($post["status"])
-  ) {
-    return false;
-  }
 
   //images inside post content
   // if (!empty($post["images_url"]["urls"]) && count($post["images_url"]["urls"]) > 0) {
@@ -764,31 +754,12 @@ function import_post(array $post, string $post_type)
     }
   }
 
-  $args = [
-    "post_title"    => $post["title"],
-    "post_content"  => '', //$post["content"],
-    "post_status"   => $post["status"],
-    "post_type"     => $post_type,
-    "post_name"     => $post["slug"],
-  ];
-
-  $result = wp_insert_post($args);
+  $result = $post_id;
 
   if (is_wp_error($result)) {
     error_log("post insert fail id:-->{$post['id']}");
   }
 
-
-  //update post meta
-  // foreach ($post["meta"] as $key => $value_arr) {
-  //   foreach ($value_arr as $va) {
-  //     if (is_serialized($va)) {
-  //       update_post_meta($result, $key, unserialize($va));
-  //     } else {
-  //       update_post_meta($result, $key, $va);
-  //     }
-  //   }
-  // }
   restore_post_meta($result, $post["meta"]);
 
   //if front page  or blog page update option
