@@ -1,45 +1,46 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) exit;
 
 require_once __DIR__ . '/One_Imports_Controllers.php';
 
 
 // 1. Enqueue JS + Modal Styles + Localize Steps
-add_action('admin_enqueue_scripts', function() {
-    wp_enqueue_script('bp-demo-import', plugin_dir_url(__FILE__) . '/demo-import.js', ['jquery'], null, true);
-    wp_localize_script('bp-demo-import', 'BPDemoSteps', [
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'steps' => [
-            'install_plugins',
-            'import_users',
-            'import_pages',
-            'enable_groups_component',
-            'import_activities',
-            'import_groups',
-            'import_widgets',
-            'import_customizer',
-            'import_menus',
-            'import_blog_posts',
-            'import_forums',
-            'setup_homepage'
-        ],
-        'elementor_installed' => is_plugin_active('elementor/elementor.php') || file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php')
-    ]);
+add_action('admin_enqueue_scripts', function () {
+  wp_enqueue_script('bp-demo-import', plugin_dir_url(__FILE__) . '/demo-import.js', ['jquery'], null, true);
+  wp_localize_script('bp-demo-import', 'BPDemoSteps', [
+    'ajax_url' => admin_url('admin-ajax.php'),
+    'steps' => [
+      'install_plugins',
+      'import_users',
+      'import_pages',
+      'enable_groups_component',
+      'import_activities',
+      'import_groups',
+      'import_widgets',
+      'import_customizer',
+      'import_menus',
+      'import_blog_posts',
+      'import_forums',
+      'setup_homepage'
+    ],
+    'elementor_installed' => is_plugin_active('elementor/elementor.php') || file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php')
+  ]);
 
-    wp_enqueue_style('bp-demo-import-style', plugin_dir_url(__FILE__) . '/demo-import.css');
+  wp_enqueue_style('bp-demo-import-style', plugin_dir_url(__FILE__) . '/demo-import.css');
 });
 
 // 2. Add Admin Page with Import Button + Modal Container
-add_action( 'tophive/admin/demo-content-container', 'bp_demo_import_page' );
+add_action('tophive/admin/demo-content-container', 'bp_demo_import_page');
 
-function bp_demo_import_page() {
+function bp_demo_import_page()
+{
 
-    $home_url   = esc_url( home_url( '/' ) );
-    $admin_url  = esc_url( admin_url( 'themes.php?page=bp-demo-import' ) );
-    $importer = new One_Imports_Controllers();
+  $home_url   = esc_url(home_url('/'));
+  $admin_url  = esc_url(admin_url('themes.php?page=bp-demo-import'));
+  $importer = new One_Imports_Controllers();
 
 
-    echo '<div id="bp-demo-modal" class="bp-demo-modal" style="display:none;">
+  echo '<div id="bp-demo-modal" class="bp-demo-modal" style="display:none;">
         <div class="bp-demo-modal-content">
             <div id="bp-demo-loader" class="loader" style="display: none;"></div>
 
@@ -60,8 +61,8 @@ function bp_demo_import_page() {
 
 
 
-    $url = get_theme_file_uri() . "/screenshot.png";
-    echo "<div class='wrap' style='display:flex;'>
+  $url = get_theme_file_uri() . "/screenshot.png";
+  echo "<div class='wrap' style='display:flex;'>
             <div class='demo-import-card'>
                 <div class='demo-import-card__image'>
                   <img src='{$url}' alt='image' />
@@ -73,21 +74,21 @@ function bp_demo_import_page() {
             </div>
          </div>";
 
-    echo '<br />';
-    echo '<h2>Page templates</h2>';
+  echo '<br />';
+  echo '<h2>Page templates</h2>';
 
-    $templates = $importer->get_templates();
+  $templates = $importer->get_templates();
 
-    echo '<div class="template-grid">';
+  echo '<div class="template-grid">';
 
-    foreach ($templates as $template) {
-        $id           = esc_attr($template['id']);
-        $name         = esc_html($template['name']);
-        $type         = esc_html($template['type'] ?? 'Elementor');
-        $preview_img  = esc_url($template['preview_image'] ?? '');
-        $preview_url  = esc_url($template['preview_url'] ?? $preview_img); // fallback
+  foreach ($templates as $template) {
+    $id           = esc_attr($template['id']);
+    $name         = esc_html($template['name']);
+    $type         = esc_html($template['type'] ?? 'Elementor');
+    $preview_img  = esc_url($template['preview_image'] ?? '');
+    $preview_url  = esc_url($template['preview_url'] ?? $preview_img); // fallback
 
-        echo '
+    echo '
         <div class="template-card">
             <div class="card-image">
                 <img src="' . $preview_img . '" alt="' . $name . '">
@@ -105,11 +106,11 @@ function bp_demo_import_page() {
                 <button class="import-button" data-template-id="' . $id . '">Import</button>
             </div>
         </div>';
-    }
+  }
 
-    echo '</div>';
+  echo '</div>';
 
-    echo '
+  echo '
         <div id="template-import-modal" style="display:none;">
         <div class="modal-content">
             <h2>Import Page Template</h2>
@@ -129,11 +130,11 @@ function bp_demo_import_page() {
             <p><label for="import-page-selector">Select existing page:</label></p>
             <select id="import-page-selector">
             <option value="">-- Select Page --</option>';
-            $pages = get_pages();
-            foreach ($pages as $page) {
-                echo '<option value="' . esc_attr($page->ID) . '">' . esc_html($page->post_title) . '</option>';
-            }
-        echo '</select>
+  $pages = get_pages();
+  foreach ($pages as $page) {
+    echo '<option value="' . esc_attr($page->ID) . '">' . esc_html($page->post_title) . '</option>';
+  }
+  echo '</select>
 
             <p style="margin-top:10px;">Or create a new page:</p>
             <input type="text" id="new-page-title" placeholder="New Page Title" />
@@ -144,118 +145,119 @@ function bp_demo_import_page() {
             </div>
         </div>
     </div>';
-    
 }
 
 // 3. AJAX Endpoints
-add_action('wp_ajax_bp_demo_import_step', function() {
-    $step = sanitize_text_field($_POST['step'] ?? '');
+add_action('wp_ajax_bp_demo_import_step', function () {
+  $step = sanitize_text_field($_POST['step'] ?? '');
 
-    $Tophovive_License_Instance = new Tophive_Licence();
+  $Tophovive_License_Instance = new Tophive_Licence();
 
-    try {
-        switch ($step) {
-            case 'install_plugins':
-                bp_demo_install_plugins();
-                break;
-            case 'setup_homepage':
-                bp_demo_setup_activity_home();
-                break;
-            case 'import_pages':
-                bp_demo_import_pages();
-                break;
-            case 'import_users':
-                bp_demo_import_users();
-                break;
-            case 'enable_groups_component':
-                bp_demo_enable_groups_component_properly();
-                break;
-            case 'import_groups':
-                bp_demo_import_groups();
-                break;
-            case 'import_activities':
-                bp_demo_import_activities();
-                break;
-            case 'import_widgets':
-                bp_demo_import_widgets_from_wie();
-                break;
-            case 'import_menus':
-                bp_demo_import_menus();
-                break;                
-            case 'import_customizer':
-                bp_demo_import_customizer();
-                break;
-            case 'import_blog_posts':
-                bp_demo_import_blog_posts();
-                break;
-            case 'import_forums':
-                bp_demo_import_forums();
-                break;
+  try {
+    switch ($step) {
+      case 'install_plugins':
+        bp_demo_install_plugins();
+        break;
+      case 'setup_homepage':
+        bp_demo_setup_activity_home();
+        break;
+      case 'import_pages':
+        bp_demo_import_pages();
+        break;
+      case 'import_users':
+        bp_demo_import_users();
+        break;
+      case 'enable_groups_component':
+        bp_demo_enable_groups_component_properly();
+        break;
+      case 'import_groups':
+        bp_demo_import_groups();
+        break;
+      case 'import_activities':
+        bp_demo_import_activities();
+        break;
+      case 'import_widgets':
+        bp_demo_import_widgets_from_wie();
+        break;
+      case 'import_menus':
+        bp_demo_import_menus();
+        break;
+      case 'import_customizer':
+        bp_demo_import_customizer();
+        break;
+      case 'import_blog_posts':
+        bp_demo_import_blog_posts();
+        break;
+      case 'import_forums':
+        bp_demo_import_forums();
+        break;
 
-                case 'import_elementor_template':
-                    $template_id = intval($_POST['template_id']);
-                    $existing_page_id = isset($_POST['page_id']) ? intval($_POST['page_id']) : 0;
-                    $new_title = sanitize_text_field($_POST['new_title'] ?? '');
-                
-                    $controller = new One_Imports_Controllers();
-                    $result = bp_import_elementor_template_page($controller, $template_id, $existing_page_id, $new_title);
-                
-                    if (is_wp_error($result)) {
-                        wp_send_json_error(['message' => $result->get_error_message()]);
-                    } else {
-                        $page_url = get_permalink($result);
-                        wp_send_json_success([
-                            'message' => 'Import complete',
-                            'page_id' => $result,
-                            'page_url' => $page_url,
-                        ]);
-                    }
-                    break;
-                
-                
-            default:
-                throw new Exception('Invalid step.');
+      case 'import_elementor_template':
+        $template_id = intval($_POST['template_id']);
+        $existing_page_id = isset($_POST['page_id']) ? intval($_POST['page_id']) : 0;
+        $new_title = sanitize_text_field($_POST['new_title'] ?? '');
+
+        $controller = new One_Imports_Controllers();
+        $result = bp_import_elementor_template_page($controller, $template_id, $existing_page_id, $new_title);
+
+        if (is_wp_error($result)) {
+          wp_send_json_error(['message' => $result->get_error_message()]);
+        } else {
+          $page_url = get_permalink($result);
+          wp_send_json_success([
+            'message' => 'Import complete',
+            'page_id' => $result,
+            'page_url' => $page_url,
+          ]);
         }
+        break;
 
-        wp_send_json_success([ 'message' => ucfirst(str_replace('_', ' ', $step)) . ' complete.' ]);
 
-    } catch (Exception $e) {
-        wp_send_json_error([ 'message' => $e->getMessage() ]);
+      default:
+        throw new Exception('Invalid step.');
     }
+
+    wp_send_json_success(['message' => ucfirst(str_replace('_', ' ', $step)) . ' complete.']);
+  } catch (Exception $e) {
+    wp_send_json_error(['message' => $e->getMessage()]);
+  }
 });
 
-function bp_import_elementor_template_page($controller, $template_id, $existing_page_id = 0, $new_title = '') {
-    $res = $controller->_get_templates([
-        'resource_type' => 'page',
-        'id' => $template_id
+function bp_import_elementor_template_page($controller, $template_id, $existing_page_id = 0, $new_title = '')
+{
+  $res = $controller->_get_templates([
+    'resource_type' => 'page',
+    'id' => $template_id
+  ]);
+
+  if (!isset($res['data']['templates'][0]['json_code'])) {
+    return new WP_Error('template_missing', 'Template not found or invalid JSON.');
+  }
+
+  $elementor_data = json_decode($res['data']['templates'][0]['json_code'], true);
+
+  if (!$elementor_data) {
+    return new WP_Error('json_invalid', 'Invalid Elementor JSON.');
+  }
+
+  if ($existing_page_id && get_post_type($existing_page_id) === 'page') {
+    $page_id = $existing_page_id;
+  } elseif (!empty($new_title)) {
+    $page_id = wp_insert_post([
+      'post_title' => $new_title,
+      'post_type' => 'page',
+      'post_status' => 'publish'
     ]);
+  } else {
+    return new WP_Error('missing_target', 'No page selected or created.');
+  }
 
-    if (!isset($res['data']['templates'][0]['json_code'])) {
-        return new WP_Error('template_missing', 'Template not found or invalid JSON.');
-    }
+  // var_dump($elementor_data);
+  // die();
+  // var_dump($elementor_data["meta"]["_elementor_data"]);
+  // var_dump("ola");
 
-    $elementor_data = json_decode($res['data']['templates'][0]['json_code'], true);
-    
-    if (!$elementor_data) {
-        return new WP_Error('json_invalid', 'Invalid Elementor JSON.');
-    }
-
-    if ($existing_page_id && get_post_type($existing_page_id) === 'page') {
-        $page_id = $existing_page_id;
-    } elseif (!empty($new_title)) {
-        $page_id = wp_insert_post([
-            'post_title' => $new_title,
-            'post_type' => 'page',
-            'post_status' => 'publish'
-        ]);
-    } else {
-        return new WP_Error('missing_target', 'No page selected or created.');
-    }
-
-    // var_dump($res['data']['templates'][0]['json_code']);
-    // die();
-
-    import_post($elementor_data, 'page');
+  import_post($elementor_data, 'page');
 }
 
 function download_image_from_url(string $url)
@@ -322,771 +324,809 @@ function upload_raw_image_data($image_data, $url)
 
 
 add_filter('get_avatar_url', 'bp_demo_custom_avatar_url', 10, 2);
-function bp_demo_custom_avatar_url($url, $id_or_email) {
-    if (is_admin()) return $url; // optional: skip in admin
+function bp_demo_custom_avatar_url($url, $id_or_email)
+{
+  if (is_admin()) return $url; // optional: skip in admin
 
-     $user = false;
+  $user = false;
 
-     if ( is_numeric( $id_or_email ) ) {
-         $user = get_user_by( 'id', (int) $id_or_email );
-     } elseif ( is_object( $id_or_email ) && isset( $id_or_email->user_id ) ) {
-         $user = get_user_by( 'id', (int) $id_or_email->user_id );
-     } elseif ( is_string( $id_or_email ) ) {
-         $user = get_user_by( 'email', $id_or_email );
-     }
+  if (is_numeric($id_or_email)) {
+    $user = get_user_by('id', (int) $id_or_email);
+  } elseif (is_object($id_or_email) && isset($id_or_email->user_id)) {
+    $user = get_user_by('id', (int) $id_or_email->user_id);
+  } elseif (is_string($id_or_email)) {
+    $user = get_user_by('email', $id_or_email);
+  }
 
-     if ($user) {
-         $custom_avatar = get_user_meta($user->ID, 'custom_avatar_url', true);
-         if (!empty($custom_avatar)) {
-             return esc_url($custom_avatar);
-         }
-     }
-     return $url;
+  if ($user) {
+    $custom_avatar = get_user_meta($user->ID, 'custom_avatar_url', true);
+    if (!empty($custom_avatar)) {
+      return esc_url($custom_avatar);
+    }
+  }
+  return $url;
 }
 
 add_filter('bp_core_fetch_avatar', 'bp_demo_custom_avatar_for_buddypress', 10, 2);
-function bp_demo_custom_avatar_for_buddypress($avatar, $args) {
-    if (isset($args['item_id'])) {
-        $custom = get_user_meta($args['item_id'], 'custom_avatar_url', true);
-        if (!empty($custom)) {
-            $size = isset($args['width']) ? $args['width'] : 96;
-            return '<img src="' . esc_url($custom) . '" class="avatar avatar-' . esc_attr($size) . ' photo" width="' . esc_attr($size) . '" height="' . esc_attr($size) . '" />';
-        }
+function bp_demo_custom_avatar_for_buddypress($avatar, $args)
+{
+  if (isset($args['item_id'])) {
+    $custom = get_user_meta($args['item_id'], 'custom_avatar_url', true);
+    if (!empty($custom)) {
+      $size = isset($args['width']) ? $args['width'] : 96;
+      return '<img src="' . esc_url($custom) . '" class="avatar avatar-' . esc_attr($size) . ' photo" width="' . esc_attr($size) . '" height="' . esc_attr($size) . '" />';
     }
-    return $avatar;
+  }
+  return $avatar;
 }
 
 
-function bp_demo_import_activities() {
-    $file_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_activities.json';
+function bp_demo_import_activities()
+{
+  $file_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_activities.json';
 
-    if (!file_exists($file_path)) {
-        echo '<div class="notice notice-error"><p>JSON file not found.</p></div>';
-        return;
+  if (!file_exists($file_path)) {
+    echo '<div class="notice notice-error"><p>JSON file not found.</p></div>';
+    return;
+  }
+
+  $json = file_get_contents($file_path);
+  $activities = json_decode($json, true);
+
+
+  foreach ($activities as $activity) {
+    $activity_id = bp_activity_add([
+      'user_id'       => get_current_user_id(), // ← Use current user
+      'content'       => $activity['content'],
+      'component'     => 'activity',
+      'type'          => 'activity_update',
+      'recorded_time' => date('Y-m-d H:i:s', $activity['timestamp']),
+    ]);
+
+    if (!$activity_id) continue;
+
+    // Reactions
+    if (!empty($activity['reactions']) && is_array($activity['reactions'])) {
+      $clean_reactions = [];
+      foreach ($activity['reactions'] as $reaction => $data) {
+        if (is_array($data) && isset($data['count']) && isset($data['users']) && is_array($data['users'])) {
+          $clean_reactions[$reaction] = [
+            'count' => (int) $data['count'],
+            'users' => array_map('intval', $data['users']),
+          ];
+        }
+      }
+      bp_activity_add_meta($activity_id, 'tophive_activity_reactions', $clean_reactions);
     }
 
-    $json = file_get_contents($file_path);
-    $activities = json_decode($json, true);
+    // Media
+    if (!empty($activity['media']) && is_array($activity['media'])) {
+      $clean_media = array_filter($activity['media'], function ($item) {
+        return is_array($item) && isset($item['full']);
+      });
+      bp_activity_add_meta($activity_id, 'activity_media', array_values($clean_media));
+    }
+
+    // Comments
+    if (!empty($activity['comments']) && is_array($activity['comments'])) {
+      $clean_comments = [];
+      foreach ($activity['comments'] as $comment) {
+        if (!is_array($comment) || !isset($comment['ID'], $comment['content'])) continue;
+
+        $comment['reactions'] = (isset($comment['reactions']) && is_array($comment['reactions'])) ? $comment['reactions'] : [];
+        $comment['replies'] = (isset($comment['replies']) && is_array($comment['replies'])) ? $comment['replies'] : [];
+
+        foreach ($comment['replies'] as &$reply) {
+          if (!is_array($reply) || !isset($reply['reactions'])) continue;
+          $reply['reactions'] = is_array($reply['reactions']) ? $reply['reactions'] : [];
+        }
+
+        $clean_comments[] = $comment;
+      }
+
+      bp_activity_add_meta($activity_id, 'tophive_activity_comments', $clean_comments);
+    }
+
+    // Set visibility
+    bp_activity_add_meta($activity_id, 'activity_accessibility', 'public');
+  }
+
+  // echo '<div class="notice notice-success"><p>Demo activities imported successfully!</p></div>';
+}
+function bp_demo_import_users()
+{
+  $file_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_users.json';
+
+  if (!file_exists($file_path)) {
+    echo '<div class="notice notice-error"><p>Users JSON file not found.</p></div>';
+    return;
+  }
+
+  $json = file_get_contents($file_path);
+  $users = json_decode($json, true);
+
+  foreach ($users as $user) {
+    if (username_exists($user['username']) || email_exists($user['email'])) {
+      continue; // Skip existing users
+    }
+
+    $user_id = wp_insert_user([
+      'user_login'   => $user['username'],
+      'user_pass'    => $user['password'],
+      'user_email'   => $user['email'],
+      'display_name' => $user['display_name'],
+      'first_name'   => $user['first_name'],
+      'last_name'    => $user['last_name'],
+      'role'         => $user['role']
+    ]);
+
+    if (!is_wp_error($user_id)) {
+      $avatar_url = esc_url_raw($user['avatar']);
+      $upload_dir = wp_upload_dir();
+      $avatar_dir = $upload_dir['basedir'] . "/avatars/{$user_id}";
+
+      wp_mkdir_p($avatar_dir);
+
+      $response = wp_remote_get($avatar_url);
+      if (!is_wp_error($response)) {
+        $body = wp_remote_retrieve_body($response);
+        if (!empty($body)) {
+          file_put_contents("{$avatar_dir}/{$user_id}-bpfull.jpg", $body);
+          file_put_contents("{$avatar_dir}/{$user_id}-bpthumb.jpg", $body);
+        }
+      }
+    }
+  }
+
+  // echo '<div class="notice notice-success"><p>Demo users imported successfully (with avatars)!</p></div>';
+}
+function bp_demo_install_plugins()
+{
+  include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+  include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+  include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+  if (!class_exists('BP_Silent_Upgrader_Skin')) {
+    class BP_Silent_Upgrader_Skin extends \WP_Upgrader_Skin
+    {
+      public function header() {}
+      public function footer() {}
+      public function feedback($string, ...$args) {}
+    }
+  }
+
+  function get_main_plugin_file($slug)
+  {
+    $plugin_dir = WP_PLUGIN_DIR . '/' . $slug;
+    if (!is_dir($plugin_dir)) return false;
+    $files = scandir($plugin_dir);
+    foreach ($files as $file) {
+      if (strpos($file, '.php') !== false) {
+        $contents = file_get_contents("$plugin_dir/$file");
+        if (strpos($contents, 'Plugin Name:') !== false) {
+          return "$slug/$file";
+        }
+      }
+    }
+    return false;
+  }
+
+  $slugs = ['buddypress', 'elementor'];
+  $to_activate = [];
+
+  foreach ($slugs as $slug) {
+    if (!file_exists(WP_PLUGIN_DIR . "/$slug")) {
+      $api = plugins_api('plugin_information', ['slug' => $slug, 'fields' => ['sections' => false]]);
+      if (!is_wp_error($api)) {
+        $upgrader = new Plugin_Upgrader(new BP_Silent_Upgrader_Skin());
+        $upgrader->install($api->download_link);
+      }
+    }
+
+    $plugin_file = get_main_plugin_file($slug);
+    if ($plugin_file && !is_plugin_active($plugin_file)) {
+      $to_activate[] = $plugin_file;
+    }
+  }
+
+  if (!empty($to_activate)) {
+    activate_plugins($to_activate);
+  }
+}
+
+function bp_demo_import_menus()
+{
+  $menus_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_menus.json';
+
+  if (!file_exists($menus_path)) {
+    wp_send_json_error(['message' => 'Menus JSON file not found.']);
+  }
+
+  $json = file_get_contents($menus_path);
+  $menus = json_decode($json, true);
+
+  if (empty($menus)) {
+    wp_send_json_error(['message' => 'No menu data to import.']);
+  }
+
+  $menu_locations = [];
+
+  foreach ($menus as $_menu) {
+    //create menu term if not exist
+    //update menu location so this menu get render on that location
+    //insert menu item in post table with menu order and parent menu preservation
+    $menu_name = $_menu["menu"]["name"];
+    $menu_exist = wp_get_nav_menu_object($menu_name);
+
+    if ($menu_exist == false) {
+      $menu_id = wp_create_nav_menu($menu_name);
+      if (is_wp_error($menu_id)) {
+        error_log("Nav menu creation fail: {$menu_name}");
+        continue;
+      }
 
 
-    foreach ($activities as $activity) {
-        $activity_id = bp_activity_add([
-            'user_id'       => get_current_user_id(), // ← Use current user
-            'content'       => $activity['content'],
-            'component'     => 'activity',
-            'type'          => 'activity_update',
-            'recorded_time' => date('Y-m-d H:i:s', $activity['timestamp']),
+
+      $menu_obj = wp_get_nav_menu_object($menu_id);
+      if ($menu_obj == false) {
+        error_log("wp_get_nav_menu_object fail: {$menu_id}");
+        continue;
+      }
+
+      $menu_locations[$_menu['menu']['slug']] = $menu_id;
+
+      $oldid_map_newid = [];
+
+      foreach ($_menu["items"] as $m) {
+        if ($m["parent"] != "0") continue;
+        $full_url = $m['url'];
+        if (substr($full_url, 0, 1) === '/') {
+          $full_url = rtrim(get_site_url(), '/') . $full_url;
+        }
+        $id = wp_update_nav_menu_item($menu_id, 0, [
+          'menu-item-title' => $m['title'],
+          'menu-item-url' => $full_url,
+          'menu-item-status' => 'publish',
+          'menu-item-position' => $m['order']
         ]);
-
-        if (!$activity_id) continue;
-
-        // Reactions
-        if (!empty($activity['reactions']) && is_array($activity['reactions'])) {
-            $clean_reactions = [];
-            foreach ($activity['reactions'] as $reaction => $data) {
-                if (is_array($data) && isset($data['count']) && isset($data['users']) && is_array($data['users'])) {
-                    $clean_reactions[$reaction] = [
-                        'count' => (int) $data['count'],
-                        'users' => array_map('intval', $data['users']),
-                    ];
-                }
-            }
-            bp_activity_add_meta($activity_id, 'tophive_activity_reactions', $clean_reactions);
+        if (is_wp_error($id)) {
+          error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
+          continue;
         }
-
-        // Media
-        if (!empty($activity['media']) && is_array($activity['media'])) {
-            $clean_media = array_filter($activity['media'], function ($item) {
-                return is_array($item) && isset($item['full']);
-            });
-            bp_activity_add_meta($activity_id, 'activity_media', array_values($clean_media));
+        // Add icon if available
+        if (!empty($m['icon'])) {
+          update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
         }
+        $oldid_map_newid[$m["id"]] = $id;
+      }
 
-        // Comments
-        if (!empty($activity['comments']) && is_array($activity['comments'])) {
-            $clean_comments = [];
-            foreach ($activity['comments'] as $comment) {
-                if (!is_array($comment) || !isset($comment['ID'], $comment['content'])) continue;
 
-                $comment['reactions'] = (isset($comment['reactions']) && is_array($comment['reactions'])) ? $comment['reactions'] : [];
-                $comment['replies'] = (isset($comment['replies']) && is_array($comment['replies'])) ? $comment['replies'] : [];
 
-                foreach ($comment['replies'] as &$reply) {
-                    if (!is_array($reply) || !isset($reply['reactions'])) continue;
-                    $reply['reactions'] = is_array($reply['reactions']) ? $reply['reactions'] : [];
-                }
-
-                $clean_comments[] = $comment;
-            }
-
-            bp_activity_add_meta($activity_id, 'tophive_activity_comments', $clean_comments);
+      foreach ($_menu["items"] as $m) {
+        if ($m["parent"] == "0") continue;
+        $full_url = $m['url'];
+        if (substr($full_url, 0, 1) === '/') {
+          $full_url = rtrim(get_site_url(), '/') . $full_url;
         }
-
-        // Set visibility
-        bp_activity_add_meta($activity_id, 'activity_accessibility', 'public');
-    }
-
-    // echo '<div class="notice notice-success"><p>Demo activities imported successfully!</p></div>';
-}
-function bp_demo_import_users() {
-    $file_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_users.json';
-
-    if (!file_exists($file_path)) {
-        echo '<div class="notice notice-error"><p>Users JSON file not found.</p></div>';
-        return;
-    }
-
-    $json = file_get_contents($file_path);
-    $users = json_decode($json, true);
-
-    foreach ($users as $user) {
-        if (username_exists($user['username']) || email_exists($user['email'])) {
-            continue; // Skip existing users
-        }
-
-        $user_id = wp_insert_user([
-            'user_login'   => $user['username'],
-            'user_pass'    => $user['password'],
-            'user_email'   => $user['email'],
-            'display_name' => $user['display_name'],
-            'first_name'   => $user['first_name'],
-            'last_name'    => $user['last_name'],
-            'role'         => $user['role']
+        $id = wp_update_nav_menu_item($menu_id, 0, [
+          'menu-item-title' => $m['title'],
+          'menu-item-url' => $full_url,
+          'menu-item-status' => 'publish',
+          'menu-item-parent-id' => $oldid_map_newid[$m["parent"]],
+          'menu-item-position' => $m['order']
         ]);
-
-        if (!is_wp_error($user_id)) {
-            $avatar_url = esc_url_raw($user['avatar']);
-            $upload_dir = wp_upload_dir();
-            $avatar_dir = $upload_dir['basedir'] . "/avatars/{$user_id}";
-        
-            wp_mkdir_p($avatar_dir);
-        
-            $response = wp_remote_get($avatar_url);
-            if (!is_wp_error($response)) {
-                $body = wp_remote_retrieve_body($response);
-                if (!empty($body)) {
-                    file_put_contents("{$avatar_dir}/{$user_id}-bpfull.jpg", $body);
-                    file_put_contents("{$avatar_dir}/{$user_id}-bpthumb.jpg", $body);
-                }
-            }
+        if (is_wp_error($id)) {
+          error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
+          continue;
         }
-        
-    }
-
-    // echo '<div class="notice notice-success"><p>Demo users imported successfully (with avatars)!</p></div>';
-}
-function bp_demo_install_plugins() {
-    include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-    include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-    if (!class_exists('BP_Silent_Upgrader_Skin')) {
-        class BP_Silent_Upgrader_Skin extends \WP_Upgrader_Skin {
-            public function header() {}
-            public function footer() {}
-            public function feedback($string, ...$args) {}
+        // Add icon if available
+        if (!empty($m['icon'])) {
+          update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
         }
+        $oldid_map_newid[$m["id"]] = $id;
+      }
     }
+  }
 
-    function get_main_plugin_file($slug) {
-        $plugin_dir = WP_PLUGIN_DIR . '/' . $slug;
-        if (!is_dir($plugin_dir)) return false;
-        $files = scandir($plugin_dir);
-        foreach ($files as $file) {
-            if (strpos($file, '.php') !== false) {
-                $contents = file_get_contents("$plugin_dir/$file");
-                if (strpos($contents, 'Plugin Name:') !== false) {
-                    return "$slug/$file";
-                }
-            }
-        }
-        return false;
-    }
+  set_theme_mod("nav_menu_locations", $menu_locations);
 
-    $slugs = ['buddypress', 'elementor'];
-    $to_activate = [];
-
-    foreach ($slugs as $slug) {
-        if (!file_exists(WP_PLUGIN_DIR . "/$slug")) {
-            $api = plugins_api('plugin_information', ['slug' => $slug, 'fields' => ['sections' => false]]);
-            if (!is_wp_error($api)) {
-                $upgrader = new Plugin_Upgrader(new BP_Silent_Upgrader_Skin());
-                $upgrader->install($api->download_link);
-            }
-        }
-
-        $plugin_file = get_main_plugin_file($slug);
-        if ($plugin_file && !is_plugin_active($plugin_file)) {
-            $to_activate[] = $plugin_file;
-        }
-    }
-
-    if (!empty($to_activate)) {
-        activate_plugins($to_activate);
-    }
+  wp_send_json_success(['message' => 'Menus imported and locations set.']);
 }
 
-function bp_demo_import_menus() {
-	$menus_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_menus.json';
+function bp_demo_import_pages()
+{
+  $file_path = plugin_dir_path(__FILE__) . '/demo-data/pages.json';
 
-	if (!file_exists($menus_path)) {
-		wp_send_json_error(['message' => 'Menus JSON file not found.']);
-	}
+  if (!file_exists($file_path)) {
+    return ['success' => false, 'message' => 'Pages JSON file not found.'];
+  }
 
-	$json = file_get_contents($menus_path);
-	$menus = json_decode($json, true);
+  $json = file_get_contents($file_path);
+  $pages = json_decode($json, true);
 
-	if (empty($menus)) {
-		wp_send_json_error(['message' => 'No menu data to import.']);
-	}
+  if (empty($pages) || !is_array($pages)) {
+    return ['success' => false, 'message' => 'Invalid pages data.'];
+  }
 
-    $menu_locations = [];
+  foreach ($pages as $page) {
+    import_post($page, 'page');
+  }
 
-	foreach ($menus as $_menu) {
-        //create menu term if not exist
-        //update menu location so this menu get render on that location
-        //insert menu item in post table with menu order and parent menu preservation
-        $menu_name = $_menu["menu"]["name"];
-        $menu_exist = wp_get_nav_menu_object($menu_name);
-  
-        if ($menu_exist == false) {
-          $menu_id = wp_create_nav_menu($menu_name);
-          if (is_wp_error($menu_id)) {
-            error_log("Nav menu creation fail: {$menu_name}");
-            continue;
-          }
-  
-  
-  
-          $menu_obj = wp_get_nav_menu_object($menu_id);
-          if ($menu_obj == false) {
-            error_log("wp_get_nav_menu_object fail: {$menu_id}");
-            continue;
-          }
-  
-          $menu_locations[$_menu['menu']['slug']] = $menu_id;
-  
-          $oldid_map_newid = [];
-  
-          foreach ($_menu["items"] as $m) {
-            if ($m["parent"] != "0") continue;
-            $full_url = $m['url'];
-            if (substr($full_url, 0, 1) === '/') {
-              $full_url = rtrim(get_site_url(), '/') . $full_url;
-            }
-            $id = wp_update_nav_menu_item($menu_id, 0, [
-              'menu-item-title' => $m['title'],
-              'menu-item-url' => $full_url,
-              'menu-item-status' => 'publish',
-              'menu-item-position' => $m['order']
-            ]);
-            if (is_wp_error($id)) {
-              error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
-              continue;
-            }
-            // Add icon if available
-			if (!empty($m['icon'])) {
-				update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
-			}
-            $oldid_map_newid[$m["id"]] = $id;
-          }
-  
-  
-  
-          foreach ($_menu["items"] as $m) {
-            if ($m["parent"] == "0") continue;
-            $full_url = $m['url'];
-            if (substr($full_url, 0, 1) === '/') {
-              $full_url = rtrim(get_site_url(), '/') . $full_url;
-            }
-            $id = wp_update_nav_menu_item($menu_id, 0, [
-              'menu-item-title' => $m['title'],
-              'menu-item-url' => $full_url,
-              'menu-item-status' => 'publish',
-              'menu-item-parent-id' => $oldid_map_newid[$m["parent"]],
-              'menu-item-position' => $m['order']
-            ]);
-            if (is_wp_error($id)) {
-              error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
-              continue;
-            }
-            // Add icon if available
-			if (!empty($m['icon'])) {
-				update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
-			}
-            $oldid_map_newid[$m["id"]] = $id;
-          }
-        }
-    }
-
-    set_theme_mod("nav_menu_locations", $menu_locations);
-
-	wp_send_json_success(['message' => 'Menus imported and locations set.']);
+  return ['success' => true, 'message' => 'Pages imported successfully!'];
 }
 
-function bp_demo_import_pages() {
-    $file_path = plugin_dir_path(__FILE__) . '/demo-data/pages.json';
+function bp_demo_import_forums()
+{
+  $file = plugin_dir_path(__FILE__) . '/demo-data/forums.json';
+  if (!file_exists($file)) return ['success' => false, 'message' => 'Forums JSON not found.'];
 
-    if (!file_exists($file_path)) {
-        return ['success' => false, 'message' => 'Pages JSON file not found.'];
-    }
+  $json = file_get_contents($file);
+  $forums = json_decode($json, true);
 
-    $json = file_get_contents($file_path);
-    $pages = json_decode($json, true);
+  if (empty($forums)) return ['success' => false, 'message' => 'Invalid forums data.'];
 
-    if (empty($pages) || !is_array($pages)) {
-        return ['success' => false, 'message' => 'Invalid pages data.'];
-    }
+  foreach ($forums as $forum) {
+    $topic_id = bbp_insert_topic([
+      'post_title'   => $forum['title'],
+      'post_content' => $forum['content'],
+      'post_status'  => 'publish',
+      'post_author'  => $forum['author'],
+      'post_date'    => $forum['date'],
+    ], [
+      'forum_id' => $forum['forum_id'],
+    ]);
 
-    foreach ($pages as $page) {
-        import_post($page, 'page');
-    }
+    if (!$topic_id) continue;
 
-    return ['success' => true, 'message' => 'Pages imported successfully!'];
-}
-
-function bp_demo_import_forums() {
-    $file = plugin_dir_path(__FILE__) . '/demo-data/forums.json';
-    if (!file_exists($file)) return ['success' => false, 'message' => 'Forums JSON not found.'];
-
-    $json = file_get_contents($file);
-    $forums = json_decode($json, true);
-
-    if (empty($forums)) return ['success' => false, 'message' => 'Invalid forums data.'];
-
-    foreach ($forums as $forum) {
-        $topic_id = bbp_insert_topic([
-            'post_title'   => $forum['title'],
-            'post_content' => $forum['content'],
-            'post_status'  => 'publish',
-            'post_author'  => $forum['author'],
-            'post_date'    => $forum['date'],
+    if (!empty($forum['replies'])) {
+      foreach ($forum['replies'] as $reply) {
+        bbp_insert_reply([
+          'post_content' => $reply['content'],
+          'post_status'  => 'publish',
+          'post_author'  => $reply['author'],
+          'post_date'    => $reply['date'],
+          'post_parent'  => $topic_id,
         ], [
-            'forum_id' => $forum['forum_id'],
+          'topic_id' => $topic_id,
+          'forum_id' => $forum['forum_id'],
         ]);
-
-        if (!$topic_id) continue;
-
-        if (!empty($forum['replies'])) {
-            foreach ($forum['replies'] as $reply) {
-                bbp_insert_reply([
-                    'post_content' => $reply['content'],
-                    'post_status'  => 'publish',
-                    'post_author'  => $reply['author'],
-                    'post_date'    => $reply['date'],
-                    'post_parent'  => $topic_id,
-                ], [
-                    'topic_id' => $topic_id,
-                    'forum_id' => $forum['forum_id'],
-                ]);
-            }
-        }
+      }
     }
+  }
 
-    return ['success' => true, 'message' => 'Forums imported.'];
+  return ['success' => true, 'message' => 'Forums imported.'];
 }
 
-function import_post(array $post, string $post_type){
+function restore_post_meta($post_id, $meta)
+{
+  if (!is_array($meta)) {
+    return false;
+  }
 
-    if (
-      empty($post["title"]) ||
-      empty($post["content"]) ||
-      empty($post["slug"]) ||
-      empty($post_type) ||
-      empty($post["status"])
-    ) {
-      return false;
+  foreach ($meta as $key => $value) {
+    if ($key === '_elementor_data' && is_array($value)) {
+      $value = wp_slash(json_encode($value)); // Elementor expects it as JSON string
+      update_post_meta($post_id, $key, $value);
+    } else {
+      update_post_meta($post_id, $key, $value);
+    }
+  }
+
+  return true;
+}
+
+
+function import_post(array $post, string $post_type)
+{
+
+  if (
+    empty($post["title"]) ||
+    empty($post["content"]) ||
+    empty($post["slug"]) ||
+    empty($post_type) ||
+    empty($post["status"])
+  ) {
+    return false;
+  }
+
+  //images inside post content
+  // if (!empty($post["images_url"]["urls"]) && count($post["images_url"]["urls"]) > 0) {
+  //   foreach ($post["images_url"]["urls"] as $url) {
+  //     //download image
+  //     $image_data = download_image_from_url($url);
+  //     if ($image_data == false) continue;
+  //
+  //     //upload to media directory
+  //     $attachment = upload_raw_image_data($image_data, $url);
+  //     if ($attachment == false) continue;
+  //
+  //     //replace post_content src to url
+  //     $replaced = str_replace($url, $attachment["file_url"], $post["content"]);
+  //     if ($replaced == null) {
+  //       error_log("preg_replace failed in import_post fn url: --> {$url}");
+  //     }
+  //
+  //     $post["content"] = $replaced;
+  //   }
+  // }
+
+  //images in feature image or thumbnails
+  if (isset($post["thumbnail"]) && !empty($post["thumbnail"]["url"])) {
+    //download image
+    $image_data = download_image_from_url($post["thumbnail"]["url"]);
+    if ($image_data != false) {
+      //upload to media directory
+      $attachment = upload_raw_image_data($image_data, $post["thumbnail"]["url"]);
+      if ($attachment != false) {
+        //update meta `_thumbnail_id` so this post thumbnail point this new image 
+        $post["meta"]["_thumbnail_id"] = ["{$attachment['attachment_id']}"];
+      };
+    }
+  }
+
+  $args = [
+    "post_title"    => $post["title"],
+    "post_content"  => '', //$post["content"],
+    "post_status"   => $post["status"],
+    "post_type"     => $post_type,
+    "post_name"     => $post["slug"],
+  ];
+
+  $result = wp_insert_post($args);
+
+  if (is_wp_error($result)) {
+    error_log("post insert fail id:-->{$post['id']}");
+  }
+
+
+  //update post meta
+  // foreach ($post["meta"] as $key => $value_arr) {
+  //   foreach ($value_arr as $va) {
+  //     if (is_serialized($va)) {
+  //       update_post_meta($result, $key, unserialize($va));
+  //     } else {
+  //       update_post_meta($result, $key, $va);
+  //     }
+  //   }
+  // }
+  restore_post_meta($result, $post["meta"]);
+
+  //if front page  or blog page update option
+  foreach (["page_on_front", "page_for_posts"] as $key) {
+    if (isset($post[$key]) && !empty($post[$key])) {
+      update_option("page_on_front", $result);
+    }
+  }
+
+  //if elementor page then regenarate cache css file
+  if (isset($post["meta"]["_elementor_data"]) && !empty($post["meta"]["_elementor_data"])) {
+    include_once WP_PLUGIN_DIR . '/elementor/elementor.php';
+    $css_file = Elementor\Core\Files\CSS\Post::create($result);
+    $css_file->update();
+  }
+
+  return $result;
+}
+
+function bp_demo_import_widgets_from_wie()
+{
+  $file = plugin_dir_path(__FILE__) . '/demo-data/widgets.wie';
+
+  if (!file_exists($file)) {
+    echo '<div class="notice notice-error"><p>widgets.wie file not found.</p></div>';
+    return;
+  }
+
+  $json = file_get_contents($file);
+  $data = json_decode($json, true);
+
+  if (!is_array($data)) {
+    echo '<div class="notice notice-error"><p>Invalid .wie file format.</p></div>';
+    return;
+  }
+
+  $sidebars_widgets = get_option('sidebars_widgets');
+  if (!is_array($sidebars_widgets)) $sidebars_widgets = [];
+
+  foreach ($data as $sidebar_id => $widgets) {
+    if (!isset($sidebars_widgets[$sidebar_id])) {
+      $sidebars_widgets[$sidebar_id] = [];
     }
 
-    //images inside post content
-    if (!empty($post["images_url"]["urls"]) && count($post["images_url"]["urls"]) > 0) {
-      foreach ($post["images_url"]["urls"] as $url) {
-        //download image
-        $image_data = download_image_from_url($url);
-        if ($image_data == false) continue;
-
-        //upload to media directory
-        $attachment = upload_raw_image_data($image_data, $url);
-        if ($attachment == false) continue;
-
-        //replace post_content src to url
-        $replaced = str_replace($url, $attachment["file_url"], $post["content"]);
-        if ($replaced == null) {
-          error_log("preg_replace failed in import_post fn url: --> {$url}");
-        }
-
-        $post["content"] = $replaced;
+    foreach ($widgets as $widget_id => $settings) {
+      // Extract base widget type and index
+      if (preg_match('/^(.+)-(\d+)$/', $widget_id, $matches)) {
+        $base_id = $matches[1];
+      } else {
+        // fallback for block widgets
+        $base_id = $widget_id;
       }
-    }
 
-    //images in feature image or thumbnails
-    if (isset($post["thumbnail"]) && !empty($post["thumbnail"]["url"])) {
-      //download image
-      $image_data = download_image_from_url($post["thumbnail"]["url"]);
-      if ($image_data != false) {
-        //upload to media directory
-        $attachment = upload_raw_image_data($image_data, $post["thumbnail"]["url"]);
-        if ($attachment != false) {
-          //update meta `_thumbnail_id` so this post thumbnail point this new image 
-          $post["meta"]["_thumbnail_id"] = ["{$attachment['attachment_id']}"];
-        };
-      }
-    }
+      // Prepare and update the widget option
+      $widget_option = "widget_{$base_id}";
+      $instances = get_option($widget_option, []);
+      if (!is_array($instances)) $instances = [];
 
-    $args = [
-      "post_title"    => $post["title"],
-      "post_content"  => $post["content"],
-      "post_status"   => $post["status"],
-      "post_type"     => $post_type,
+      // Append new instance
+      $instances[] = $settings;
+      end($instances); // move internal pointer to last element
+      $new_key = key($instances);
+
+      update_option($widget_option, $instances);
+
+      // Add to sidebar_widgets
+      $sidebars_widgets[$sidebar_id][] = "{$base_id}-{$new_key}";
+    }
+  }
+
+  // Important: Ensure required keys exist
+  if (!isset($sidebars_widgets['wp_inactive_widgets'])) {
+    $sidebars_widgets['wp_inactive_widgets'] = [];
+  }
+
+  if (!isset($sidebars_widgets['array_version'])) {
+    $sidebars_widgets['array_version'] = 3;
+  }
+
+  update_option('sidebars_widgets', $sidebars_widgets);
+
+  // echo '<div class="notice notice-success"><p>Widgets imported from .wie successfully!</p></div>';
+}
+
+function bp_demo_import_block_widgets()
+{
+  $file = plugin_dir_path(__FILE__) . '/demo-data/widget_block.txt';
+
+
+  if (!file_exists($file)) return;
+
+  $data = file_get_contents($file);
+  $block_widgets = @unserialize($data);
+
+  if (!is_array($block_widgets)) {
+    echo '<div class="notice notice-error"><p>Invalid block widget format.</p></div>';
+    return;
+  }
+
+  update_option('widget_block', $block_widgets);
+
+  // echo '<div class="notice notice-success"><p>Block widgets (Gutenberg) imported successfully.</p></div>';
+}
+
+function bp_demo_import_blog_posts()
+{
+  $file = plugin_dir_path(__FILE__) . '/demo-data/blog_posts.json';
+  if (!file_exists($file)) {
+    echo '<div class="notice notice-error"><p>Blog posts JSON file not found.</p></div>';
+    return;
+  }
+
+  // Load dependencies required for media_handle_sideload
+  require_once ABSPATH . 'wp-admin/includes/file.php';
+  require_once ABSPATH . 'wp-admin/includes/media.php';
+  require_once ABSPATH . 'wp-admin/includes/image.php';
+
+  $posts = json_decode(file_get_contents($file), true);
+  if (!is_array($posts)) {
+    echo '<div class="notice notice-error"><p>Invalid blog post JSON format.</p></div>';
+    return;
+  }
+
+  foreach ($posts as $post_data) {
+    $postarr = [
+      'post_title'    => $post_data['post_title'],
+      'post_content'  => $post_data['post_content'],
+      'post_status'   => $post_data['post_status'],
+      'post_author'   => $post_data['post_author'],
+      'post_date'     => $post_data['post_date'],
+      'post_category' => $post_data['post_category'] ?? []
     ];
 
-    $result = wp_insert_post($args);
+    $post_id = wp_insert_post($postarr);
 
-    if (is_wp_error($result)) {
-      error_log("post insert fail id:-->{$post['id']}");
-    }
+    if (!is_wp_error($post_id) && !empty($post_data['featured_image'])) {
+      $image_url = esc_url_raw($post_data['featured_image']);
+      $tmp = download_url($image_url);
 
-    //update post meta
-    foreach ($post["meta"] as $key => $value_arr) {
-      foreach ($value_arr as $va) {
-        if (is_serialized($va)) {
-          update_post_meta($result, $key, unserialize($va));
-        } else {
-          update_post_meta($result, $key, $va);
-        }
-      }
-    }
+      if (!is_wp_error($tmp)) {
+        $filename = basename(parse_url($image_url, PHP_URL_PATH));
 
-    //if front page  or blog page update option
-    foreach (["page_on_front", "page_for_posts"] as $key) {
-        if (isset($post[$key]) && !empty($post[$key])) {
-          update_option("page_on_front", $result);
-        }
-    }
+        // Get MIME type
+        $filetype = wp_check_filetype($filename);
 
-    //if elementor page then regenarate cache css file
-    if (isset($post["meta"]["_elementor_data"]) && !empty($post["meta"]["_elementor_data"])) {
-        include_once WP_PLUGIN_DIR . '/elementor/elementor.php';
-        $css_file = Elementor\Core\Files\CSS\Post::create($result);
-        $css_file->update();
-    }
-
-    return $result;
-}
-
-function bp_demo_import_widgets_from_wie() {
-    $file = plugin_dir_path(__FILE__) . '/demo-data/widgets.wie';
-
-    if (!file_exists($file)) {
-        echo '<div class="notice notice-error"><p>widgets.wie file not found.</p></div>';
-        return;
-    }
-
-    $json = file_get_contents($file);
-    $data = json_decode($json, true);
-
-    if (!is_array($data)) {
-        echo '<div class="notice notice-error"><p>Invalid .wie file format.</p></div>';
-        return;
-    }
-
-    $sidebars_widgets = get_option('sidebars_widgets');
-    if (!is_array($sidebars_widgets)) $sidebars_widgets = [];
-
-    foreach ($data as $sidebar_id => $widgets) {
-        if (!isset($sidebars_widgets[$sidebar_id])) {
-            $sidebars_widgets[$sidebar_id] = [];
-        }
-
-        foreach ($widgets as $widget_id => $settings) {
-            // Extract base widget type and index
-            if (preg_match('/^(.+)-(\d+)$/', $widget_id, $matches)) {
-                $base_id = $matches[1];
-            } else {
-                // fallback for block widgets
-                $base_id = $widget_id;
-            }
-
-            // Prepare and update the widget option
-            $widget_option = "widget_{$base_id}";
-            $instances = get_option($widget_option, []);
-            if (!is_array($instances)) $instances = [];
-
-            // Append new instance
-            $instances[] = $settings;
-            end($instances); // move internal pointer to last element
-            $new_key = key($instances);
-
-            update_option($widget_option, $instances);
-
-            // Add to sidebar_widgets
-            $sidebars_widgets[$sidebar_id][] = "{$base_id}-{$new_key}";
-        }
-    }
-
-    // Important: Ensure required keys exist
-    if (!isset($sidebars_widgets['wp_inactive_widgets'])) {
-        $sidebars_widgets['wp_inactive_widgets'] = [];
-    }
-
-    if (!isset($sidebars_widgets['array_version'])) {
-        $sidebars_widgets['array_version'] = 3;
-    }
-
-    update_option('sidebars_widgets', $sidebars_widgets);
-
-    // echo '<div class="notice notice-success"><p>Widgets imported from .wie successfully!</p></div>';
-}
-
-function bp_demo_import_block_widgets() {
-    $file = plugin_dir_path(__FILE__) . '/demo-data/widget_block.txt';
-
-
-    if (!file_exists($file)) return;
-
-    $data = file_get_contents($file);
-    $block_widgets = @unserialize($data);
-
-    if (!is_array($block_widgets)) {
-        echo '<div class="notice notice-error"><p>Invalid block widget format.</p></div>';
-        return;
-    }
-
-    update_option('widget_block', $block_widgets);
-
-    // echo '<div class="notice notice-success"><p>Block widgets (Gutenberg) imported successfully.</p></div>';
-}
-
-function bp_demo_import_blog_posts() {
-    $file = plugin_dir_path(__FILE__) . '/demo-data/blog_posts.json';
-    if (!file_exists($file)) {
-        echo '<div class="notice notice-error"><p>Blog posts JSON file not found.</p></div>';
-        return;
-    }
-
-    // Load dependencies required for media_handle_sideload
-    require_once ABSPATH . 'wp-admin/includes/file.php';
-    require_once ABSPATH . 'wp-admin/includes/media.php';
-    require_once ABSPATH . 'wp-admin/includes/image.php';
-
-    $posts = json_decode(file_get_contents($file), true);
-    if (!is_array($posts)) {
-        echo '<div class="notice notice-error"><p>Invalid blog post JSON format.</p></div>';
-        return;
-    }
-
-    foreach ($posts as $post_data) {
-        $postarr = [
-            'post_title'    => $post_data['post_title'],
-            'post_content'  => $post_data['post_content'],
-            'post_status'   => $post_data['post_status'],
-            'post_author'   => $post_data['post_author'],
-            'post_date'     => $post_data['post_date'],
-            'post_category' => $post_data['post_category'] ?? []
+        $file_array = [
+          'name'     => $filename,
+          'tmp_name' => $tmp,
+          'type'     => $filetype['type'] ?? 'image/jpeg' // fallback just in case
         ];
 
-        $post_id = wp_insert_post($postarr);
+        $attachment_id = media_handle_sideload($file_array, $post_id);
 
-        if (!is_wp_error($post_id) && !empty($post_data['featured_image'])) {
-            $image_url = esc_url_raw($post_data['featured_image']);
-            $tmp = download_url($image_url);
-
-            if (!is_wp_error($tmp)) {
-                $filename = basename(parse_url($image_url, PHP_URL_PATH));
-
-                // Get MIME type
-                $filetype = wp_check_filetype($filename);
-
-                $file_array = [
-                    'name'     => $filename,
-                    'tmp_name' => $tmp,
-                    'type'     => $filetype['type'] ?? 'image/jpeg' // fallback just in case
-                ];
-
-                $attachment_id = media_handle_sideload($file_array, $post_id);
-
-                if (!is_wp_error($attachment_id)) {
-                    set_post_thumbnail($post_id, $attachment_id);
-                } else {
-                    @unlink($tmp); // Clean up temp file
-                    error_log('Image sideload error: ' . $attachment_id->get_error_message());
-                }
-            } else {
-                error_log('Download error: ' . $tmp->get_error_message());
-            }
-        }
-    }
-    $default_post = get_page_by_title('Hello world!', OBJECT, 'post');
-    if ($default_post) {
-        wp_delete_post($default_post->ID, true);
-    }
-
-    // echo '<div class="notice notice-success"><p>Demo blog posts (with featured images) imported successfully!</p></div>';
-}
-function bp_demo_enable_groups_component_properly() {
-    // Load BuddyPress global
-    $bp = buddypress();
-
-    // Load upgrade and schema functions
-    require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-    require_once $bp->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php';
-
-    // Clone existing components and add 'groups'
-    $submitted = get_option('bp-active-components', []);
-    if (!isset($submitted['groups'])) {
-        $submitted['groups'] = 1;
-
-        // Activate in BP
-        $bp->active_components = bp_core_admin_get_active_components_from_submitted_settings($submitted);
-
-        // Install schema and page mappings
-        bp_core_install($bp->active_components);
-        bp_core_add_page_mappings($bp->active_components);
-        bp_update_option('bp-active-components', $bp->active_components);
-
-        // Refresh permalinks
-        if (array_intersect_key($bp->active_components, bp_core_get_directory_page_ids('active'))) {
-            bp_delete_rewrite_rules();
-        }
-    }
-}
-
-function bp_demo_import_groups() {
-
-    if (!function_exists('groups_create_group')) {
-        echo '<div class="notice notice-error"><p>Groups component not initialized properly. Please reload and try again.</p></div>';
-        return;
-    }
-
-    $file = plugin_dir_path(__FILE__) . '/demo-data/buddypress_groups.json';
-    if (!file_exists($file)) {
-        echo '<div class="notice notice-error"><p>Groups JSON file not found.</p></div>';
-        return;
-    }
-
-    require_once ABSPATH . 'wp-admin/includes/file.php';
-
-    $groups = json_decode(file_get_contents($file), true);
-    if (!$groups) {
-        echo '<div class="notice notice-error"><p>Invalid groups JSON format.</p></div>';
-        return;
-    }
-
-    foreach ($groups as $group) {
-        $group_id = groups_create_group([
-            'creator_id'    => $group['creator_id'],
-            'name'          => $group['name'],
-            'description'   => $group['description'],
-            'status'        => $group['status'],
-            'enable_forum'  => false
-        ]);
-
-        if (!$group_id) continue;
-
-        // Set created date
-        global $wpdb;
-        $wpdb->update(
-            $wpdb->prefix . 'bp_groups',
-            ['date_created' => $group['created_at']],
-            ['id' => $group_id]
-        );
-
-        // Avatar setup
-        $avatar_path = download_url($group['group_image']);
-        if (!is_wp_error($avatar_path)) {
-            $avatar_dir = bp_core_avatar_upload_path() . "/group-avatars/{$group_id}";
-            wp_mkdir_p($avatar_dir);
-            $avatar_filename = $avatar_dir . '/' . time() . '-bpfull.jpg';
-            rename($avatar_path, $avatar_filename);
-        }
-
-        // Thumb setup
-        $thumb_path = download_url($group['group_image']);
-        if (!is_wp_error($thumb_path)) {
-            $avatar_dir = bp_core_avatar_upload_path() . "/group-avatars/{$group_id}";
-            wp_mkdir_p($avatar_dir);
-            $avatar_filename = $avatar_dir . '/' . time() . '-bpthumb.jpg';
-            rename($thumb_path, $avatar_filename);
-        }
-
-        // Cover image setup
-        $cover_path = download_url($group['cover_image']);
-        if (!is_wp_error($cover_path)) {
-            $cover_dir = bp_core_avatar_upload_path() . "/buddypress/groups/{$group_id}/cover-image";
-            wp_mkdir_p($cover_dir);
-            $cover_filename = $cover_dir . '/' . uniqid() . '-bp-cover-image.jpg';
-            rename($cover_path, $cover_filename);
-        }
-
-        // Add members (excluding creator)
-        foreach ($group['members'] as $member_id) {
-            if ($member_id != $group['creator_id']) {
-                groups_join_group($group_id, $member_id);
-            }
-        }
-    }
-
-    // echo '<div class="notice notice-success"><p>BuddyPress groups imported successfully!</p></div>';
-}
-
-
-function bp_demo_import_customizer() {
-    $file = plugin_dir_path(__FILE__) . '/demo-data/customizer_one.dat';
-    if (!file_exists($file)) return;
-    
-    $customizer_data = file_get_contents($file);
-    $mods = unserialize($customizer_data);
-
-    if (!empty($mods)) {
-        foreach ($mods as $mod => $val) {
-            set_theme_mod($mod, $val);
-        }
-    }
-
-    // Upload and set logo
-    $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/07/one-logo.svg';
-
-    require_once ABSPATH . 'wp-admin/includes/file.php';
-    require_once ABSPATH . 'wp-admin/includes/media.php';
-    require_once ABSPATH . 'wp-admin/includes/image.php';
-
-    $logo_id = media_sideload_image($logo_url, 0, null, 'id');
-    if (!is_wp_error($logo_id)) {
-        set_theme_mod('custom_logo', $logo_id);
-    }
-}
-
-
-
-
-
-function bp_demo_setup_activity_home() {
-    // Make sure BuddyPress is active and activity component is enabled
-    if (function_exists('bp_is_active') && bp_is_active('activity')) {
-        $bp_pages = get_option('bp-pages');
-
-        if (!empty($bp_pages['activity'])) {
-            $activity_page_id = (int) $bp_pages['activity'];
-
-            update_option('show_on_front', 'page');
-            update_option('page_on_front', $activity_page_id);
+        if (!is_wp_error($attachment_id)) {
+          set_post_thumbnail($post_id, $attachment_id);
         } else {
-            echo '<div class="notice notice-error"><p>Activity page is not assigned in BuddyPress settings (bp-pages).</p></div>';
+          @unlink($tmp); // Clean up temp file
+          error_log('Image sideload error: ' . $attachment_id->get_error_message());
         }
+      } else {
+        error_log('Download error: ' . $tmp->get_error_message());
+      }
+    }
+  }
+  $default_post = get_page_by_title('Hello world!', OBJECT, 'post');
+  if ($default_post) {
+    wp_delete_post($default_post->ID, true);
+  }
 
-        $bp_apperances = 'a:26:{s:12:"avatar_style";i:1;s:15:"user_front_page";i:1;s:14:"user_front_bio";i:0;s:16:"user_nav_display";i:0;s:13:"user_nav_tabs";i:0;s:16:"user_subnav_tabs";i:0;s:14:"user_nav_order";a:0:{}s:14:"members_layout";i:3;s:20:"members_group_layout";i:2;s:22:"members_friends_layout";i:2;s:19:"activity_dir_layout";i:0;s:17:"activity_dir_tabs";i:0;s:18:"members_dir_layout";i:0;s:16:"members_dir_tabs";i:0;s:17:"groups_dir_layout";i:0;s:16:"group_front_page";i:1;s:17:"group_front_boxes";i:1;s:23:"group_front_description";i:0;s:17:"group_nav_display";i:0;s:14:"group_nav_tabs";i:0;s:17:"group_subnav_tabs";i:0;s:18:"groups_create_tabs";i:1;s:15:"group_nav_order";a:0:{}s:13:"groups_layout";i:4;s:15:"groups_dir_tabs";i:0;s:16:"global_alignment";s:9:"alignnone";}';
+  // echo '<div class="notice notice-success"><p>Demo blog posts (with featured images) imported successfully!</p></div>';
+}
+function bp_demo_enable_groups_component_properly()
+{
+  // Load BuddyPress global
+  $bp = buddypress();
 
-        $bp_app_arr = unserialize($bp_apperances);
+  // Load upgrade and schema functions
+  require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+  require_once $bp->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php';
 
-        // Save to wp_options table
-        update_option('bp_nouveau_appearance', $bp_app_arr);
+  // Clone existing components and add 'groups'
+  $submitted = get_option('bp-active-components', []);
+  if (!isset($submitted['groups'])) {
+    $submitted['groups'] = 1;
 
+    // Activate in BP
+    $bp->active_components = bp_core_admin_get_active_components_from_submitted_settings($submitted);
+
+    // Install schema and page mappings
+    bp_core_install($bp->active_components);
+    bp_core_add_page_mappings($bp->active_components);
+    bp_update_option('bp-active-components', $bp->active_components);
+
+    // Refresh permalinks
+    if (array_intersect_key($bp->active_components, bp_core_get_directory_page_ids('active'))) {
+      bp_delete_rewrite_rules();
+    }
+  }
+}
+
+function bp_demo_import_groups()
+{
+
+  if (!function_exists('groups_create_group')) {
+    echo '<div class="notice notice-error"><p>Groups component not initialized properly. Please reload and try again.</p></div>';
+    return;
+  }
+
+  $file = plugin_dir_path(__FILE__) . '/demo-data/buddypress_groups.json';
+  if (!file_exists($file)) {
+    echo '<div class="notice notice-error"><p>Groups JSON file not found.</p></div>';
+    return;
+  }
+
+  require_once ABSPATH . 'wp-admin/includes/file.php';
+
+  $groups = json_decode(file_get_contents($file), true);
+  if (!$groups) {
+    echo '<div class="notice notice-error"><p>Invalid groups JSON format.</p></div>';
+    return;
+  }
+
+  foreach ($groups as $group) {
+    $group_id = groups_create_group([
+      'creator_id'    => $group['creator_id'],
+      'name'          => $group['name'],
+      'description'   => $group['description'],
+      'status'        => $group['status'],
+      'enable_forum'  => false
+    ]);
+
+    if (!$group_id) continue;
+
+    // Set created date
+    global $wpdb;
+    $wpdb->update(
+      $wpdb->prefix . 'bp_groups',
+      ['date_created' => $group['created_at']],
+      ['id' => $group_id]
+    );
+
+    // Avatar setup
+    $avatar_path = download_url($group['group_image']);
+    if (!is_wp_error($avatar_path)) {
+      $avatar_dir = bp_core_avatar_upload_path() . "/group-avatars/{$group_id}";
+      wp_mkdir_p($avatar_dir);
+      $avatar_filename = $avatar_dir . '/' . time() . '-bpfull.jpg';
+      rename($avatar_path, $avatar_filename);
+    }
+
+    // Thumb setup
+    $thumb_path = download_url($group['group_image']);
+    if (!is_wp_error($thumb_path)) {
+      $avatar_dir = bp_core_avatar_upload_path() . "/group-avatars/{$group_id}";
+      wp_mkdir_p($avatar_dir);
+      $avatar_filename = $avatar_dir . '/' . time() . '-bpthumb.jpg';
+      rename($thumb_path, $avatar_filename);
+    }
+
+    // Cover image setup
+    $cover_path = download_url($group['cover_image']);
+    if (!is_wp_error($cover_path)) {
+      $cover_dir = bp_core_avatar_upload_path() . "/buddypress/groups/{$group_id}/cover-image";
+      wp_mkdir_p($cover_dir);
+      $cover_filename = $cover_dir . '/' . uniqid() . '-bp-cover-image.jpg';
+      rename($cover_path, $cover_filename);
+    }
+
+    // Add members (excluding creator)
+    foreach ($group['members'] as $member_id) {
+      if ($member_id != $group['creator_id']) {
+        groups_join_group($group_id, $member_id);
+      }
+    }
+  }
+
+  // echo '<div class="notice notice-success"><p>BuddyPress groups imported successfully!</p></div>';
+}
+
+
+function bp_demo_import_customizer()
+{
+  $file = plugin_dir_path(__FILE__) . '/demo-data/customizer_one.dat';
+  if (!file_exists($file)) return;
+
+  $customizer_data = file_get_contents($file);
+  $mods = unserialize($customizer_data);
+
+  if (!empty($mods)) {
+    foreach ($mods as $mod => $val) {
+      set_theme_mod($mod, $val);
+    }
+  }
+
+  // Upload and set logo
+  $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/07/one-logo.svg';
+
+  require_once ABSPATH . 'wp-admin/includes/file.php';
+  require_once ABSPATH . 'wp-admin/includes/media.php';
+  require_once ABSPATH . 'wp-admin/includes/image.php';
+
+  $logo_id = media_sideload_image($logo_url, 0, null, 'id');
+  if (!is_wp_error($logo_id)) {
+    set_theme_mod('custom_logo', $logo_id);
+  }
+}
+
+
+
+
+
+function bp_demo_setup_activity_home()
+{
+  // Make sure BuddyPress is active and activity component is enabled
+  if (function_exists('bp_is_active') && bp_is_active('activity')) {
+    $bp_pages = get_option('bp-pages');
+
+    if (!empty($bp_pages['activity'])) {
+      $activity_page_id = (int) $bp_pages['activity'];
+
+      update_option('show_on_front', 'page');
+      update_option('page_on_front', $activity_page_id);
     } else {
-        // echo '<div class="notice notice-error"><p>BuddyPress or the Activity component is not active.</p></div>';
+      echo '<div class="notice notice-error"><p>Activity page is not assigned in BuddyPress settings (bp-pages).</p></div>';
     }
 
-    if (get_option('permalink_structure') !== '/%postname%/') {
-        update_option('permalink_structure', '/%postname%/');
-        flush_rewrite_rules(); // Regenerate permalinks
-    }
+    $bp_apperances = 'a:26:{s:12:"avatar_style";i:1;s:15:"user_front_page";i:1;s:14:"user_front_bio";i:0;s:16:"user_nav_display";i:0;s:13:"user_nav_tabs";i:0;s:16:"user_subnav_tabs";i:0;s:14:"user_nav_order";a:0:{}s:14:"members_layout";i:3;s:20:"members_group_layout";i:2;s:22:"members_friends_layout";i:2;s:19:"activity_dir_layout";i:0;s:17:"activity_dir_tabs";i:0;s:18:"members_dir_layout";i:0;s:16:"members_dir_tabs";i:0;s:17:"groups_dir_layout";i:0;s:16:"group_front_page";i:1;s:17:"group_front_boxes";i:1;s:23:"group_front_description";i:0;s:17:"group_nav_display";i:0;s:14:"group_nav_tabs";i:0;s:17:"group_subnav_tabs";i:0;s:18:"groups_create_tabs";i:1;s:15:"group_nav_order";a:0:{}s:13:"groups_layout";i:4;s:15:"groups_dir_tabs";i:0;s:16:"global_alignment";s:9:"alignnone";}';
+
+    $bp_app_arr = unserialize($bp_apperances);
+
+    // Save to wp_options table
+    update_option('bp_nouveau_appearance', $bp_app_arr);
+  } else {
+    // echo '<div class="notice notice-error"><p>BuddyPress or the Activity component is not active.</p></div>';
+  }
+
+  if (get_option('permalink_structure') !== '/%postname%/') {
+    update_option('permalink_structure', '/%postname%/');
+    flush_rewrite_rules(); // Regenerate permalinks
+  }
 }

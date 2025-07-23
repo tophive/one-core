@@ -117,7 +117,7 @@ class TH_Exporter
 
     if (isset($post_meta) && !empty($post_meta) && isset($post_meta["_elementor_data"]) && !empty($post_meta["_elementor_data"])) {
       //Remove escape characters
-      $cleanstr = stripslashes($post_meta["_elementor_data"][0]);
+      $cleanstr = stripslashes($post_meta["_elementor_data"]);
       //Regex to match only image URLs
       preg_match_all(
         '#https?:\\\\?/\\\\?/[^"\\\\]+\.(?:jpg|jpeg|png|webp|gif)#i',
@@ -145,19 +145,49 @@ class TH_Exporter
     file_put_contents(plugin_dir_path(__FILE__) . "/assets/data/{$this->menus_json_file_name}", $json);
   }
 
-  private function get_all_post_by_post_type($post_type = "page")
+  private function get_clean_post_meta($post_id)
+  {
+    $raw_meta = get_post_meta($post_id);
+    $clean_meta = [];
+
+    foreach ($raw_meta as $key => $values) {
+      $value = get_post_meta($post_id, $key, true);
+
+      if (is_serialized($value)) {
+        $value = unserialize($value);
+      }
+
+      // Special handling for _elementor_data
+      if ($key === '_elementor_data') {
+        // If it's a JSON string, decode it (Elementor uses JSON)
+        $decoded = json_decode($value, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+          $value = $decoded;
+        } else {
+          // Optional: Log error or keep as-is
+          error_log("Invalid JSON in _elementor_data for post ID {$post_id}");
+        }
+      }
+
+      $clean_meta[$key] = $value;
+    }
+
+    return $clean_meta;
+  }
+
+  private function get_all_post_by_post_type($post_type = "page", $includes = [])
   {
     $front_page_id = get_option("page_on_front");
     $blog_page_id = get_option("page_for_posts");
 
-    $posts = get_posts(["post_type" => $post_type, 'numberposts' => -1]);
+    $posts = get_posts(["post_type" => $post_type, 'numberposts' => -1, 'include' => $includes,  'orderby' => 'post__in',]);
     $all_posts = [];
 
     foreach ($posts as $post) {
       $relative_url = str_replace(home_url(), '', get_permalink($post->ID));
 
       // Get post meta
-      $post_meta = get_post_meta($post->ID);
+      $post_meta = $this->get_clean_post_meta($post->ID);
 
       // Get attachments
       $attachments = get_posts([
@@ -192,7 +222,7 @@ class TH_Exporter
         'meta' => $post_meta,
         'attachments' => $attachments_data,
         'thumbnail' => $thumbnail,
-        'images_url' => $this->get_image_urls_from_post_content($post, $post_meta)
+        // 'images_url' => $this->get_image_urls_from_post_content($post, $post_meta)
       ];
 
       if ($front_page_id == $post->ID) {
@@ -210,7 +240,7 @@ class TH_Exporter
 
   public function save_pages_to_json_file()
   {
-    $json = json_encode($this->get_all_post_by_post_type("page"));
+    $json = json_encode($this->get_all_post_by_post_type("page", [9583]));
     if ($json == false) return error_log("pages json encoding fail");
     file_put_contents(WP_MF_CORE_PATH . "/assets/data/{$this->pages_json_file_name}", $json);
   }
