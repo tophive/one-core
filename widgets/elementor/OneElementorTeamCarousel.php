@@ -22,6 +22,12 @@
 		public function get_name(){
 			return 'th-team-carousel-block';
 		}
+		public function get_script_depends() {
+			return [ 'swiper' ];
+		}
+		public function get_style_depends() {
+			return [ 'swiper' ];
+		}  
 		public function get_icon(){
 			return 'eicon-person';
 		}
@@ -808,7 +814,6 @@
 			$this->end_controls_tabs();
 
 		$this->end_controls_section();
-		$this->end_controls_section();
 			$this->start_controls_section(
 				'th_team_carousel_section_style',
 				[
@@ -1359,7 +1364,11 @@
 				    <div class="swiper-wrapper ec-dynamic-slides">
 				        <!-- Slides -->
 				        <?php  
-				        	$members = $team['th_team_carousel_items'];
+				        	
+							$members = !empty($team['th_team_carousel_items']) && is_array($team['th_team_carousel_items'])
+								? $team['th_team_carousel_items']
+								: [];
+
 				        	if( !empty($members) ){
 				        		foreach ($members as $member) {
 				        			$html = '';

@@ -3,7 +3,7 @@
         "menu": {
             "id": 23,
             "name": "Main Menu",
-            "slug": "main-menu"
+            "slug": "menu-1"
         },
         "items": [
             {
@@ -11,28 +11,32 @@
                 "title": "Activity",
                 "url": "\/activity",
                 "parent": "0",
-                "order": 1
+                "order": 1,
+                "icon": "https://one.tophivetheme.com/wp-content/uploads/2025/06/Activity-2.svg"
             },
             {
                 "id": 1391,
                 "title": "Members",
                 "url": "\/members\/",
                 "parent": "0",
-                "order": 2
+                "order": 2,
+                "icon": "https://one.tophivetheme.com/wp-content/uploads/2025/06/Profile-Circle.svg"
             },
             {
                 "id": 1390,
                 "title": "Groups",
                 "url": "\/groups\/",
                 "parent": "0",
-                "order": 3
+                "order": 3,
+                "icon": "https://one.tophivetheme.com/wp-content/uploads/2025/06/Group-2.svg"
             },
             {
                 "id": 4845,
                 "title": "Forums",
                 "url": "\/forum-activity\/",
                 "parent": "0",
-                "order": 4
+                "order": 4,
+                "icon": "https://one.tophivetheme.com/wp-content/uploads/2025/06/Document-Add-3-1.svg"
             },
             {
                 "id": 4657,
@@ -67,7 +71,8 @@
                 "title": "Integrations",
                 "url": "#",
                 "parent": "0",
-                "order": 9
+                "order": 9,
+                "icon": "https://one.tophivetheme.com/wp-content/uploads/2025/06/Speaker-2-2.svg"
             },
             {
                 "id": 6392,
@@ -165,7 +170,7 @@
                 "title": "Course",
                 "url": "\/courses\/",
                 "parent": "2082",
-                "order": 23
+                "order": 23 
             },
             {
                 "id": 2064,
@@ -403,7 +408,8 @@
                 "title": "Pages",
                 "url": "#",
                 "parent": "0",
-                "order": 57
+                "order": 57,
+                "icon": "https://one.tophivetheme.com/wp-content/uploads/2025/06/Document-Align-Left-14.svg"
             },
             {
                 "id": 3525,
@@ -488,7 +494,7 @@
         "menu": {
             "id": 248,
             "name": "Secondary Menu",
-            "slug": "secondary-menu"
+            "slug": "menu-2"
         },
         "items": [
             {
@@ -525,7 +531,7 @@
         "menu": {
             "id": 58,
             "name": "Sidebar Nav",
-            "slug": "sidebar-nav"
+            "slug": "vertical-menu"
         },
         "items": [
             {
@@ -590,7 +596,7 @@
         "menu": {
             "id": 246,
             "name": "Tertiery Menu",
-            "slug": "tertiery-menu"
+            "slug": "menu-3"
         },
         "items": [
             {

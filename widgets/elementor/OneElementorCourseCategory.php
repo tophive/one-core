@@ -443,6 +443,11 @@ class OneElementorCourseCategory extends \Elementor\Widget_Base {
     	$term_course_category = get_terms( 'course_category', array(
 		    'hide_empty' => false,
 		));
+
+		if(is_wp_error($term_course_category)){
+			return;
+		}
+
     	$html = '<div class="ec-row">';
     	if( !empty($term_course_category) ){
     		$i = 0;

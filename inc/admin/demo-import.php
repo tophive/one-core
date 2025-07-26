@@ -12,10 +12,9 @@ add_action('admin_enqueue_scripts', function () {
     'steps' => [
       'install_plugins',
       'import_users',
-      'import_pages',
       'enable_groups_component',
-      'import_activities',
       'import_groups',
+      'import_activities',
       'import_widgets',
       'import_customizer',
       'import_menus',
@@ -36,7 +35,7 @@ function bp_demo_import_page()
 {
 
   $home_url   = esc_url(home_url('/'));
-  $admin_url  = esc_url(admin_url('themes.php?page=bp-demo-import'));
+  $admin_url  = esc_url(admin_url('admin.php?page=one&tab=importer'));
   $importer = new One_Imports_Controllers();
 
 
@@ -62,13 +61,25 @@ function bp_demo_import_page()
 
 
   $url = get_theme_file_uri() . "/screenshot.png";
+
+  echo '<h2>Core Demo</h2>';
+    if( 'yes' !== get_option('one_theme_core_demo_imported') ){
+      echo '<div class="demo-import-warning">
+            <p>
+                <strong>Important:</strong> You must import core demo first for the core structure.Here we install essential plugins like: elementor, buddypress and bbpress. Then you will be able to import page templates. Otherwise, page templates will not import.
+                <br>
+                For details, check it out: <a href="https://tophivethemes.gitbook.io/one/3.-demo-import" target="_blank">One Demo Import Guide</a>.
+            </p>
+        </div>';
+    }
+
   echo "<div class='wrap' style='display:flex;'>
             <div class='demo-import-card'>
                 <div class='demo-import-card__image'>
                   <img src='{$url}' alt='image' />
                 </div>
                 <div class='demo-import-card__action'>
-                    <h1>One Demo</h1>
+                    <h1>One Core Demo</h1>
                     <button id='start-demo-import' class='button button-primary'>Import</button>
                 </div>
             </div>
@@ -76,6 +87,9 @@ function bp_demo_import_page()
 
   echo '<br />';
   echo '<h2>Page templates</h2>';
+
+  do_action('tophive-core/activation-required');
+
 
   $templates = $importer->get_templates();
 
@@ -140,12 +154,14 @@ function bp_demo_import_page()
             <input type="text" id="new-page-title" placeholder="New Page Title" />
 
             <div style="margin-top: 20px;">
-            <button id="confirm-import-button" class="button button-primary">Import Now</button>
+            <button id="confirm-import-button" class="button button-primary"><span class="loader" style="display: none;"></span><span class="text">Import Now</span></button>
             <button id="cancel-import-button" class="button">Cancel</button>
             </div>
         </div>
     </div>';
 }
+
+
 
 // 3. AJAX Endpoints
 add_action('wp_ajax_bp_demo_import_step', function () {
@@ -246,8 +262,12 @@ function bp_import_elementor_template_page($controller, $template_id, $existing_
     $page_id = wp_insert_post([
       'post_title' => $new_title,
       'post_type' => 'page',
-      'post_status' => 'publish'
+      'post_status' => 'publish',
+      'comment_status' => 'closed',
+      'ping_status'    => 'closed'
     ]);
+
+    add_post_meta($page_id, '_tophive_disable_page_title', true, true);
   } else {
     return new WP_Error('missing_target', 'No page selected or created.');
   }
@@ -258,6 +278,69 @@ function bp_import_elementor_template_page($controller, $template_id, $existing_
 
   return import_post($elementor_data, 'page', $page_id);
 }
+// Added By Lead Dev
+// Main media sideloader
+function one_sideload_media_from_url( $image_url ) {
+
+	// it allows us to use download_url() and wp_handle_sideload() functions
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+	// download to temp dir
+	$temp_file = download_url( $image_url );
+
+	if( is_wp_error( $temp_file ) ) {
+		return false;
+	}
+
+	// move the temp file into the uploads directory
+	$file = array(
+		'name'     => basename( $image_url ),
+		'type'     => mime_content_type( $temp_file ),
+		'tmp_name' => $temp_file,
+		'size'     => filesize( $temp_file ),
+	);
+	$sideload = wp_handle_sideload(
+		$file,
+		array(
+			'test_form'   => false // no needs to check 'action' parameter
+		)
+	);
+
+	if( ! empty( $sideload[ 'error' ] ) ) {
+		// you may return error message if you want
+		return false;
+	}
+
+	// it is time to add our uploaded image into WordPress media library
+	$attachment_id = wp_insert_attachment(
+		array(
+			'guid'           => $sideload[ 'url' ],
+			'post_mime_type' => $sideload[ 'type' ],
+			'post_title'     => basename( $sideload[ 'file' ] ),
+			'post_content'   => '',
+			'post_status'    => 'inherit',
+		),
+		$sideload[ 'file' ]
+	);
+
+	if( is_wp_error( $attachment_id ) || ! $attachment_id ) {
+		return false;
+	}
+
+	// update medatata, regenerate image sizes
+	require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+	wp_update_attachment_metadata(
+		$attachment_id,
+		wp_generate_attachment_metadata( $attachment_id, $sideload[ 'file' ] )
+	);
+
+    return [
+        'attachment_id' => $attachment_id,
+        'file_url' => wp_get_attachment_url( $attachment_id )
+    ];
+}
+
 
 function download_image_from_url(string $url)
 
@@ -375,7 +458,7 @@ function bp_demo_import_activities()
 
   foreach ($activities as $activity) {
     $activity_id = bp_activity_add([
-      'user_id'       => get_current_user_id(), // ← Use current user
+      'user_id'       => $activity['author'], // ← Use current user
       'content'       => $activity['content'],
       'component'     => 'activity',
       'type'          => 'activity_update',
@@ -510,7 +593,7 @@ function bp_demo_install_plugins()
     return false;
   }
 
-  $slugs = ['buddypress', 'elementor'];
+  $slugs = ['buddypress', 'bbpress', 'elementor', 'happy-elementor-addons'];
   $to_activate = [];
 
   foreach ($slugs as $slug) {
@@ -535,7 +618,7 @@ function bp_demo_install_plugins()
 
 function bp_demo_import_menus()
 {
-  $menus_path = plugin_dir_path(__FILE__) . '/demo-data/buddypress_demo_menus.json';
+  $menus_path = plugin_dir_path(__FILE__) . '/demo-data/menus.json';
 
   if (!file_exists($menus_path)) {
     wp_send_json_error(['message' => 'Menus JSON file not found.']);
@@ -696,8 +779,7 @@ function bp_demo_import_forums()
   return ['success' => true, 'message' => 'Forums imported.'];
 }
 
-function restore_post_meta($post_id, $meta)
-{
+function restore_post_meta($post_id, $meta){
 
   if (!is_array($meta)) {
     return false;
@@ -705,8 +787,8 @@ function restore_post_meta($post_id, $meta)
 
   foreach ($meta as $key => $value) {
     if ($key === '_elementor_data' && is_array($value)) {
-      $value = wp_slash(json_encode($value)); // Elementor expects it as JSON string
-      update_post_meta($post_id, $key, $value);
+        $value = wp_slash(json_encode($value));
+        update_post_meta($post_id, $key, $value);
     } else {
       update_post_meta($post_id, $key, $value);
     }
@@ -716,68 +798,196 @@ function restore_post_meta($post_id, $meta)
 }
 
 
-function import_post(array $post, string $post_type, int $post_id)
-{
-
-  //images inside post content
-  // if (!empty($post["images_url"]["urls"]) && count($post["images_url"]["urls"]) > 0) {
-  //   foreach ($post["images_url"]["urls"] as $url) {
-  //     //download image
-  //     $image_data = download_image_from_url($url);
-  //     if ($image_data == false) continue;
-  //
-  //     //upload to media directory
-  //     $attachment = upload_raw_image_data($image_data, $url);
-  //     if ($attachment == false) continue;
-  //
-  //     //replace post_content src to url
-  //     $replaced = str_replace($url, $attachment["file_url"], $post["content"]);
-  //     if ($replaced == null) {
-  //       error_log("preg_replace failed in import_post fn url: --> {$url}");
-  //     }
-  //
-  //     $post["content"] = $replaced;
-  //   }
-  // }
-
-  //images in feature image or thumbnails
-  if (isset($post["thumbnail"]) && !empty($post["thumbnail"]["url"])) {
-    //download image
-    $image_data = download_image_from_url($post["thumbnail"]["url"]);
-    if ($image_data != false) {
-      //upload to media directory
-      $attachment = upload_raw_image_data($image_data, $post["thumbnail"]["url"]);
-      if ($attachment != false) {
-        //update meta `_thumbnail_id` so this post thumbnail point this new image 
-        $post["meta"]["_thumbnail_id"] = ["{$attachment['attachment_id']}"];
-      };
+  
+function recursively_replace_urls($data, $url_map) {
+    foreach ($data as $key => $value) {
+        if (is_array($value)) {
+            // Check for image object with 'url'
+            if (isset($value['url']) && is_string($value['url'])) {
+                foreach ($url_map as $old_url => $new_data) {
+                    if (strpos($value['url'], $old_url) !== false) {
+                        $data[$key]['url'] = $new_data['url'];
+                        $data[$key]['id'] = $new_data['attachment_id'];
+                        $data[$key]['source'] = 'library';
+                        break; // Skip deeper recursion for matched image
+                    }
+                }
+            } else {
+                // Continue recursion
+                $data[$key] = recursively_replace_urls($value, $url_map);
+            }
+        } elseif (is_string($value)) {
+            foreach ($url_map as $old_url => $new_data) {
+                if (strpos($value, $old_url) !== false) {
+                    $data[$key] = str_replace($old_url, $new_data['url'], $value);
+                }
+            }
+        }
     }
-  }
+    return $data;
+}
 
-  $result = $post_id;
 
-  if (is_wp_error($result)) {
-    error_log("post insert fail id:-->{$post['id']}");
-  }
+  
+function import_post(array $post, string $post_type, int $post_id){
 
-  restore_post_meta($result, $post["meta"]);
+    //images inside post content
+    if (!empty($post["attachments"]) && is_array($post["attachments"])) {
+        // 1. Replace in content
+        $content = $post["content"];
+    
+        // Create a lookup of old_url => new_url
+        $url_map = [];
+    
+        foreach ($post["attachments"] as $attachment) {
+        if (empty($attachment["url"])) continue;
+    
+        $old_url = $attachment["url"];
+        
+        // Upload to media library
+        $new_attachment = one_sideload_media_from_url($old_url);
+        if ($new_attachment === false) continue;
+    
+        $new_url = $new_attachment["file_url"];
+        $url_map[$old_url] = [
+            'url' => $new_url,
+            'attachment_id' => $new_attachment['attachment_id'],
+        ];
+        
+    
+        // Replace in content
+        $content = str_replace($old_url, $new_url, $content);
+        }
 
-  //if front page  or blog page update option
-  foreach (["page_on_front", "page_for_posts"] as $key) {
-    if (isset($post[$key]) && !empty($post[$key])) {
-      update_option("page_on_front", $result);
+    
+        $post["content"] = $content;
+    
+        // 2. Replace in _elementor_data
+        if (!empty($post["meta"]["_elementor_data"])) {
+        $raw = $post["meta"]["_elementor_data"];
+        $decoded = is_string($raw) ? json_decode($raw, true) : $raw;
+    
+        if (is_array($decoded)) {
+            $updated = recursively_replace_urls($decoded, $url_map);
+
+            // var_dump($updated);
+            $post["meta"]["_elementor_data"] = $updated;
+        }
+        }
     }
-  }
+    
 
-  //if elementor page then regenarate cache css file
-  if (isset($post["meta"]["_elementor_data"]) && !empty($post["meta"]["_elementor_data"])) {
-    include_once WP_PLUGIN_DIR . '/elementor/elementor.php';
+    //images in feature image or thumbnails
+    if (isset($post["thumbnail"]) && !empty($post["thumbnail"]["url"])) {
+        //upload to media directory
+        $attachment = one_sideload_media_from_url($post["thumbnail"]["url"]);
+        if ($attachment != false) {
+            //update meta `_thumbnail_id` so this post thumbnail point this new image 
+            $post["meta"]["_thumbnail_id"] = ["{$attachment['attachment_id']}"];
+        };
+    }
+
+    $result = $post_id;
+
+    if (is_wp_error($result)) {
+        error_log("post insert fail id:-->{$post['id']}");
+    }
+
+    restore_post_meta($result, $post["meta"]);
+
+    //if front page  or blog page update option
+    foreach (["page_on_front", "page_for_posts"] as $key) {
+        if (isset($post[$key]) && !empty($post[$key])) {
+        update_option("page_on_front", $result);
+        }
+    }
+
+
+if (!empty($post["meta"]["_elementor_data"])) {
+    $elementor_data = is_string($post["meta"]["_elementor_data"])
+        ? json_decode($post["meta"]["_elementor_data"], true)
+        : $post["meta"]["_elementor_data"];
+
+    $custom_css = '';
+
+    // Recursive walker
+    $add_background_css = function ($elements) use (&$add_background_css, &$custom_css) {
+        foreach ($elements as $el) {
+            if (!empty($el['id']) && !empty($el['settings']['background_image']['url'])) {
+                $selector = '.elementor-element.elementor-element-' . $el['id'];
+                $url = esc_url_raw($el['settings']['background_image']['url']);
+                $custom_css .= "{$selector} { background-image: url('{$url}'); }\n";
+            }
+
+            if (!empty($el['elements']) && is_array($el['elements'])) {
+                $add_background_css($el['elements']);
+            }
+        }
+    };
+
+    $add_background_css($elementor_data);
+
+    // Generate Elementor’s base CSS
     $css_file = Elementor\Core\Files\CSS\Post::create($result);
     $css_file->update();
-  }
 
-  return $result;
+    // Inject our own custom CSS into the generated file
+    if (!empty($custom_css)) {
+        $upload_dir = wp_upload_dir();
+        $css_file_path = trailingslashit($upload_dir['basedir']) . "elementor/css/post-{$result}.css";
+
+        if (file_exists($css_file_path) && is_writable($css_file_path)) {
+            $existing_css = file_get_contents($css_file_path);
+            $combined_css = $existing_css . "\n/* Custom background image injection */\n" . $custom_css;
+            file_put_contents($css_file_path, $combined_css);
+        }
+    }
 }
+
+
+    fix_elementor_svg_icons($result);
+
+    return $result;
+}
+
+function fix_elementor_svg_icons($post_id) {
+    $meta = get_post_meta($post_id, '_elementor_data', true);
+    $data = is_array($meta) ? $meta : json_decode($meta, true);
+  
+    if (!is_array($data)) return;
+  
+    $updated = false;
+  
+    $traverse = function (&$elements) use (&$traverse, &$updated) {
+      foreach ($elements as &$el) {
+        if (isset($el['settings']['selected_icon']) && $el['settings']['selected_icon']['library'] === 'svg') {
+          $icon_data = $el['settings']['selected_icon']['value'];
+  
+          if (!empty($icon_data['url'])) {
+            $attachment = one_sideload_media_from_url($icon_data['url']);
+            if ($attachment) {
+            $el['settings']['selected_icon']['value'] = [
+                'url' => $attachment['file_url'],
+                'id' => $attachment['attachment_id']
+            ];
+            $updated = true;
+            }
+          }
+        }
+  
+        if (!empty($el['elements'])) {
+          $traverse($el['elements']);
+        }
+      }
+    };
+  
+    $traverse($data);
+  
+    if ($updated) {
+      update_post_meta($post_id, '_elementor_data', wp_slash(json_encode($data)));
+    }
+  }
+  
 
 function bp_demo_import_widgets_from_wie()
 {
@@ -1065,7 +1275,82 @@ function bp_demo_import_customizer()
   if (!is_wp_error($logo_id)) {
     set_theme_mod('custom_logo', $logo_id);
   }
+
+  $elem_global_data_path = plugin_dir_path(__FILE__) . '/demo-data/elementor-global.json';
+
+  if (file_exists($elem_global_data_path)) {
+    $json = file_get_contents($elem_global_data_path);
+    $data = json_decode($json, true); // Decode to array
+  
+    if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+      import_elementor_global_settings($data);
+    } else {
+      error_log('Elementor global settings JSON is invalid.');
+    }
+  }
+
+  upgrade_elementor_to_fontawesome_5();
+
+  update_option('one_theme_core_demo_imported', 'yes');
+  update_option('elementor_experiment-e_font_icon_svg', 'default');
+  update_option('elementor_experiment-e_local_google_fonts', 'default');
+  update_option('elementor_unfiltered_files_upload', true);
 }
+
+function upgrade_elementor_to_fontawesome_5() {
+    // Remove the upgrade-needed flag
+    delete_option( 'elementor_icon_manager_needs_update' );
+  
+    // Optionally enable FA4 shim for compatibility
+    update_option( 'elementor_load_fa4_shim', 'yes' );
+  
+    // Optional: clear Elementor cache to regenerate CSS with updated icons
+    if ( class_exists( '\Elementor\Plugin' ) ) {
+      \Elementor\Plugin::$instance->files_manager->clear_cache();
+    }
+  }
+  
+
+function import_elementor_global_settings(array $data) {
+    if (!empty($data['elementor_global_settings'])) {
+      // Save global settings to current active kit
+      $kit_id = get_option('elementor_active_kit');
+      if ($kit_id) {
+        update_post_meta($kit_id, '_elementor_page_settings', $data['elementor_global_settings']);
+      }
+    }
+  
+    if (!empty($data['elementor_theme_settings'])) {
+      $kit_id = get_option('elementor_active_kit');
+      if ($kit_id) {
+        update_post_meta($kit_id, '_elementor_site_settings', $data['elementor_theme_settings']);
+      }
+    }
+  
+    if (!empty($data['global_css']['post_content'])) {
+      // Create new global CSS post
+      $css_post_id = wp_insert_post([
+        'post_type'    => 'elementor_global_css',
+        'post_status'  => 'publish',
+        'post_title'   => $data['global_css']['post_title'] ?? 'Global CSS',
+        'post_content' => $data['global_css']['post_content'],
+      ]);
+      if (!is_wp_error($css_post_id)) {
+        update_option('elementor_active_kit', $css_post_id);
+      }
+    }
+  
+    // Optional: regenerate global CSS
+    if (class_exists('\\Elementor\\Core\\Files\\CSS\\Global_CSS')) {
+      \Elementor\Core\Files\CSS\Global_CSS::get_instance()->update();
+    }
+}
+  
+
+add_filter( 'image_sideload_extensions', function ( $accepted_extensions ) {
+	$accepted_extensions[] = 'svg';
+	return $accepted_extensions;
+} );
 
 
 
@@ -1096,8 +1381,111 @@ function bp_demo_setup_activity_home()
     // echo '<div class="notice notice-error"><p>BuddyPress or the Activity component is not active.</p></div>';
   }
 
+  create_custom_css_post();
+
   if (get_option('permalink_structure') !== '/%postname%/') {
     update_option('permalink_structure', '/%postname%/');
     flush_rewrite_rules(); // Regenerate permalinks
   }
 }
+function create_custom_css_post() {
+    $css_content = <<<CSS
+  /* hover-card */
+  .hover-card{
+      transition: all 0.4s ease;
+  }
+  .hover-card:hover{
+      transform: translateY(-5px);
+  }
+  
+  /* perspective-card */
+  .ct-x {
+      transform: rotate(-3deg);
+  }
+  .ct-x:hover {
+      transform: perspective(500px) rotateY(calc(3deg * var(--_i, -1)));
+      outline-offset: 0.1em;
+      transition: 0.3s;
+  }
+  .ct-y {
+      transform: rotate(3deg);
+  }
+  .ct-xy {
+      transform: rotate(-3deg);
+  }
+  
+  /* card-carousel-slider */
+  .uai-scroll-horizontal-inner {
+    padding-block: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem !important;
+  }
+  
+  .uai-scroll-horizentall-con {
+    overflow: hidden !important;
+    -webkit-mask: linear-gradient(
+      90deg,
+      transparent,
+      white 20%,
+      white 80%,
+      transparent
+    );
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  }
+  
+  .uai-scroll-horizentall-con .uai-scroll-horizontal-inner {
+    width: max-content !important;
+    flex-wrap: nowrap !important;
+    animation: uai_hr_scroll var(--_animation-duration, 40s)
+      var(--_animation-direction, forwards) linear infinite;
+  }
+  
+  .scroll_to_right{
+      animation-direction: reverse !important;
+  }
+  @keyframes uai_hr_scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+  
+  .selector svg{
+      animation: rotate 20s linear infinite;
+  }
+  @-webkit-keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  CSS;
+  
+    $post_data = [
+      'post_title'    => 'Imported Custom CSS',
+      'post_content'  => $css_content,
+      'post_status'   => 'publish',
+      'post_type'     => 'custom_css',
+      'post_author'   => 1,
+    ];
+  
+    $post_id = wp_insert_post($post_data);
+  
+    if (!is_wp_error($post_id)) {
+      echo "Custom CSS post created with ID: {$post_id}";
+      set_theme_mod('custom_css_post_id', $post_id);
+    } else {
+      error_log('Failed to create custom_css post: ' . $post_id->get_error_message());
+    }
+  }
+  

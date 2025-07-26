@@ -716,7 +716,7 @@ class OneElementorBase
 				global $wpdb;
 				$table = $wpdb->base_prefix . 'bp_activity';
 
-				$action = '<a href="'. bp_core_get_user_domain( get_current_user_id() ) .'">'. get_the_author_meta( 'display_name', get_current_user_id() ) .'</a>' . esc_html__( ' started a new topic in forum ', 'one' ) . '<a href="'. get_the_permalink( $post_data['post_parent'] ) .'">'. get_the_title( $post_data['post_parent'] ) .'</a>';
+				$action = '<a href="'. bp_members_get_user_url( get_current_user_id() ) .'">'. get_the_author_meta( 'display_name', get_current_user_id() ) .'</a>' . esc_html__( ' started a new topic in forum ', 'one' ) . '<a href="'. get_the_permalink( $post_data['post_parent'] ) .'">'. get_the_title( $post_data['post_parent'] ) .'</a>';
 
 				$wpdb->insert(
 		 			$table,

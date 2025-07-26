@@ -236,4 +236,29 @@
   max-width: 90%;
   border-radius: 6px;
 }
+.demo-import-warning{
+  border: 1px solid red;
+  padding: 0px 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  color: #000;
+  font-family: monospace;
+  background: #ffbdbd;
+}
 
+#confirm-import-button .loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ccc;
+  border-top: 2px solid #007cba; /* blue accent */
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

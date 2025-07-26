@@ -22,7 +22,7 @@ class OneBPGroupMembers extends WP_Widget {
                 $html .= '<div class="avatar-block">';
                     foreach( $members_query as $val ){
                         $html .= '<div class="item-avatar">';
-                        $html .= '<a href="'. bp_core_get_user_domain( $val->user_id ) .'">';
+                        $html .= '<a href="'. bp_members_get_user_url( $val->user_id ) .'">';
                         $html .= get_avatar( $val->user_id, 50 );
                         $html .= '</a>';
                         $html .= '</div>';

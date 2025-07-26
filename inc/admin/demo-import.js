@@ -91,10 +91,27 @@ jQuery(document).ready(function($) {
     } else {
       $('.elementor-warning').hide();
     }
+    const $btn = $('#confirm-import-button');
+    const $text = $btn.find('.text');
+    const $loader = $btn.find('.loader');
+
+    $loader.hide();
+    $text.text('Import');
 
     $('#import-page-selector').val('');
     $('#new-page-title').val('');
     $('#template-import-modal').fadeIn();
+
+    $('#import-success-message').hide();
+      $('#imported-page-link').attr('href', '');
+
+    // Hide all form-related inputs and buttons (to avoid confusion)
+    $('#import-page-selector').show();
+    $('#new-page-title').show();
+    $('#confirm-import-button').show();
+    $('label[for="import-page-selector"]').show();
+    $('#import-page-selector').prev('p').show(); // hides "Select existing page:" <p>
+    $('#new-page-title').prev('p').show();       // hides "Or create a new page:" <p>
   });
 
   $('#cancel-import-button').on('click', function () {
@@ -102,9 +119,17 @@ jQuery(document).ready(function($) {
   });
 
   $('#confirm-import-button').on('click', function () {
+    const $btn = $(this);
+    const $text = $btn.find('.text');
+    const $loader = $btn.find('.loader');
+  
     const pageId = $('#import-page-selector').val();
     const newTitle = $('#new-page-title').val();
-
+  
+    // Show loader
+    $text.text('Importing...');
+    $loader.show();
+  
     $.post(BPDemoSteps.ajax_url, {
       action: 'bp_demo_import_step',
       step: 'import_elementor_template',
@@ -112,21 +137,22 @@ jQuery(document).ready(function($) {
       page_id: pageId,
       new_title: newTitle
     }, function(response) {
+      // Hide loader
+      
       if (response.success) {
-        // Show success message
+        $loader.hide();
+        $text.text('Import');
         $('#import-success-message').show();
         $('#imported-page-link').attr('href', response.data.page_url);
   
-        // Hide all form-related inputs and buttons (to avoid confusion)
-        $('#import-page-selector').hide();
-        $('#new-page-title').hide();
-        $('#confirm-import-button').hide();
+        $('#import-page-selector, #new-page-title, #confirm-import-button').hide();
         $('label[for="import-page-selector"]').hide();
-        $('#import-page-selector').prev('p').hide(); // hides "Select existing page:" <p>
-        $('#new-page-title').prev('p').hide();       // hides "Or create a new page:" <p>
+        $('#import-page-selector').prev('p').hide();
+        $('#new-page-title').prev('p').hide();
       } else {
         alert('Import failed: ' + (response.data?.message || 'Unknown error'));
       }
     });
   });
+  
 });
