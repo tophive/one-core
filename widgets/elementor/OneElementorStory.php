@@ -3,6 +3,7 @@
 namespace ONECORE\widgets\elementor;
 
 use Elementor\Widget_Base;
+use Elementor\Controls_Manager;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -18,7 +19,7 @@ class OneElementorStory extends Widget_Base
 
   public function get_title()
   {
-    return __('One Story', 'plugin-name');
+    return __('One Story', 'one');
   }
 
   public function get_icon()
@@ -41,7 +42,37 @@ class OneElementorStory extends Widget_Base
     return ['one-story-script'];
   }
 
-  protected function register_controls() { }
+  protected function register_controls() {
+    $this->start_controls_section(
+        'style_section',
+        [
+            'label' => __('Style', 'one'),
+            'tab' => Controls_Manager::TAB_STYLE,
+        ]
+    );
+
+    $this->add_control(
+        'title_color',
+        [
+            'label' => __('Color', 'one'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .bps-username' => 'color: {{VALUE}} !important',
+            ],
+        ]
+    );
+
+    // Content Typography
+    $this->add_group_control(
+        \Elementor\Group_Control_Typography::get_type(),
+        [
+            'name' => 'content_typography',
+            'label' => __('Typography', 'one'),
+            'selector' => 'body.wp-theme-one.wp-theme-one.wp-theme-one {{WRAPPER}} .bps-username',
+            'label' => __('Font', 'one'),
+        ]
+    );
+  }
 
   protected function render()
   {
