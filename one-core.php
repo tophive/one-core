@@ -37,6 +37,7 @@ use ONECORE\widgets\elementor\OneElementorForumTabs;
 use ONECORE\widgets\elementor\OneElementorLoginSignup;
 use ONECORE\widgets\elementor\OneElementorBBPressNewPost;
 use ONECORE\widgets\elementor\OneElementorMemberCount;
+use ONECORE\widgets\elementor\OneElementorStory ;
 use ONECORE\widgets\onewidgets\WidgetHelper;
 
 class OneCore
@@ -177,6 +178,7 @@ class OneCore
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new OneElementorBBPressNewPost());
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new OneElementorLoginSignup());
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new OneElementorMemberCount());
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new OneElementorStory());
   }
   public static function OneElementorCat($elements_manager)
   {
