@@ -51,7 +51,7 @@ class One_Imports_Controllers
     return get_option($this->get_licence_key(), "");
   }
 
-  public function check_theme_update( $transient )
+  public function check_theme_update($transient)
   {
     if (!is_object($transient)) {
       $transient = new stdClass();
@@ -71,6 +71,7 @@ class One_Imports_Controllers
 
     $remote_response  = wp_remote_request($url, [
       "method" => "GET",
+      'timeout' => 60,
       "headers" => [
         'Authorization' => $license_value,
         'content-type' => 'application/json',
@@ -102,6 +103,7 @@ class One_Imports_Controllers
 
     $res = wp_remote_request($this->API_ENDPOINT_LICENSE_CHECK, [
       "method" => "POST",
+      'timeout' => 60,
       "headers" => ['content-type' => 'application/json'],
       "body" => json_encode(['license_key' => $this->get_licence(), 'domain' => get_site_url()])
     ]);
@@ -142,6 +144,7 @@ class One_Imports_Controllers
 
     $res = wp_remote_request($this->API_ENDPOINT_LICENSE_ACTIVATE, [
       "method" => "POST",
+      'timeout' => 60,
       "headers" => ['content-type' => 'application/json'],
       "body" => json_encode([
         'license_key' => $options["license"],
@@ -222,6 +225,7 @@ class One_Imports_Controllers
 
     $res = wp_remote_request($url, [
       "method" => "GET",
+      'timeout' => 60,
       "headers" => [
         'Authorization' => $license_value,
         'content-type' => 'application/json',
@@ -252,6 +256,7 @@ class One_Imports_Controllers
 
     $res = wp_remote_request($url, [
       "method" => "GET",
+      'timeout' => 60,
       "headers" => [
         'Authorization' => $license_value,
         'content-type' => 'application/json',
@@ -318,4 +323,3 @@ class One_Imports_Controllers
     }
   }
 }
-
