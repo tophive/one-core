@@ -11,9 +11,9 @@ add_action('admin_enqueue_scripts', function () {
     'ajax_url' => admin_url('admin-ajax.php'),
     'steps' => [
       'install_plugins',
-      'import_users',
+      // 'import_users',
       'enable_groups_component',
-      'import_groups',
+      // 'import_groups',
       'import_activities',
       'import_widgets',
       'import_customizer',
