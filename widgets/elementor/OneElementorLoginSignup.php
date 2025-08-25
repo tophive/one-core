@@ -334,6 +334,8 @@
 		$this->end_controls_section();
 
 		}
+
+
 		public function get_pages_list(){
 			$page_list = array();
 			$pages = get_pages(); 
@@ -342,6 +344,8 @@
 			}
 			return $page_list;
 		}
+
+
 		protected function render(){
 			$settings = $this->get_settings_for_display();
 			$login_text = $settings['th_login_signup_login_title'];
@@ -349,32 +353,60 @@
 			$redirect_url = $settings['th_login_signup_register_redirect'];
 			$recover_text = $settings['th_login_signup_login_recover_pass_title'];
 
+      $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+      $key    = isset($_GET['key']) ? sanitize_text_field($_GET['key']) : '';
+      $login  = isset($_GET['login']) ? sanitize_text_field($_GET['login']) : '';
+
 			?>
-				<div class="" id="tophive-signin-signup">
-			
-					<div class="tophive-popup-content-wrapper">
-						<div class="ec-d-block login-segment">
-							<?php if( !empty($login_text) ){ ?>
-						    	<h3 class="ec-text-center ec-mb-4"><?php echo $login_text; ?></h3>
-							<?php } ?>
-						    <?php do_action( 'tophive/login/form' ); ?>
-						</div>
-						<div class="ec-d-none signup-segment">
-						    <?php if( !empty($register_text) ){ ?>
-						    	<h3 class="ec-text-center ec-mb-4"><?php echo $register_text; ?></h3>
-							<?php } ?>
+      <div id="tophive-signin-signup">
+          <div class="tophive-popup-content-wrapper">
+              <?php if ( $action === 'rp' && !empty($key) && !empty($login) ) : ?>
+                  
+                  <div class="resetpass-segment ec-py-5">
+                      <h3 class="ec-text-center ec-mb-4">
+                          <?php esc_html_e('Set Your New Password', 'one'); ?>
+                      </h3>
 
-						    <?php do_action( 'tophive/registration/form' ); ?>
-						</div>
-						<div class="ec-d-none recover-segment ec-py-5">
-						    <?php if( !empty($recover_text) ){ ?>
-					    	<h3 class="ec-text-center ec-mb-4"><?php esc_html_e( $recover_text, ONE_CORE_SLUG ); ?></h3>
-					    	<?php } ?>
-						    <?php do_action( 'tophive/recover-pass/form' ); ?>
-						</div>
+                      <form id="tophive-reset-pass-form" method="post">
+                          <input type="hidden" name="login" value="<?php echo esc_attr($login); ?>">
+                          <input type="hidden" name="key" value="<?php echo esc_attr($key); ?>">
 
-					</div>
-				</div>
+                          <div class="ec-mb-3">
+                              <input type="password" name="new_password" class="ec-form-control" placeholder="<?php esc_attr_e('New Password', 'one'); ?>" required>
+                          </div>
+                          <div class="ec-mb-3">
+                              <input type="password" name="confirm_password" class="ec-form-control" placeholder="<?php esc_attr_e('Confirm Password', 'one'); ?>" required>
+                          </div>
+                          <button type="submit" class="ec-btn ec-btn-primary">
+                              <?php esc_html_e('Reset Password', 'one'); ?>
+                          </button>
+                      </form>
+                  </div>
+
+              <?php else : ?>
+
+                  <div class="ec-d-block login-segment">
+                      <?php if( !empty($login_text) ){ ?>
+                          <h3 class="ec-text-center ec-mb-4"><?php echo $login_text; ?></h3>
+                      <?php } ?>
+                      <?php do_action( 'tophive/login/form' ); ?>
+                  </div>
+                  <div class="ec-d-none signup-segment">
+                      <?php if( !empty($register_text) ){ ?>
+                          <h3 class="ec-text-center ec-mb-4"><?php echo $register_text; ?></h3>
+                      <?php } ?>
+                      <?php do_action( 'tophive/registration/form' ); ?>
+                  </div>
+                  <div class="ec-d-none recover-segment ec-py-5">
+                      <?php if( !empty($recover_text) ){ ?>
+                          <h3 class="ec-text-center ec-mb-4"><?php echo $recover_text; ?></h3>
+                      <?php } ?>
+                      <?php do_action( 'tophive/recover-pass/form' ); ?>
+                  </div>
+
+              <?php endif; ?>
+          </div>
+      </div>
 			<?php
 		}
 		
