@@ -4,7 +4,7 @@
  * Plugin Name: One Core | By Tophive
  * Plugin URI: https://tophivetheme.com/
  * Description: One Wordpress theme core functionality
- * Version: 1.2
+ * Version: 1.3
  * Author: Tophive
  * Author URI: https://themeforest.net/user/tophive
  * License: Envato

@@ -21,10 +21,14 @@ jQuery(document).ready(function ($) {
     document.head.appendChild(style);
   })();
 
-  function showMessage(message, isError = false) {
-    // Always show spinner during import process
-    const spinner = '<span class="one-inline-spinner"></span>';
-    logEl.html(spinner + $('<div>').text(message).html());
+  function showMessage(message, isError = false, showCheckmark = false) {
+    let icon = '';
+    if (showCheckmark) {
+      icon = '<span style="display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: #00a32a; color: white; text-align: center; line-height: 16px; font-size: 12px; margin-right: 8px; vertical-align: -2px;">✓</span>';
+    } else {
+      icon = '<span class="one-inline-spinner"></span>';
+    }
+    logEl.html(icon + $('<div>').text(message).html());
     logEl.css('color', isError ? 'red' : '');
   }
 
@@ -42,7 +46,7 @@ jQuery(document).ready(function ($) {
       return;
     }
     if (currentStep >= steps.length) {
-      showMessage('Import complete!');
+      showMessage('Import complete!', false, true);
       loader.hide();
       finalBtns.show();
       $('#bp-cancel-import').hide();

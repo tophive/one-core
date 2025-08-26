@@ -2,7 +2,7 @@
 
 class One_Imports_Controllers
 {
-  private $API_ROOT = "http://app.tophivetheme.com/api";
+  private $API_ROOT = "https://tophive.up.railway.app/api";
   private $API_ENDPOINT = "";
   private $API_ENDPOINT_LICENSE_ACTIVATE = "";
   private $API_ENDPOINT_LICENSE_CHECK = "";

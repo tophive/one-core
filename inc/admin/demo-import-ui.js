@@ -14,6 +14,7 @@
     { key: 'courses', label: 'Courses (Tutor LMS)', locked: false },
     { key: 'forums', label: 'Forums (bbPress)', locked: false },
     { key: 'pmp', label: 'Paid Memberships Pro', locked: false },
+    { key: 'media_pages', label: 'Media Pages', locked: false },
     { key: 'pages', label: 'Pages', locked: false },
   ];
 
@@ -45,11 +46,28 @@
         // Clear localStorage on fresh installs
         if (BPDemoSteps.is_fresh_install) {
           localStorage.removeItem('one_demo_done');
+          localStorage.removeItem('one_demo_selected');
+          return {};
+        }
+        
+        // Also check if we're on a fresh page load and clear if needed
+        const hasExistingContent = document.querySelector('.wp-list-table') || 
+                                  document.querySelector('.dashboard-widgets') || 
+                                  document.querySelector('.post-count') ||
+                                  document.querySelector('.user-count');
+        
+        if (!hasExistingContent && Object.keys(JSON.parse(localStorage.getItem('one_demo_done') || '{}')).length > 0) {
+          localStorage.removeItem('one_demo_done');
+          localStorage.removeItem('one_demo_selected');
           return {};
         }
         
         return JSON.parse(localStorage.getItem('one_demo_done') || '{}'); 
-      } catch(e){ return {}; }
+      } catch(e){ 
+        localStorage.removeItem('one_demo_done');
+        localStorage.removeItem('one_demo_selected');
+        return {}; 
+      }
     });
 
     function toggle(key){
@@ -116,6 +134,9 @@
             break;
           case 'pmp':
             steps.push({ action: 'import_pmp' });
+            break;
+          case 'media_pages':
+            steps.push({ action: 'create_media_pages' });
             break;
           case 'pages':
             steps.push({ action: 'import_all_templates' });
@@ -191,7 +212,16 @@
           ' to import demo content.'
         )
       ) : h('div', null,
-        h('h3', { className: 'text-lg font-semibold mb-4' }, 'Select what to import'),
+        h('div', { className: 'flex items-center justify-between mb-4' },
+          h('h3', { className: 'text-lg font-semibold' }, 'Select what to import'),
+          h('button', { 
+            onClick: () => {
+              localStorage.removeItem('one_demo_done');
+              window.location.reload();
+            },
+            className: 'px-3 py-1 text-sm text-red-600 bg-red-50 border border-red-200 rounded hover:bg-red-100 transition-colors'
+          }, 'Reset Import Status')
+        ),
         h('div', { className: 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-3' },
           OPTIONS.map(opt => h('div', {
             key: opt.key,

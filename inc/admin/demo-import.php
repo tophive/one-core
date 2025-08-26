@@ -12,9 +12,10 @@ add_action('admin_enqueue_scripts', function () {
   $license_val = get_option($theme_slug . '_tophive_license', '');
   $product_val = get_option($theme_slug . '_tophive_product_id', '');
   $license_active = !empty($license_val) && !empty($product_val);
-  // Check if this is a fresh install
+  // Check if this is a fresh install - more comprehensive check
   $posts_count = wp_count_posts('post')->publish + wp_count_posts('page')->publish;
-  $is_fresh_install = $posts_count <= 2; // Assuming fresh installs have 2 or fewer posts/pages
+  $users_count = count_users()['total_users'];
+  $is_fresh_install = ($posts_count <= 2 && $users_count <= 1) || get_option('one_theme_core_demo_imported') !== 'yes';
   
   wp_localize_script('bp-demo-import', 'BPDemoSteps', [
     'ajax_url' => admin_url('admin-ajax.php'),
@@ -328,6 +329,10 @@ add_action('wp_ajax_bp_demo_import_step', function () {
         bp_demo_import_forums();
         break;
 
+      case 'create_media_pages':
+        bp_demo_create_media_pages();
+        break;
+
       case 'import_elementor_template':
         $template_id = intval($_POST['template_id']);
         $existing_page_id = isset($_POST['page_id']) ? intval($_POST['page_id']) : 0;
@@ -358,6 +363,110 @@ add_action('wp_ajax_bp_demo_import_step', function () {
     wp_send_json_error(['message' => $e->getMessage()]);
   }
 });
+
+
+function bp_demo_import_menus()
+{
+  $menus_path = plugin_dir_path(__FILE__) . '/demo-data/menus.json';
+
+  if (!file_exists($menus_path)) {
+    wp_send_json_error(['message' => 'Menus JSON file not found.']);
+  }
+
+  $json = file_get_contents($menus_path);
+  $menus = json_decode($json, true);
+
+  if (empty($menus)) {
+    wp_send_json_error(['message' => 'No menu data to import.']);
+  }
+
+  $menu_locations = [];
+
+  foreach ($menus as $_menu) {
+    //create menu term if not exist
+    //update menu location so this menu get render on that location
+    //insert menu item in post table with menu order and parent menu preservation
+    $menu_name = $_menu["menu"]["name"];
+    $menu_exist = wp_get_nav_menu_object($menu_name);
+
+    if ($menu_exist == false) {
+      $menu_id = wp_create_nav_menu($menu_name);
+      if (is_wp_error($menu_id)) {
+        error_log("Nav menu creation fail: {$menu_name}");
+        continue;
+      }
+
+
+
+      $menu_obj = wp_get_nav_menu_object($menu_id);
+      if ($menu_obj == false) {
+        error_log("wp_get_nav_menu_object fail: {$menu_id}");
+        continue;
+      }
+
+      $menu_locations[$_menu['menu']['slug']] = $menu_id;
+
+      $oldid_map_newid = [];
+
+      foreach ($_menu["items"] as $m) {
+        if ($m["parent"] != "0") continue;
+        $full_url = $m['url'];
+        if (substr($full_url, 0, 1) === '/') {
+          $full_url = rtrim(get_site_url(), '/') . $full_url;
+        }
+        $id = wp_update_nav_menu_item($menu_id, 0, [
+          'menu-item-title' => $m['title'],
+          'menu-item-url' => $full_url,
+          'menu-item-status' => 'publish',
+          'menu-item-position' => $m['order']
+        ]);
+        if (is_wp_error($id)) {
+          error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
+          continue;
+        }
+        // Add icon if available
+        if (!empty($m['icon'])) {
+          update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
+        }
+        if (!empty($m['svg_icon'])) {
+          update_post_meta($id, '_menu_item_menu-icon-svg', $m['svg_icon']);
+        }
+      
+        $oldid_map_newid[$m["id"]] = $id;
+      }
+
+
+
+      foreach ($_menu["items"] as $m) {
+        if ($m["parent"] == "0") continue;
+        $full_url = $m['url'];
+        if (substr($full_url, 0, 1) === '/') {
+          $full_url = rtrim(get_site_url(), '/') . $full_url;
+        }
+        $id = wp_update_nav_menu_item($menu_id, 0, [
+          'menu-item-title' => $m['title'],
+          'menu-item-url' => $full_url,
+          'menu-item-status' => 'publish',
+          'menu-item-parent-id' => $oldid_map_newid[$m["parent"]],
+          'menu-item-position' => $m['order']
+        ]);
+        if (is_wp_error($id)) {
+          error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
+          continue;
+        }
+        // Add icon if available
+        if (!empty($m['icon'])) {
+          update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
+        }
+        $oldid_map_newid[$m["id"]] = $id;
+      }
+    }
+  }
+
+  set_theme_mod("nav_menu_locations", $menu_locations);
+
+  wp_send_json_success(['message' => 'Menus imported and locations set.']);
+}
 
 function bp_import_elementor_template_page($controller, $template_id, $existing_page_id = 0, $new_title = '')
 {
@@ -739,181 +848,11 @@ function bp_demo_install_plugins($slugs = [])
   }
 }
 
-function bp_demo_import_menus()
-{
-  $menus_path = plugin_dir_path(__FILE__) . '/demo-data/menus.json';
 
-  if (!file_exists($menus_path)) {
-    wp_send_json_error(['message' => 'Menus JSON file not found.']);
-  }
 
-  $json = file_get_contents($menus_path);
-  $decoded = json_decode($json, true);
 
-  if (empty($decoded)) {
-    wp_send_json_error(['message' => 'No menu data to import.']);
-  }
 
-  // Normalize schema: support old schema (array of menus with menu/items) and new schema (object with menus[])
-  $menus = isset($decoded['menus']) && is_array($decoded['menus']) ? $decoded['menus'] : $decoded;
 
-  $menu_locations = [];
-
-  foreach ($menus as $menu_entry) {
-    // Extract menu properties
-    $menu_name = '';
-    $menu_slug = '';
-    $items     = [];
-
-    if (isset($menu_entry['menu'])) {
-      // Old schema
-      $menu_name = $menu_entry['menu']['name'] ?? '';
-      $menu_slug = $menu_entry['menu']['slug'] ?? '';
-      $items     = $menu_entry['items'] ?? [];
-    } else {
-      // New schema
-      $menu_name = $menu_entry['name'] ?? ($menu_entry['slug'] ?? 'Imported Menu');
-      $menu_slug = $menu_entry['slug'] ?? '';
-      $items     = $menu_entry['items'] ?? [];
-    }
-
-    if (empty($menu_name)) { continue; }
-
-    $menu_obj = wp_get_nav_menu_object($menu_name);
-    if (!$menu_obj) {
-      $menu_id = wp_create_nav_menu($menu_name);
-      if (is_wp_error($menu_id) || !$menu_id) {
-        error_log("Nav menu creation fail: {$menu_name}");
-        continue;
-      }
-      $menu_obj = wp_get_nav_menu_object($menu_id);
-    }
-
-    if (!$menu_obj) { continue; }
-    $menu_id = (int)$menu_obj->term_id;
-
-    // Optionally map slug to a theme location if present
-    if (!empty($menu_slug)) {
-      $menu_locations[$menu_slug] = $menu_id;
-    }
-
-    // Build parent mapping in two passes
-    $old_to_new = [];
-
-    // Helper to create a menu item
-    $create_menu_item = function ($m, $parent_id = 0) use ($menu_id) {
-      $title = $m['title'] ?? ($m['post_title'] ?? '');
-      $url   = $m['url'] ?? '';
-      if (is_string($url) && substr($url, 0, 1) === '/') {
-        $url = rtrim(get_site_url(), '/') . $url;
-      }
-
-      $args = [
-        'menu-item-title'      => $title,
-        'menu-item-status'     => 'publish',
-      ];
-
-      // Prefer object/type if provided (new schema)
-      $type   = $m['type'] ?? '';
-      $object = $m['object'] ?? '';
-      $obj_id = isset($m['object_id']) ? intval($m['object_id']) : 0;
-
-      if ($type === 'post_type' && $object && $obj_id) {
-        $args['menu-item-type']      = 'post_type';
-        $args['menu-item-object']    = $object;
-        $args['menu-item-object-id'] = $obj_id;
-      } elseif ($type === 'taxonomy' && $object && $obj_id) {
-        $args['menu-item-type']      = 'taxonomy';
-        $args['menu-item-object']    = $object;
-        $args['menu-item-object-id'] = $obj_id;
-      } else {
-        $args['menu-item-type'] = 'custom';
-        $args['menu-item-url']  = $url;
-      }
-
-      if (!empty($m['attr_title'])) $args['menu-item-attr-title'] = $m['attr_title'];
-      if (!empty($m['target']))     $args['menu-item-target']     = $m['target'];
-      if (!empty($m['xfn']))        $args['menu-item-xfn']        = $m['xfn'];
-      if (!empty($m['description']))$args['menu-item-description']= $m['description'];
-      if (!empty($m['menu_order'])) $args['menu-item-position']   = intval($m['menu_order']);
-      if (!empty($parent_id))       $args['menu-item-parent-id']  = intval($parent_id);
-
-      $new_id = wp_update_nav_menu_item($menu_id, 0, $args);
-      if (is_wp_error($new_id) || !$new_id) {
-        error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$title}");
-        return 0;
-      }
-
-      // Classes (array)
-      if (!empty($m['classes']) && is_array($m['classes'])) {
-        update_post_meta($new_id, '_menu_item_classes', array_values(array_filter($m['classes'])));
-      }
-
-      // Icon helpers from old schema
-      if (!empty($m['icon'])) {
-        update_post_meta($new_id, '_menu_item_menu-icon-text', esc_url_raw($m['icon']));
-      }
-      if (!empty($m['icon_svg'])) {
-        update_post_meta($new_id, '_menu_item_icon_svg', wp_kses_post($m['icon_svg']));
-      }
-
-      // Meta (new schema exports full meta array)
-      if (!empty($m['meta']) && is_array($m['meta'])) {
-        foreach ($m['meta'] as $mk => $mv) {
-          delete_post_meta($new_id, $mk);
-          if (is_array($mv)) {
-            foreach ($mv as $vv) { add_post_meta($new_id, $mk, $vv, false); }
-          } else {
-            update_post_meta($new_id, $mk, $mv);
-          }
-        }
-      }
-
-      return $new_id;
-    };
-
-    // Determine parent key names across schemas
-    $get_parent_id = function ($m) {
-      if (isset($m['menu_item_parent'])) return intval($m['menu_item_parent']);
-      if (isset($m['parent'])) return is_numeric($m['parent']) ? intval($m['parent']) : 0;
-      return 0;
-    };
-    $get_original_id = function ($m) {
-      if (isset($m['ID'])) return intval($m['ID']);
-      if (isset($m['id'])) return intval($m['id']);
-      return 0;
-    };
-
-    // First pass: roots
-    foreach ($items as $m) {
-      $parent = $get_parent_id($m);
-      if ($parent !== 0) continue;
-      $new_id = $create_menu_item($m, 0);
-      $orig_id = $get_original_id($m);
-      if ($new_id && $orig_id) { $old_to_new[$orig_id] = $new_id; }
-    }
-
-    // Second pass: children
-    foreach ($items as $m) {
-      $parent = $get_parent_id($m);
-      if ($parent === 0) continue;
-      $parent_new = isset($old_to_new[$parent]) ? intval($old_to_new[$parent]) : 0;
-      $new_id = $create_menu_item($m, $parent_new);
-      $orig_id = $get_original_id($m);
-      if ($new_id && $orig_id) { $old_to_new[$orig_id] = $new_id; }
-    }
-  }
-
-  if (!empty($menu_locations)) {
-    // Merge with existing theme locations to avoid wiping out others
-    $existing = get_theme_mod('nav_menu_locations', []);
-    if (!is_array($existing)) $existing = [];
-    $merged = array_merge($existing, $menu_locations);
-    set_theme_mod('nav_menu_locations', $merged);
-  }
-
-  wp_send_json_success(['message' => 'Menus imported successfully.']);
-}
 
 function bp_demo_import_pages()
 {
@@ -1469,7 +1408,7 @@ function bp_demo_import_customizer()
   }
 
   // Upload and set logo
-  $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/07/one-logo.svg';
+  $logo_url = 'https://one.tophivetheme.com/wp-content/uploads/2025/08/fav-2-1.svg';
 
   require_once ABSPATH . 'wp-admin/includes/file.php';
   require_once ABSPATH . 'wp-admin/includes/media.php';
@@ -1694,5 +1633,79 @@ function create_custom_css_post()
   } else {
     error_log('Failed to create custom_css post: ' . $post_id->get_error_message());
   }
+}
+
+/**
+ * Create media pages (Photos, Videos, Documents) with specific templates
+ */
+function bp_demo_create_media_pages() {
+  $media_pages = [
+    [
+      'title' => 'Photos',
+      'slug' => 'photos',
+      'template' => 'page-images.php',
+      'content' => 'This is the Photos page where users can view and manage their photo galleries.'
+    ],
+    [
+      'title' => 'Videos',
+      'slug' => 'videos',
+      'template' => 'page-videos.php',
+      'content' => 'This is the Videos page where users can view and manage their video collections.'
+    ],
+    [
+      'title' => 'Documents',
+      'slug' => 'documents',
+      'template' => 'page-documents.php',
+      'content' => 'This is the Documents page where users can view and manage their document files.'
+    ]
+  ];
+
+  $created_pages = [];
+  
+  foreach ($media_pages as $page_data) {
+    // Check if page already exists
+    $existing_page = get_page_by_path($page_data['slug']);
+    
+    if ($existing_page) {
+      $created_pages[] = [
+        'title' => $page_data['title'],
+        'id' => $existing_page->ID,
+        'status' => 'already_exists'
+      ];
+      continue;
+    }
+
+    // Create the page
+    $page_id = wp_insert_post([
+      'post_title' => $page_data['title'],
+      'post_name' => $page_data['slug'],
+      'post_content' => $page_data['content'],
+      'post_status' => 'publish',
+      'post_type' => 'page',
+      'post_author' => 1,
+      'comment_status' => 'closed',
+      'ping_status' => 'closed'
+    ]);
+
+    if (!is_wp_error($page_id)) {
+      // Set the page template
+      update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+      
+      $created_pages[] = [
+        'title' => $page_data['title'],
+        'id' => $page_id,
+        'status' => 'created',
+        'url' => get_permalink($page_id)
+      ];
+    } else {
+      $created_pages[] = [
+        'title' => $page_data['title'],
+        'status' => 'failed',
+        'error' => $page_id->get_error_message()
+      ];
+    }
+  }
+
+  return $created_pages;
 }
 
