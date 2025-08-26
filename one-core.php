@@ -279,6 +279,7 @@ require_once('MailChimp.php');
 require_once('t/class-tophive-modules.php');
 require_once('updater/theme-updater.php');
 require_once('inc/admin/demo-import.php');
+require_once('inc/admin/one-extension-export.php');
 
 function autoload($class = '')
 {

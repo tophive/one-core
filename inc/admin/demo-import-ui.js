@@ -1,0 +1,227 @@
+/* global BPDemoSteps, wp */
+(function(){
+  const { createElement: h, render, useState, useEffect } = window.wp.element || {};
+  if (!h || !render) return;
+
+  const OPTIONS = [
+    { key: 'customizer', label: 'Customizer', locked: true },
+    { key: 'menus', label: 'Menus', locked: true },
+    { key: 'buddypress', label: 'BuddyPress', locked: true },
+    { key: 'events', label: 'Events', locked: false },
+    { key: 'woocommerce', label: 'WooCommerce', locked: false },
+    { key: 'directory', label: 'Directory', locked: false },
+    { key: 'job_manager', label: 'Job Manager', locked: false },
+    { key: 'courses', label: 'Courses (Tutor LMS)', locked: false },
+    { key: 'forums', label: 'Forums (bbPress)', locked: false },
+    { key: 'pmp', label: 'Paid Memberships Pro', locked: false },
+    { key: 'pages', label: 'Pages', locked: false },
+  ];
+
+  function Toggle({checked, disabled, onChange}){
+    const base = 'relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200';
+    const on  = 'bg-blue-600';
+    const off = 'bg-gray-300';
+    return h('button', {
+      type: 'button',
+      disabled: !!disabled,
+      onClick: ()=>{ if (!disabled) onChange(!checked); },
+      className: base + ' ' + (checked ? on : off) + (disabled ? ' opacity-60 cursor-not-allowed' : '')
+    },
+      h('span', {
+        className: 'inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ' + (checked ? 'translate-x-6' : 'translate-x-1')
+      })
+    );
+  }
+
+  function App(){
+    const [selected, setSelected] = useState(()=>{
+      const d = BPDemoSteps.defaults || {};
+      const state = {};
+      OPTIONS.forEach(o=>{ state[o.key] = !!d[o.key]; });
+      return state;
+    });
+    const [done, setDone] = useState(()=>{
+      try { 
+        // Clear localStorage on fresh installs
+        if (BPDemoSteps.is_fresh_install) {
+          localStorage.removeItem('one_demo_done');
+          return {};
+        }
+        
+        return JSON.parse(localStorage.getItem('one_demo_done') || '{}'); 
+      } catch(e){ return {}; }
+    });
+
+    function toggle(key){
+      const opt = OPTIONS.find(o=>o.key===key);
+      if (opt && opt.locked) return;
+      setSelected(s=>({ ...s, [key]: !s[key] }));
+    }
+
+    function handleStartImport(){
+      if (Object.keys(selected).filter(k => selected[k]).length === 0) return;
+      
+      // Build steps array
+      const steps = [];
+      
+      // Add plugin installation step if needed
+      const pluginsToInstall = [];
+      if (selected.buddypress && !done.buddypress) pluginsToInstall.push('buddypress');
+      if (selected.forums && !done.forums) pluginsToInstall.push('bbpress');
+      if (selected.events && !done.events) pluginsToInstall.push('the-events-manager');
+      if (selected.woocommerce && !done.woocommerce) pluginsToInstall.push('woocommerce');
+      if (selected.directory && !done.directory) pluginsToInstall.push('directorist');
+      if (selected.job_manager && !done.job_manager) pluginsToInstall.push('wp-job-manager');
+      if (selected.courses && !done.courses) pluginsToInstall.push('tutor');
+      if (selected.pmp && !done.pmp) pluginsToInstall.push('paid-memberships-pro');
+      
+      if (pluginsToInstall.length > 0) {
+        steps.push({
+          action: 'install_plugins',
+          payload: pluginsToInstall
+        });
+      }
+      
+      // Add import steps for selected items
+      Object.keys(selected).forEach(key => {
+        if (!selected[key] || done[key]) return; // Skip if not selected or already done
+        
+        switch(key) {
+          case 'customizer':
+            steps.push({ action: 'import_customizer' });
+            break;
+          case 'menus':
+            steps.push({ action: 'import_menus' });
+            break;
+          case 'buddypress':
+            steps.push({ action: 'import_buddypress' });
+            break;
+          case 'events':
+            steps.push({ action: 'import_events' });
+            break;
+          case 'woocommerce':
+            steps.push({ action: 'import_woocommerce' });
+            break;
+          case 'directory':
+            steps.push({ action: 'import_directory' });
+            break;
+          case 'job_manager':
+            steps.push({ action: 'import_job_manager' });
+            break;
+          case 'courses':
+            steps.push({ action: 'import_courses' });
+            break;
+          case 'forums':
+            steps.push({ action: 'import_forums' });
+            break;
+          case 'pmp':
+            steps.push({ action: 'import_pmp' });
+            break;
+          case 'pages':
+            steps.push({ action: 'import_all_templates' });
+            break;
+        }
+      });
+      
+      // Add demo data import step
+      if (Object.keys(selected).filter(k => selected[k]).length > 0) {
+        steps.push({
+          action: 'import_exported_demo',
+          payload: Object.keys(selected).filter(k => selected[k])
+        });
+      }
+      
+      window.ONE_DEMO_SELECTED_STEPS = steps;
+      window.oneDemoModal.startImport();
+    }
+
+    // Build steps for demo-import.js
+    useEffect(()=>{
+      const steps = [];
+      // plugins to install based on selections
+      const pluginSlugs = [];
+      if (selected.buddypress && !done.buddypress) pluginSlugs.push('buddypress');
+      if (selected.forums && !done.forums) pluginSlugs.push('bbpress');
+      if (selected.events && !done.events) pluginSlugs.push('the-events-manager');
+      if (selected.woocommerce && !done.woocommerce) pluginSlugs.push('woocommerce');
+      if (selected.directory && !done.directory) pluginSlugs.push('directorist');
+      if (selected.job_manager && !done.job_manager) pluginSlugs.push('wp-job-manager');
+      if (selected.courses && !done.courses) pluginSlugs.push('tutor');
+      if (selected.pmp && !done.pmp) pluginSlugs.push('paid-memberships-pro');
+
+      steps.push({ step: 'install_plugins', payload: { slugs: pluginSlugs } });
+
+      // Import exported demo JSON file if present (expects admin to place file path)
+      // Example sections map keys: tutor_lms, directorist, events, woocommerce, wp_job_manager
+      const demoPath = window.ONE_DEMO_JSON_PATH || 'inc/admin/demo-data/extension-demo.json';
+      const sections = {};
+      if (selected.courses && !done.courses) sections['tutor_lms'] = true;
+      if (selected.directory && !done.directory) sections['directorist'] = true;
+      if (selected.events && !done.events) sections['events'] = true;
+      if (selected.woocommerce && !done.woocommerce) sections['woocommerce'] = true;
+      if (selected.job_manager && !done.job_manager) sections['wp_job_manager'] = true;
+      if (demoPath && Object.keys(sections).length) {
+        steps.push({ step: 'import_exported_demo', payload: { path: demoPath, sections: Object.keys(sections) } });
+      }
+
+      if (selected.buddypress && !done.buddypress) {
+        steps.push({ step: 'enable_groups_component' });
+        steps.push({ step: 'import_activities' });
+      }
+      if (selected.pages && !done.pages) {
+        steps.push({ step: 'list_templates', payload: { label: 'Importing templates list…' } });
+        // placeholder; demo-import.js will expand this into per-template steps dynamically
+        steps.push({ step: '__import_templates_dynamic__' });
+      }
+      if (selected.customizer && !done.customizer) steps.push({ step: 'import_customizer', payload: { label: 'Importing Customizer…' } });
+      if (selected.menus && !done.menus) steps.push({ step: 'import_menus', payload: { label: 'Importing Menus…' } });
+      if (selected.forums && !done.forums) steps.push({ step: 'import_forums', payload: { label: 'Importing Forums…' } });
+      // widgets always helpful
+      steps.push({ step: 'import_widgets', payload: { label: 'Importing Widgets…' } });
+      steps.push({ step: 'setup_homepage', payload: { label: 'Setting up Homepage…' } });
+
+      window.ONE_DEMO_SELECTED_STEPS = steps;
+    }, [selected, done]);
+
+    return h('div', { className: 'p-4 border rounded bg-white mb-4' },
+      (!BPDemoSteps.license_active ? h('div', { className: 'mb-3 p-3 rounded bg-red-50 border border-red-200 text-red-800' },
+        h('div', { className: 'font-medium mb-1' }, 'License Required'),
+        h('div', null, 'Please ',
+          h('a', { href: BPDemoSteps.license_link, target: '_blank', className: 'underline' }, 'activate your license'),
+          ' to import demo content.'
+        )
+      ) : h('div', null,
+        h('h3', { className: 'text-lg font-semibold mb-4' }, 'Select what to import'),
+        h('div', { className: 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-3' },
+          OPTIONS.map(opt => h('div', {
+            key: opt.key,
+            className: 'flex items-center justify-between gap-3 rounded-lg border border-gray-200 px-4 py-3 hover:border-blue-400 transition-colors'
+          },
+            h('div', { className: 'flex items-center gap-2' },
+              h('div', { className: 'h-8 w-8 flex items-center justify-center rounded-md bg-gray-100 text-gray-600' }, opt.label.charAt(0)),
+              h('div', null,
+                h('div', { className: 'font-medium' }, opt.label),
+                done[opt.key]
+                  ? h('div', { className: 'text-xs text-green-600 flex items-center gap-1' },
+                      h('span', { className: 'inline-block h-2 w-2 bg-green-500 rounded-full' }),
+                      'Imported'
+                    )
+                  : (opt.locked
+                      ? h('div', { className: 'text-xs text-gray-500 flex items-center gap-1' },
+                          h('span', { className: 'inline-block h-2 w-2 bg-gray-400 rounded-full' }),
+                          'Required'
+                        )
+                      : h('div', { className: 'text-xs text-gray-500' }, 'Optional')
+                    )
+              )
+            ),
+            h(Toggle, { checked: !!selected[opt.key], disabled: !!opt.locked, onChange: ()=> toggle(opt.key) })
+          ))
+        )
+      ))
+    );
+  }
+
+  const root = document.getElementById('one-demo-react-root');
+  if (root) render(h(App), root);
+})();

@@ -7,20 +7,37 @@ require_once __DIR__ . '/One_Imports_Controllers.php';
 // 1. Enqueue JS + Modal Styles + Localize Steps
 add_action('admin_enqueue_scripts', function () {
   wp_enqueue_script('bp-demo-import', plugin_dir_url(__FILE__) . '/demo-import.js', ['jquery'], null, true);
+  wp_enqueue_script('bp-demo-import-ui', plugin_dir_url(__FILE__) . '/demo-import-ui.js', ['wp-element', 'jquery'], null, true);
+  $theme_slug = get_option('stylesheet');
+  $license_val = get_option($theme_slug . '_tophive_license', '');
+  $product_val = get_option($theme_slug . '_tophive_product_id', '');
+  $license_active = !empty($license_val) && !empty($product_val);
+  // Check if this is a fresh install
+  $posts_count = wp_count_posts('post')->publish + wp_count_posts('page')->publish;
+  $is_fresh_install = $posts_count <= 2; // Assuming fresh installs have 2 or fewer posts/pages
+  
   wp_localize_script('bp-demo-import', 'BPDemoSteps', [
     'ajax_url' => admin_url('admin-ajax.php'),
-    'steps' => [
-      'install_plugins',
-      // 'import_users',
-      'enable_groups_component',
-      // 'import_groups',
-      'import_activities',
-      'import_widgets',
-      'import_customizer',
-      'import_menus',
-      'import_blog_posts',
-      'import_forums',
-      'setup_homepage'
+    // steps will be built dynamically by UI selections
+    'default_steps' => [],
+    'license_active' => $license_active,
+    'license_link' => admin_url('admin.php?page=one&tab=activation'),
+    'is_fresh_install' => $is_fresh_install,
+    'plugin_map' => [
+      'buddypress' => 'buddypress',
+      'bbpress' => 'bbpress',
+      'elementor' => 'elementor',
+      'events' => 'the-events-manager',
+      'woocommerce' => 'woocommerce',
+      'directory' => 'directorist',
+      'job_manager' => 'wp-job-manager',
+      'tutor' => 'tutor',
+      'pmp' => 'paid-memberships-pro',
+    ],
+    'defaults' => [
+      'customizer' => true,
+      'menus' => true,
+      'buddypress' => true
     ],
     'elementor_installed' => is_plugin_active('elementor/elementor.php') || file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php')
   ]);
@@ -33,6 +50,10 @@ add_action('tophive/admin/demo-content-container', 'bp_demo_import_page');
 
 function bp_demo_import_page()
 {
+  $theme_slug = get_option('stylesheet');
+  $license_val = get_option($theme_slug . '_tophive_license', '');
+  $product_val = get_option($theme_slug . '_tophive_product_id', '');
+  $license_active = !empty($license_val) && !empty($product_val);
 
   $home_url   = esc_url(home_url('/'));
   $admin_url  = esc_url(admin_url('admin.php?page=one&tab=importer'));
@@ -41,20 +62,28 @@ function bp_demo_import_page()
 
   echo '<div id="bp-demo-modal" class="bp-demo-modal" style="display:none;">
         <div class="bp-demo-modal-content">
-            <div id="bp-demo-loader" class="loader" style="display: none;"></div>
+            <button id="bp-close-import" type="button" class="button" style="position:absolute;right:12px;top:12px;">✕</button>
 
-            <h2>Importing One Demo</h2>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <div id="one-demo-react-root"></div>';
 
+  if ($license_active) {
+    echo '
             <div id="bp-demo-log">Ready to import...</div>
             <div class="bp-demo-progress"><div class="bar"></div></div>
 
-            <button id="bp-start-import" class="button button-primary">Start Importing</button>
-
+            <div style="margin-top:10px; display:flex; gap:8px;">
+                <button id="bp-start-import" class="button button-primary">Start Importing</button>
+                <button id="bp-cancel-import" class="button">Cancel</button>
+            </div>
 
             <div id="bp-demo-final-buttons" style="display:none; margin-top: 20px;">
                 <a href="' . $home_url . '" class="button button-primary" target="_blank">Visit Website</a>
                 <a href="' . $admin_url . '" class="button button-secondary">Back to Demos</a>
-            </div>
+            </div>';
+  }
+
+  echo '
         </div>
     </div>';
 
@@ -62,7 +91,7 @@ function bp_demo_import_page()
 
   $url = get_theme_file_uri() . "/screenshot.png";
 
-  echo '<h2>Core Demo</h2>';
+  echo '<h2 style="font-size: 24px; font-weight: 600; margin: 30px 0 20px 0; color: #1d2327;">Core Demo</h2>';
   if ('yes' !== get_option('one_theme_core_demo_imported')) {
     echo '<div class="demo-import-warning">
             <p>
@@ -86,7 +115,7 @@ function bp_demo_import_page()
          </div>";
 
   echo '<br />';
-  echo '<h2>Page templates</h2>';
+  echo '<h2 style="font-size: 24px; font-weight: 600; margin: 30px 0 20px 0; color: #1d2327;">Page templates</h2>';
 
   do_action('tophive-core/activation-required');
 
@@ -166,20 +195,111 @@ function bp_demo_import_page()
 // 3. AJAX Endpoints
 add_action('wp_ajax_bp_demo_import_step', function () {
   $step = sanitize_text_field($_POST['step'] ?? '');
+  $payload_slugs = isset($_POST['slugs']) && is_array($_POST['slugs']) ? array_map('sanitize_text_field', $_POST['slugs']) : [];
 
   $Tophovive_License_Instance = new Tophive_Licence();
 
   try {
     switch ($step) {
       case 'install_plugins':
-        bp_demo_install_plugins();
+        bp_demo_install_plugins($payload_slugs);
         break;
+      case 'import_exported_demo':
+        // Import exported demo JSON based on a provided path and section keys
+        $path = isset($_POST['path']) ? sanitize_text_field($_POST['path']) : '';
+        $sections = isset($_POST['sections']) && is_array($_POST['sections']) ? array_map('sanitize_key', $_POST['sections']) : [];
+        if (empty($path)) throw new Exception('Missing demo file path');
+        require_once __DIR__ . '/one-extension-export.php';
+        $map = [];
+        foreach ($sections as $k) { $map[$k] = true; }
+        $count = One_Extension_Export::import_from_file($path, $map);
+        wp_send_json_success(['message' => 'Demo data imported (' . intval($count) . ' items).']);
+        return;
       case 'setup_homepage':
         bp_demo_setup_activity_home();
         break;
       case 'import_pages':
         bp_demo_import_pages();
         break;
+      case 'import_all_templates':
+        // Import all available page templates from remote API (after license activation)
+        $controller = new One_Imports_Controllers();
+        $templates = $controller->get_templates();
+        if (!is_array($templates) || empty($templates)) {
+          throw new Exception('No templates available to import.');
+        }
+
+        $imported = 0;
+        foreach ($templates as $tpl) {
+          if (empty($tpl['id']) || empty($tpl['name'])) continue;
+          $res = $controller->_get_templates([
+            'resource_type' => 'page',
+            'id' => $tpl['id']
+          ]);
+          if (!isset($res['data']['templates'][0]['json_code'])) {
+            continue;
+          }
+          $elementor_data = json_decode($res['data']['templates'][0]['json_code'], true);
+          if (!$elementor_data) continue;
+
+          // Create a new page for this template
+          $page_id = wp_insert_post([
+            'post_title' => sanitize_text_field($tpl['name']),
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'comment_status' => 'closed',
+            'ping_status' => 'closed'
+          ], true);
+          if (is_wp_error($page_id) || !$page_id) continue;
+
+          add_post_meta($page_id, '_tophive_disable_page_title', true, true);
+
+          import_post($elementor_data, 'page', $page_id);
+          $imported++;
+        }
+        wp_send_json_success(['message' => 'Imported ' . intval($imported) . ' pages from templates.']);
+        return;
+      case 'list_templates':
+        $controller = new One_Imports_Controllers();
+        $templates = $controller->get_templates();
+        if (!is_array($templates) || empty($templates)) {
+          throw new Exception('No templates available to import.');
+        }
+        // Return compact list
+        $list = [];
+        foreach ($templates as $tpl) {
+          if (!empty($tpl['id']) && !empty($tpl['name'])) {
+            $list[] = [ 'id' => $tpl['id'], 'name' => $tpl['name'] ];
+          }
+        }
+        wp_send_json_success(['templates' => $list]);
+        return;
+      case 'import_template':
+        $template_id = isset($_POST['template_id']) ? intval($_POST['template_id']) : 0;
+        if (!$template_id) throw new Exception('Missing template id');
+        $controller = new One_Imports_Controllers();
+        $res = $controller->_get_templates([
+          'resource_type' => 'page',
+          'id' => $template_id
+        ]);
+        if (!isset($res['data']['templates'][0]['json_code'])) {
+          throw new Exception('Template data not found');
+        }
+        $elementor_data = json_decode($res['data']['templates'][0]['json_code'], true);
+        if (!$elementor_data) throw new Exception('Invalid template JSON');
+        $name = isset($_POST['template_name']) ? sanitize_text_field($_POST['template_name']) : ('Template ' . $template_id);
+        $page_id = wp_insert_post([
+          'post_title' => $name,
+          'post_type' => 'page',
+          'post_status' => 'publish',
+          'comment_status' => 'closed',
+          'ping_status' => 'closed'
+        ], true);
+        if (is_wp_error($page_id) || !$page_id) throw new Exception('Failed creating page for template');
+        add_post_meta($page_id, '_tophive_disable_page_title', true, true);
+        import_post($elementor_data, 'page', $page_id);
+        wp_send_json_success(['message' => 'Template imported', 'page_id' => $page_id]);
+        return;
       case 'import_users':
         bp_demo_import_users();
         break;
@@ -563,7 +683,7 @@ function bp_demo_import_users()
 
   // echo '<div class="notice notice-success"><p>Demo users imported successfully (with avatars)!</p></div>';
 }
-function bp_demo_install_plugins()
+function bp_demo_install_plugins($slugs = [])
 {
   include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
   include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -594,7 +714,9 @@ function bp_demo_install_plugins()
     return false;
   }
 
-  $slugs = ['buddypress', 'bbpress', 'elementor', 'happy-elementor-addons'];
+  if (empty($slugs) || !is_array($slugs)) {
+    $slugs = ['buddypress', 'bbpress', 'elementor'];
+  }
   $to_activate = [];
 
   foreach ($slugs as $slug) {
@@ -626,94 +748,171 @@ function bp_demo_import_menus()
   }
 
   $json = file_get_contents($menus_path);
-  $menus = json_decode($json, true);
+  $decoded = json_decode($json, true);
 
-  if (empty($menus)) {
+  if (empty($decoded)) {
     wp_send_json_error(['message' => 'No menu data to import.']);
   }
 
+  // Normalize schema: support old schema (array of menus with menu/items) and new schema (object with menus[])
+  $menus = isset($decoded['menus']) && is_array($decoded['menus']) ? $decoded['menus'] : $decoded;
+
   $menu_locations = [];
 
-  foreach ($menus as $_menu) {
-    //create menu term if not exist
-    //update menu location so this menu get render on that location
-    //insert menu item in post table with menu order and parent menu preservation
-    $menu_name = $_menu["menu"]["name"];
-    $menu_exist = wp_get_nav_menu_object($menu_name);
+  foreach ($menus as $menu_entry) {
+    // Extract menu properties
+    $menu_name = '';
+    $menu_slug = '';
+    $items     = [];
 
-    if ($menu_exist == false) {
+    if (isset($menu_entry['menu'])) {
+      // Old schema
+      $menu_name = $menu_entry['menu']['name'] ?? '';
+      $menu_slug = $menu_entry['menu']['slug'] ?? '';
+      $items     = $menu_entry['items'] ?? [];
+    } else {
+      // New schema
+      $menu_name = $menu_entry['name'] ?? ($menu_entry['slug'] ?? 'Imported Menu');
+      $menu_slug = $menu_entry['slug'] ?? '';
+      $items     = $menu_entry['items'] ?? [];
+    }
+
+    if (empty($menu_name)) { continue; }
+
+    $menu_obj = wp_get_nav_menu_object($menu_name);
+    if (!$menu_obj) {
       $menu_id = wp_create_nav_menu($menu_name);
-      if (is_wp_error($menu_id)) {
+      if (is_wp_error($menu_id) || !$menu_id) {
         error_log("Nav menu creation fail: {$menu_name}");
         continue;
       }
-
-
-
       $menu_obj = wp_get_nav_menu_object($menu_id);
-      if ($menu_obj == false) {
-        error_log("wp_get_nav_menu_object fail: {$menu_id}");
-        continue;
+    }
+
+    if (!$menu_obj) { continue; }
+    $menu_id = (int)$menu_obj->term_id;
+
+    // Optionally map slug to a theme location if present
+    if (!empty($menu_slug)) {
+      $menu_locations[$menu_slug] = $menu_id;
+    }
+
+    // Build parent mapping in two passes
+    $old_to_new = [];
+
+    // Helper to create a menu item
+    $create_menu_item = function ($m, $parent_id = 0) use ($menu_id) {
+      $title = $m['title'] ?? ($m['post_title'] ?? '');
+      $url   = $m['url'] ?? '';
+      if (is_string($url) && substr($url, 0, 1) === '/') {
+        $url = rtrim(get_site_url(), '/') . $url;
       }
 
-      $menu_locations[$_menu['menu']['slug']] = $menu_id;
+      $args = [
+        'menu-item-title'      => $title,
+        'menu-item-status'     => 'publish',
+      ];
 
-      $oldid_map_newid = [];
+      // Prefer object/type if provided (new schema)
+      $type   = $m['type'] ?? '';
+      $object = $m['object'] ?? '';
+      $obj_id = isset($m['object_id']) ? intval($m['object_id']) : 0;
 
-      foreach ($_menu["items"] as $m) {
-        if ($m["parent"] != "0") continue;
-        $full_url = $m['url'];
-        if (substr($full_url, 0, 1) === '/') {
-          $full_url = rtrim(get_site_url(), '/') . $full_url;
-        }
-        $id = wp_update_nav_menu_item($menu_id, 0, [
-          'menu-item-title' => $m['title'],
-          'menu-item-url' => $full_url,
-          'menu-item-status' => 'publish',
-          'menu-item-position' => $m['order']
-        ]);
-        if (is_wp_error($id)) {
-          error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
-          continue;
-        }
-        // Add icon if available
-        if (!empty($m['icon'])) {
-          update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
-        }
-        $oldid_map_newid[$m["id"]] = $id;
+      if ($type === 'post_type' && $object && $obj_id) {
+        $args['menu-item-type']      = 'post_type';
+        $args['menu-item-object']    = $object;
+        $args['menu-item-object-id'] = $obj_id;
+      } elseif ($type === 'taxonomy' && $object && $obj_id) {
+        $args['menu-item-type']      = 'taxonomy';
+        $args['menu-item-object']    = $object;
+        $args['menu-item-object-id'] = $obj_id;
+      } else {
+        $args['menu-item-type'] = 'custom';
+        $args['menu-item-url']  = $url;
       }
 
+      if (!empty($m['attr_title'])) $args['menu-item-attr-title'] = $m['attr_title'];
+      if (!empty($m['target']))     $args['menu-item-target']     = $m['target'];
+      if (!empty($m['xfn']))        $args['menu-item-xfn']        = $m['xfn'];
+      if (!empty($m['description']))$args['menu-item-description']= $m['description'];
+      if (!empty($m['menu_order'])) $args['menu-item-position']   = intval($m['menu_order']);
+      if (!empty($parent_id))       $args['menu-item-parent-id']  = intval($parent_id);
 
-
-      foreach ($_menu["items"] as $m) {
-        if ($m["parent"] == "0") continue;
-        $full_url = $m['url'];
-        if (substr($full_url, 0, 1) === '/') {
-          $full_url = rtrim(get_site_url(), '/') . $full_url;
-        }
-        $id = wp_update_nav_menu_item($menu_id, 0, [
-          'menu-item-title' => $m['title'],
-          'menu-item-url' => $full_url,
-          'menu-item-status' => 'publish',
-          'menu-item-parent-id' => $oldid_map_newid[$m["parent"]],
-          'menu-item-position' => $m['order']
-        ]);
-        if (is_wp_error($id)) {
-          error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$m['title']}");
-          continue;
-        }
-        // Add icon if available
-        if (!empty($m['icon'])) {
-          update_post_meta($id, '_menu_item_menu-icon-text', esc_url($m['icon']));
-        }
-        $oldid_map_newid[$m["id"]] = $id;
+      $new_id = wp_update_nav_menu_item($menu_id, 0, $args);
+      if (is_wp_error($new_id) || !$new_id) {
+        error_log("wp_update_nav_menu_item fail: {$menu_id} title: {$title}");
+        return 0;
       }
+
+      // Classes (array)
+      if (!empty($m['classes']) && is_array($m['classes'])) {
+        update_post_meta($new_id, '_menu_item_classes', array_values(array_filter($m['classes'])));
+      }
+
+      // Icon helpers from old schema
+      if (!empty($m['icon'])) {
+        update_post_meta($new_id, '_menu_item_menu-icon-text', esc_url_raw($m['icon']));
+      }
+      if (!empty($m['icon_svg'])) {
+        update_post_meta($new_id, '_menu_item_icon_svg', wp_kses_post($m['icon_svg']));
+      }
+
+      // Meta (new schema exports full meta array)
+      if (!empty($m['meta']) && is_array($m['meta'])) {
+        foreach ($m['meta'] as $mk => $mv) {
+          delete_post_meta($new_id, $mk);
+          if (is_array($mv)) {
+            foreach ($mv as $vv) { add_post_meta($new_id, $mk, $vv, false); }
+          } else {
+            update_post_meta($new_id, $mk, $mv);
+          }
+        }
+      }
+
+      return $new_id;
+    };
+
+    // Determine parent key names across schemas
+    $get_parent_id = function ($m) {
+      if (isset($m['menu_item_parent'])) return intval($m['menu_item_parent']);
+      if (isset($m['parent'])) return is_numeric($m['parent']) ? intval($m['parent']) : 0;
+      return 0;
+    };
+    $get_original_id = function ($m) {
+      if (isset($m['ID'])) return intval($m['ID']);
+      if (isset($m['id'])) return intval($m['id']);
+      return 0;
+    };
+
+    // First pass: roots
+    foreach ($items as $m) {
+      $parent = $get_parent_id($m);
+      if ($parent !== 0) continue;
+      $new_id = $create_menu_item($m, 0);
+      $orig_id = $get_original_id($m);
+      if ($new_id && $orig_id) { $old_to_new[$orig_id] = $new_id; }
+    }
+
+    // Second pass: children
+    foreach ($items as $m) {
+      $parent = $get_parent_id($m);
+      if ($parent === 0) continue;
+      $parent_new = isset($old_to_new[$parent]) ? intval($old_to_new[$parent]) : 0;
+      $new_id = $create_menu_item($m, $parent_new);
+      $orig_id = $get_original_id($m);
+      if ($new_id && $orig_id) { $old_to_new[$orig_id] = $new_id; }
     }
   }
 
-  set_theme_mod("nav_menu_locations", $menu_locations);
+  if (!empty($menu_locations)) {
+    // Merge with existing theme locations to avoid wiping out others
+    $existing = get_theme_mod('nav_menu_locations', []);
+    if (!is_array($existing)) $existing = [];
+    $merged = array_merge($existing, $menu_locations);
+    set_theme_mod('nav_menu_locations', $merged);
+  }
 
-  wp_send_json_success(['message' => 'Menus imported and locations set.']);
+  wp_send_json_success(['message' => 'Menus imported successfully.']);
 }
 
 function bp_demo_import_pages()

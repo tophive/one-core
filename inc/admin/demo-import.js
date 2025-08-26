@@ -1,7 +1,8 @@
 // bp-demo-import.js
 jQuery(document).ready(function ($) {
-  const steps = BPDemoSteps.steps;
+  let steps = Array.isArray(BPDemoSteps.steps) ? BPDemoSteps.steps : [];
   let currentStep = 0;
+  let cancelled = false;
 
   const logEl = $('#bp-demo-log');
   const barEl = $('.bp-demo-progress .bar');
@@ -10,8 +11,20 @@ jQuery(document).ready(function ($) {
   const finalBtns = $('#bp-demo-final-buttons');
   const startBtn = $('#bp-start-import');
 
+  // ensure inline spinner style exists
+  (function ensureSpinnerCSS(){
+    if (document.getElementById('one-inline-spinner-style')) return;
+    const css = '.one-inline-spinner{display:inline-block;width:14px;height:14px;border:2px solid #ccc;border-top-color:#2271b1;border-radius:50%;animation:oneSpin .6s linear infinite;margin-right:8px;vertical-align:-2px}@keyframes oneSpin{to{transform:rotate(360deg)}}';
+    const style = document.createElement('style');
+    style.id = 'one-inline-spinner-style';
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+  })();
+
   function showMessage(message, isError = false) {
-    logEl.text(message);
+    // Always show spinner during import process
+    const spinner = '<span class="one-inline-spinner"></span>';
+    logEl.html(spinner + $('<div>').text(message).html());
     logEl.css('color', isError ? 'red' : '');
   }
 
@@ -21,31 +34,70 @@ jQuery(document).ready(function ($) {
   }
 
   function runNextStep() {
+    if (cancelled) {
+      showMessage('');
+      loader.hide();
+      startBtn.show();
+      $('#bp-cancel-import').hide();
+      return;
+    }
     if (currentStep >= steps.length) {
-      showMessage('✅ Import complete!');
+      showMessage('Import complete!');
       loader.hide();
       finalBtns.show();
+      $('#bp-cancel-import').hide();
       return;
     }
 
-    const step = steps[currentStep];
-    showMessage(`⏳ ${step.replace(/_/g, ' ')}...`);
+    const entry = steps[currentStep];
+    const step = typeof entry === 'string' ? entry : entry.step;
+    const payload = typeof entry === 'object' ? (entry.payload || {}) : {};
+    // Dynamic expansion: if placeholder step, expand using previously fetched template list
+    if (step === '__import_templates_dynamic__' && Array.isArray(window.ONE_TPL_LIST) && window.ONE_TPL_LIST.length) {
+      const inject = window.ONE_TPL_LIST.map(t => ({ step: 'import_template', payload: { template_id: t.id, template_name: t.name, label: `Importing template -> ${t.name}` } }));
+      // replace placeholder with injected steps
+      steps.splice(currentStep, 1, ...inject);
+      runNextStep();
+      return;
+    }
+
+    const baseText = (payload && payload.label) ? payload.label : `Importing ${step.replace(/_/g, ' ')}`;
+    const label = baseText;
+    showMessage(label, false);
 
     $.ajax({
       url: BPDemoSteps.ajax_url,
       method: 'POST',
       dataType: 'json',
-      data: {
-        action: 'bp_demo_import_step',
-        step: step
-      }
+      data: Object.assign({ action: 'bp_demo_import_step', step: step }, payload)
     })
     .done(function (response) {
       if (response.success) {
-        showMessage(`✅ ${response.data.message}`);
+        if (step === 'list_templates' && response.data && Array.isArray(response.data.templates)) {
+          window.ONE_TPL_LIST = response.data.templates;
+        }
+        showMessage(label);
+        // mark step as done for idempotency in UI (rough mapping by step name)
+        try {
+          const done = JSON.parse(localStorage.getItem('one_demo_done') || '{}');
+          if (step === 'import_customizer') done.customizer = true;
+          if (step === 'import_menus') done.menus = true;
+          if (step === 'import_forums') done.forums = true;
+          if (step === 'import_template') done.pages = true;
+          if (step === 'enable_groups_component' || step === 'import_activities') done.buddypress = true;
+          if (step === 'import_exported_demo') {
+            const sel = JSON.parse(localStorage.getItem('one_demo_selected') || '{}');
+            if (sel.courses) done.courses = true;
+            if (sel.directory) done.directory = true;
+            if (sel.events) done.events = true;
+            if (sel.woocommerce) done.woocommerce = true;
+            if (sel.job_manager) done.job_manager = true;
+          }
+          localStorage.setItem('one_demo_done', JSON.stringify(done));
+        } catch(e){}
       } else {
         const msg = response.data?.message || 'Unknown error';
-        showMessage(`⚠️ Failed: ${msg}`, true);
+        showMessage(`Failed: ${msg}`, true);
       }
       updateProgress();
       currentStep++;
@@ -53,12 +105,14 @@ jQuery(document).ready(function ($) {
     })
     .fail(function (xhr, status, error) {
       console.error('AJAX failed:', error);
-      showMessage(`❌ AJAX error: ${error}`, true);
+      showMessage(`AJAX error: ${error}`, true);
       updateProgress();
       currentStep++;
       setTimeout(runNextStep, 800);
     });
   }
+
+
 
   $('#start-demo-import').on('click', function () {
     modal.fadeIn();
@@ -66,13 +120,34 @@ jQuery(document).ready(function ($) {
     barEl.css('width', '0');
     loader.hide();
     finalBtns.hide();
+    $('#bp-cancel-import').show();
+  });
+
+  $('#bp-close-import').on('click', function(){
+    modal.fadeOut();
   });
 
   startBtn.on('click', function () {
     loader.show();
     startBtn.hide();
+    // keep cancel visible during import as a close button only
+    cancelled = false;
     currentStep = 0;
+    // Pick up selected steps from UI
+    if (Array.isArray(window.ONE_DEMO_SELECTED_STEPS)) {
+      steps = window.ONE_DEMO_SELECTED_STEPS;
+    }
     runNextStep();
+  });
+
+  $('#bp-cancel-import').on('click', function(){
+    cancelled = true;
+    modal.fadeOut();
+    loader.hide();
+    startBtn.show();
+    $('#bp-cancel-import').show();
+    logEl.text('');
+    barEl.css('width', '0');
   });
 });
 

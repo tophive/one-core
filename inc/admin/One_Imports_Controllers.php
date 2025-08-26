@@ -75,6 +75,7 @@ class One_Imports_Controllers
       "headers" => [
         'Authorization' => $license_value,
         'content-type' => 'application/json',
+				'user-agent' => 'OneCore/1.0'
       ],
     ]);
 
@@ -104,7 +105,10 @@ class One_Imports_Controllers
     $res = wp_remote_request($this->API_ENDPOINT_LICENSE_CHECK, [
       "method" => "POST",
       'timeout' => 60,
-      "headers" => ['content-type' => 'application/json'],
+      "headers" => [
+        'content-type' => 'application/json',
+				'user-agent' => 'OneCore/1.0'
+      ],
       "body" => json_encode(['license_key' => $this->get_licence(), 'domain' => get_site_url()])
     ]);
 
@@ -145,7 +149,10 @@ class One_Imports_Controllers
     $res = wp_remote_request($this->API_ENDPOINT_LICENSE_ACTIVATE, [
       "method" => "POST",
       'timeout' => 60,
-      "headers" => ['content-type' => 'application/json'],
+      "headers" => [
+        'content-type' => 'application/json',
+				'user-agent' => 'OneCore/1.0'
+      ],
       "body" => json_encode([
         'license_key' => $options["license"],
         'domain' => get_site_url(),
