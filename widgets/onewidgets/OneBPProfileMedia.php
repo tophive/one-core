@@ -31,22 +31,38 @@ class OneBPProfileMedia extends WP_Widget {
                         array_push($all_images, ...$newImages);
                 }
                 array_filter($all_images);
-                $media_html .= '<div class="ec-row bp-image-previewer">';
+                $media_html .= '<div class="ec-row bp-image-previewer mesonry bp-member-photo-widget">';
                 $i = 1;
+                $upper_bound = 9;
+                 
                 foreach ($all_images as $url) {
+                    if( $i > $upper_bound ) {
+                        break;
+                    } 
+
                     if( !empty($url['thumb']) ){
-                        $media_html .= '<div class="ec-col-4 bp-image-single" id="'. $i .'">';
-                            $media_html .= '<div class="post-media-single">';
-                                $media_html .= '<a class="media-popup-thumbnail" href="'. $url['thumb'][0] .'" data-id="'. $url['id'] .'" data-activity="'. $url['activity_id'] .'"><img src="'. $url['full'] .'" alt="gm"></a>';
-                            $media_html .= '</div>';
-                        $media_html .= '</div>';
+                        $media_html .= "<img class='media-popup-thumbnail bp-image-single' src='{$url['full']} ' alt='gm' href={$url['full']} data-id={$url['attachment_id']} data-activity={$url['activity_id']}>";
+                        $i++;
                     }
-                    $i++;
                 }
                 if( empty($all_images) ){
                     $media_html .= '<span class="no-photos">' . esc_html__( 'No photos uploaded', 'one' ) . '</span>';
                 }
                 $media_html .= '</div>';
+
+                if( $i > $upper_bound ) {
+                    $template_file = 'page-images.php';
+
+                    $page = get_pages([ 'meta_key' => '_wp_page_template', 'meta_value' => $template_file, 'number' => 1, ]);
+
+                    $permalink = "#";
+                    if ( ! empty($page) ) {
+                        $permalink = get_permalink($page[0]->ID);
+                    } 
+
+                    $media_html .= "<a href='{$permalink}' class='view-more-media'>" . esc_html__("View All", "one")  . "</a>";
+                } 
+                 
           }else {
               $media_html .= '<span class="no-photos">' . esc_html__( 'No photos uploaded', 'one' ) . '</span>';
           }
