@@ -14,7 +14,7 @@ class OneBPProfileInfo extends WP_Widget
 
   public function widget($args, $instance)
   {
-    $profile_id = $instance["profile_id"];
+    $profile_id = get_current_user_id();
     if(!$profile_id) return ;
     $html  = '';
     $html .= $args['before_widget'];
@@ -56,7 +56,7 @@ class OneBPProfileInfo extends WP_Widget
       $html .= "<p> <span> {$activity_count} </span> <span> Posts </span> </p>";
     }
     //total follower
-    $_follow_count = Tophive_BP_Members::get_instance()->get_following_count(bp_displayed_user_id());
+    $_follow_count = Tophive_BP_Members::get_instance()->get_following_count($profile_id);
     $html .= "<p> <span> {$_follow_count} </span> <span> Following </span> </p>";
     //total friend
     if (function_exists('friends_get_total_friend_count')) {
@@ -65,7 +65,7 @@ class OneBPProfileInfo extends WP_Widget
     }
     $html .= '</div>'; // END FOLLOW/ING INFO
 
-
+    /*
     //action btn
     $current_user = get_current_user_id();
     if (Tophive_BP_Members::get_instance()->is_already_following($current_user, $profile_id)) {
@@ -87,6 +87,7 @@ class OneBPProfileInfo extends WP_Widget
                 Message
 						  </a>';
     $html .= "</div>";
+    */
 
     //description
     $desc = get_the_author_meta('description', $profile_id, false);
@@ -104,8 +105,8 @@ class OneBPProfileInfo extends WP_Widget
 
   public function form($instance)
   {
+  /*
     $profile_id = ! empty($instance['profile_id']) ? $instance['profile_id'] : '';
-?>
     <div class="mchimp-subs_form">
       <p>
         <label for="<?php echo $this->get_field_id('profile_id'); ?>">Profile Id:</label>
@@ -116,7 +117,7 @@ class OneBPProfileInfo extends WP_Widget
           value="<?php echo esc_attr($profile_id); ?>" />
       </p>
     </div>
-<?php
+  */
   }
 
   public function update($new_instance, $old_instance)
