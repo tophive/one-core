@@ -20,21 +20,35 @@ class OneBPProfileInfo extends WP_Widget
     $html .= $args['before_widget'];
     $html .= '<div class="widget-profile-container">';
 
-    //user profile banner banner
-    $cover = bp_attachments_get_attachment('url', ['object_dir' => 'members', 'item_id' => $profile_id,]);
-    if(!$cover) {
-      $cover = get_template_directory_uri() . "/assets/images/placeholder.png";
+    // ❯❯❯❯ Profile Photo
+    // Get the displayed user's cover/banner
+    $cover = bp_attachments_get_attachment('url', [
+        'object_dir' => 'members',
+        'item_id'    => $profile_id,
+    ]);
+
+    if ( ! $cover ) {
+        $cover = get_template_directory_uri() . "/assets/images/placeholder.png";
     }
 
     $html .= "<div class='widget-profile-banner'>";
-    $html .= "<figure> <img src={$cover} alt='' /> </figure>"; //original banner
-    $profile_img = bp_get_displayed_user_avatar('type=full');
-    if(!$profile_img) {
-      $pla_url = get_template_directory_uri() . '/assets/images/people.jpg';
-      $profile_img = "<img src='{$pla_url}' />";
+    $html .= "<figure><img src='{$cover}' alt='Banner' /></figure>";
+
+    // Get user avatar HTML
+    $avatar_html = bp_core_fetch_avatar([
+        'item_id' => $profile_id,
+        'type'    => 'full',
+        'html'    => true
+    ]);
+
+    // Fallback if user has no avatar
+    if ( empty( $avatar_html ) ) {
+        $pla_url = get_template_directory_uri() . '/assets/images/people.jpg';
+        $avatar_html = "<img src='{$pla_url}' alt='User Avatar' />";
     }
-    $html .= $profile_img;
-    $html .= "</div>"; //banner end
+
+    $html .= $avatar_html;
+    $html .= "</div>"; // banner end ═══════
 
     //name
     $name = get_the_author_meta('display_name', $profile_id);
@@ -104,7 +118,7 @@ class OneBPProfileInfo extends WP_Widget
       $tab_link = $base_link . $data['slug'];
       $html .= "<a href='{$tab_link}' class='bp-profile-link'>{$data['svg']} {$label}</a>";
     }
-    $html .= "</div>";
+    $html .= "</div>"; // END Profile Tab ═══════
 
     /*
     //action btn
@@ -135,7 +149,7 @@ class OneBPProfileInfo extends WP_Widget
 
     if ( ! empty( $desc ) ) {  // If the description is empty, nothing is rendered, keeping your profile card clean.
       $html .= "<div class='widget-profile-about'>";
-      $html .= '<h4>About</h4>';
+      $html .= '<h4>About us</h4>';
       $html .= "<p>{$desc}</p>";
       $html .= "</div>";
     }
