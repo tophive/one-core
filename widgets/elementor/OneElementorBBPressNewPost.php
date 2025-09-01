@@ -383,7 +383,12 @@ class OneElementorBBPressNewPost extends \Elementor\Widget_base
         <script>
             let btn = document.getElementById("<?php echo $id; ?>");
             if(btn && btn.previousElementSibling) {
-                btn.addEventListener("click", () =>  btn.previousElementSibling.classList.toggle("none"));
+                btn.addEventListener("click", () =>  {
+                    btn.previousElementSibling.classList.toggle("none");
+                    //fixed text form width
+                    let textForm = btn.previousElementSibling.querySelector("#thbbpresspostdesc");
+                    if( textForm ) textForm.style.width = `${textForm.offsetWidth}px`;
+                });
                 //close  btn 
                 let close = btn.previousElementSibling.querySelector(".bbp-close-form");
                 if( close ) close.addEventListener("click", () => btn.previousElementSibling.classList.toggle("none"));
