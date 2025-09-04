@@ -4,9 +4,10 @@
   if (!h || !render) return;
 
   const OPTIONS = [
-    { key: 'customizer', label: 'Customizer', locked: true },
-    { key: 'menus', label: 'Menus', locked: true },
     { key: 'buddypress', label: 'BuddyPress', locked: true },
+    { key: 'menus', label: 'Menus', locked: true },
+    { key: 'customizer', label: 'Customizer', locked: true },
+    { key: 'pages', label: 'Pages', locked: false },
     { key: 'events', label: 'Events', locked: false },
     { key: 'woocommerce', label: 'WooCommerce', locked: false },
     { key: 'directory', label: 'Directory', locked: false },
@@ -15,7 +16,6 @@
     { key: 'forums', label: 'Forums (bbPress)', locked: false },
     { key: 'pmp', label: 'Paid Memberships Pro', locked: false },
     { key: 'media_pages', label: 'Media Pages', locked: false },
-    { key: 'pages', label: 'Pages', locked: false },
   ];
 
   function Toggle({checked, disabled, onChange}){
@@ -92,6 +92,8 @@
       if (selected.job_manager && !done.job_manager) pluginsToInstall.push('wp-job-manager');
       if (selected.courses && !done.courses) pluginsToInstall.push('tutor');
       if (selected.pmp && !done.pmp) pluginsToInstall.push('paid-memberships-pro');
+      //default elementor
+      pluginsToInstall.push('elementor');
       
       if (pluginsToInstall.length > 0) {
         steps.push({
@@ -169,6 +171,8 @@
       if (selected.job_manager && !done.job_manager) pluginSlugs.push('wp-job-manager');
       if (selected.courses && !done.courses) pluginSlugs.push('tutor');
       if (selected.pmp && !done.pmp) pluginSlugs.push('paid-memberships-pro');
+      //default elementor
+      pluginSlugs.push('elementor');
 
       steps.push({ step: 'install_plugins', payload: { slugs: pluginSlugs } });
 

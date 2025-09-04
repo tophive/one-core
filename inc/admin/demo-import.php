@@ -849,11 +849,6 @@ function bp_demo_install_plugins($slugs = [])
 }
 
 
-
-
-
-
-
 function bp_demo_import_pages()
 {
   $file_path = plugin_dir_path(__FILE__) . '/demo-data/pages.json';
@@ -1402,6 +1397,10 @@ function bp_demo_import_customizer()
   $mods = unserialize($customizer_data);
 
   if (!empty($mods)) {
+    //remove nav_menu_locations from customizer_data
+    //menus will handle this nav_menu_locations
+    //otherwise this over write this value
+    unset($modes["nav_menu_locations"]);
     foreach ($mods as $mod => $val) {
       set_theme_mod($mod, $val);
     }
