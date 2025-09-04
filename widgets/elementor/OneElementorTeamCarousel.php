@@ -17,7 +17,7 @@
 	class OneElementorTeamCarousel extends \Elementor\Widget_base
 	{
 		public function get_title(){
-			return esc_html__( 'Team Carousel', ONE_CORE_SLUG );
+			return esc_html__( 'Team Carousel', 'ONE_CORE_SLUG' );
 		}
 		public function get_name(){
 			return 'th-team-carousel-block';
@@ -32,7 +32,7 @@
 			return 'eicon-person';
 		}
 		public function get_categories(){
-	        return [ ONE_CORE_SLUG ];
+	        return [ 'ONE_CORE_SLUG' ];
 	    }
 		public function get_keywords() {
 			return [ 'team', 'teachers', 'carousel' ];
@@ -48,7 +48,7 @@
 		$this->start_controls_section(
 				'th_team_carousel_section',
 				[
-					'label' => esc_html__( 'Team Carousel', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Team Carousel', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
@@ -57,7 +57,7 @@
 			$repeater->add_control(
 				'th_team_carousel_image',
 				[
-					'label' => esc_html__( 'Choose Image', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Choose Image', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -67,11 +67,11 @@
 			$this->add_control(
 				'th_team_carousel_posts_layout',
 				[
-					'label' => esc_html__( 'Layout', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Layout', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'' 	=> esc_html__( 'Full Width', ONE_CORE_SLUG ),
-						' ec-overflow-hidden' 	=> esc_html__( 'Fixed Width', ONE_CORE_SLUG ),
+						'' 	=> esc_html__( 'Full Width', 'ONE_CORE_SLUG' ),
+						' ec-overflow-hidden' 	=> esc_html__( 'Fixed Width', 'ONE_CORE_SLUG' ),
 					],
 					'default' => '',
 				]
@@ -79,37 +79,37 @@
 			$repeater->add_control(
 				'th_team_carousel_title',
 				[
-					'label' => esc_html__( 'Name', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Name', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'John Doe', ONE_CORE_SLUG ),
-					'placeholder' => esc_html__( 'Type your name here', ONE_CORE_SLUG ),
+					'default' => esc_html__( 'John Doe', 'ONE_CORE_SLUG' ),
+					'placeholder' => esc_html__( 'Type your name here', 'ONE_CORE_SLUG' ),
 				]
 			);
 			$repeater->add_control(
 				'th_team_carousel_designation',
 				[
-					'label' => esc_html__( 'Designation', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Designation', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Designation', ONE_CORE_SLUG ),
-					'placeholder' => esc_html__( 'Designation', ONE_CORE_SLUG ),
+					'default' => esc_html__( 'Designation', 'ONE_CORE_SLUG' ),
+					'placeholder' => esc_html__( 'Designation', 'ONE_CORE_SLUG' ),
 				]
 			);
 			$repeater->add_control(
 				'th_team_carousel_description',
 				[
-					'label' => esc_html__( 'Desription', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Desription', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::TEXTAREA,
-					'default' => esc_html__( 'John Doe Creates Beautiful websites', ONE_CORE_SLUG ),
-					'placeholder' => esc_html__( 'Description', ONE_CORE_SLUG ),
+					'default' => esc_html__( 'John Doe Creates Beautiful websites', 'ONE_CORE_SLUG' ),
+					'placeholder' => esc_html__( 'Description', 'ONE_CORE_SLUG' ),
 				]
 			);
 			$this->add_control(
 				'show_social_icons',
 				[
-					'label' => esc_html__( 'Show Socials', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Show Socials', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => __( 'Show', ONE_CORE_SLUG ),
-					'label_off' => __( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => __( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => __( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -117,18 +117,18 @@
 			$this->add_control(
 				'th_team_carousel_select_columns',
 				[
-					'label' => esc_html__( 'Select Columns', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Select Columns', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => '4',
 					'options' => [
-						'1' 	=> esc_html__( '1 Column', ONE_CORE_SLUG ),
-						'2' 	=> esc_html__( '2 Columns', ONE_CORE_SLUG ),
-						'3'  	=> esc_html__( '3 Columns', ONE_CORE_SLUG ),
-						'4' 	=> esc_html__( '4 Columns', ONE_CORE_SLUG ),
-						'5' 	=> esc_html__( '5 Columns', ONE_CORE_SLUG ),
-						'6' 	=> esc_html__( '6 Columns', ONE_CORE_SLUG ),
-						'7' 	=> esc_html__( '7 Columns', ONE_CORE_SLUG ),
-						'8' 	=> esc_html__( '8 Columns', ONE_CORE_SLUG ),
+						'1' 	=> esc_html__( '1 Column', 'ONE_CORE_SLUG' ),
+						'2' 	=> esc_html__( '2 Columns', 'ONE_CORE_SLUG' ),
+						'3'  	=> esc_html__( '3 Columns', 'ONE_CORE_SLUG' ),
+						'4' 	=> esc_html__( '4 Columns', 'ONE_CORE_SLUG' ),
+						'5' 	=> esc_html__( '5 Columns', 'ONE_CORE_SLUG' ),
+						'6' 	=> esc_html__( '6 Columns', 'ONE_CORE_SLUG' ),
+						'7' 	=> esc_html__( '7 Columns', 'ONE_CORE_SLUG' ),
+						'8' 	=> esc_html__( '8 Columns', 'ONE_CORE_SLUG' ),
 					],
 				]
 			);
@@ -138,7 +138,7 @@
 			// $repeater->add_control(
 			// 'th_team_carousel_social_icon',
 			// 	[
-			// 		'label' => __( 'Social Icons', ONE_CORE_SLUG ),
+			// 		'label' => __( 'Social Icons', 'ONE_CORE_SLUG' ),
 			// 		'type' => \Elementor\Controls_Manager::ICON,
 			// 		'include' => [
 			// 			'fa fa-facebook',
@@ -158,49 +158,49 @@
 			// );
 			$repeater->add_control(
 				'th_team_carousel_social_link_facebook', [
-						'label' => esc_html__( 'Facebook Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Facebook Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
 				);
 			$repeater->add_control(
 				'th_team_carousel_social_link_twitter', [
-						'label' => esc_html__( 'Twitter Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Twitter Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
 				);
 			$repeater->add_control(
 				'th_team_carousel_social_link_instagram', [
-						'label' => esc_html__( 'Instagram Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Instagram Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
 				);
 			$repeater->add_control(
 				'th_team_carousel_social_link_linkedin', [
-						'label' => esc_html__( 'LinkedIn Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'LinkedIn Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
 				);
 			$repeater->add_control(
 				'th_team_carousel_social_link_youtube', [
-						'label' => esc_html__( 'Youtube Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Youtube Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
 				);
 			$repeater->add_control(
 				'th_team_carousel_social_link_gplus', [
-						'label' => esc_html__( 'Google Plus Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Google Plus Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
 				);
 			$repeater->add_control(
 				'th_team_carousel_social_link_vimeo', [
-						'label' => esc_html__( 'Vimeo Link', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Vimeo Link', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'label_block' => true,
 					]
@@ -209,7 +209,7 @@
 			$this->add_control(
 				'th_team_carousel_items',
 				[
-					'label' => esc_html__( 'Add Social Profiles', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Add Social Profiles', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::REPEATER,
 					'fields' => $repeater->get_controls(),
 					'default' => [
@@ -227,19 +227,19 @@
 			$this->add_control(
 				'th_team_carousel_text_align',
 				[
-					'label' => esc_html__( 'Alignment', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Alignment', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'th-text-left' => [
-							'title' => esc_html__( 'Left', ONE_CORE_SLUG ),
+							'title' => esc_html__( 'Left', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-left',
 						],
 						'th-text-center' => [
-							'title' => esc_html__( 'Center', ONE_CORE_SLUG ),
+							'title' => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-center',
 						],
 						'th-text-right' => [
-							'title' => esc_html__( 'Right', ONE_CORE_SLUG ),
+							'title' => esc_html__( 'Right', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-right',
 						],
 					],
@@ -251,17 +251,17 @@
 		$this->start_controls_section(
 			'th_team_carousel_carousel_options',
 				[
-					'label' => esc_html__( 'Carousel Options', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Carousel Options', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_autoplay',
 				[
-					'label' => esc_html__( 'Autoplay', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Autoplay', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => __( 'Yes', ONE_CORE_SLUG ),
-					'label_off' => __( 'No', ONE_CORE_SLUG ),
+					'label_on' => __( 'Yes', 'ONE_CORE_SLUG' ),
+					'label_off' => __( 'No', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -269,22 +269,22 @@
 			$this->add_control(
 				'th_team_carousel_autoplay_delay',
 				[
-					'label' => esc_html__( 'Autoplay Delay', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Autoplay Delay', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 1000,
 					'options' => [
-						300  => esc_html__( '300ms', ONE_CORE_SLUG),
-						400  => esc_html__( '400ms', ONE_CORE_SLUG),
-						500  => esc_html__( '500ms', ONE_CORE_SLUG),
-						600  => esc_html__( '600ms', ONE_CORE_SLUG),
-						700  => esc_html__( '700ms', ONE_CORE_SLUG),
-						800  => esc_html__( '800ms', ONE_CORE_SLUG),
-						900  => esc_html__( '900ms', ONE_CORE_SLUG),
-						1000  => esc_html__( '1s', ONE_CORE_SLUG),
-						1500  => esc_html__( '1.5s', ONE_CORE_SLUG),
-						2000  => esc_html__( '2s', ONE_CORE_SLUG),
-						2500  => esc_html__( '2.5s', ONE_CORE_SLUG),
-						3000  => esc_html__( '3s', ONE_CORE_SLUG),
+						300  => esc_html__( '300ms', 'ONE_CORE_SLUG'),
+						400  => esc_html__( '400ms', 'ONE_CORE_SLUG'),
+						500  => esc_html__( '500ms', 'ONE_CORE_SLUG'),
+						600  => esc_html__( '600ms', 'ONE_CORE_SLUG'),
+						700  => esc_html__( '700ms', 'ONE_CORE_SLUG'),
+						800  => esc_html__( '800ms', 'ONE_CORE_SLUG'),
+						900  => esc_html__( '900ms', 'ONE_CORE_SLUG'),
+						1000  => esc_html__( '1s', 'ONE_CORE_SLUG'),
+						1500  => esc_html__( '1.5s', 'ONE_CORE_SLUG'),
+						2000  => esc_html__( '2s', 'ONE_CORE_SLUG'),
+						2500  => esc_html__( '2.5s', 'ONE_CORE_SLUG'),
+						3000  => esc_html__( '3s', 'ONE_CORE_SLUG'),
 					],
 					'condition' => ['th_team_carousel_autoplay' => 'yes']
 				]
@@ -292,44 +292,44 @@
 			$this->add_control(
 				'th_team_carousel_play_speed',
 				[
-					'label' => esc_html__( 'Play Speed', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Play Speed', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 500,
 					'options' => [
-						100  => esc_html__( '100ms', ONE_CORE_SLUG),
-						200  => esc_html__( '200ms', ONE_CORE_SLUG),
-						300  => esc_html__( '300ms', ONE_CORE_SLUG),
-						400  => esc_html__( '400ms', ONE_CORE_SLUG),
-						500  => esc_html__( '500ms', ONE_CORE_SLUG),
-						600  => esc_html__( '600ms', ONE_CORE_SLUG),
-						700  => esc_html__( '700ms', ONE_CORE_SLUG),
-						800  => esc_html__( '800ms', ONE_CORE_SLUG),
-						900  => esc_html__( '900ms', ONE_CORE_SLUG),
-						1000  => esc_html__( '1s', ONE_CORE_SLUG),
-						1500  => esc_html__( '1.5s', ONE_CORE_SLUG),
-						2000  => esc_html__( '2s', ONE_CORE_SLUG),
-						2500  => esc_html__( '2.5s', ONE_CORE_SLUG),
-						3000  => esc_html__( '3s', ONE_CORE_SLUG),
+						100  => esc_html__( '100ms', 'ONE_CORE_SLUG'),
+						200  => esc_html__( '200ms', 'ONE_CORE_SLUG'),
+						300  => esc_html__( '300ms', 'ONE_CORE_SLUG'),
+						400  => esc_html__( '400ms', 'ONE_CORE_SLUG'),
+						500  => esc_html__( '500ms', 'ONE_CORE_SLUG'),
+						600  => esc_html__( '600ms', 'ONE_CORE_SLUG'),
+						700  => esc_html__( '700ms', 'ONE_CORE_SLUG'),
+						800  => esc_html__( '800ms', 'ONE_CORE_SLUG'),
+						900  => esc_html__( '900ms', 'ONE_CORE_SLUG'),
+						1000  => esc_html__( '1s', 'ONE_CORE_SLUG'),
+						1500  => esc_html__( '1.5s', 'ONE_CORE_SLUG'),
+						2000  => esc_html__( '2s', 'ONE_CORE_SLUG'),
+						2500  => esc_html__( '2.5s', 'ONE_CORE_SLUG'),
+						3000  => esc_html__( '3s', 'ONE_CORE_SLUG'),
 					],
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_per_slide',
 				[
-					'label' => esc_html__( 'Course Per Slide', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Course Per Slide', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 2,
 					'options' => [
-						1  => esc_html__( '1', ONE_CORE_SLUG),
-						2  => esc_html__( '2', ONE_CORE_SLUG),
-						3  => esc_html__( '3', ONE_CORE_SLUG),
-						4  => esc_html__( '4', ONE_CORE_SLUG),
-						5  => esc_html__( '5', ONE_CORE_SLUG),
-						6  => esc_html__( '6', ONE_CORE_SLUG),
-						7  => esc_html__( '7', ONE_CORE_SLUG),
-						8  => esc_html__( '8', ONE_CORE_SLUG),
-						9  => esc_html__( '9', ONE_CORE_SLUG),
-						10  => esc_html__( '10', ONE_CORE_SLUG),
+						1  => esc_html__( '1', 'ONE_CORE_SLUG'),
+						2  => esc_html__( '2', 'ONE_CORE_SLUG'),
+						3  => esc_html__( '3', 'ONE_CORE_SLUG'),
+						4  => esc_html__( '4', 'ONE_CORE_SLUG'),
+						5  => esc_html__( '5', 'ONE_CORE_SLUG'),
+						6  => esc_html__( '6', 'ONE_CORE_SLUG'),
+						7  => esc_html__( '7', 'ONE_CORE_SLUG'),
+						8  => esc_html__( '8', 'ONE_CORE_SLUG'),
+						9  => esc_html__( '9', 'ONE_CORE_SLUG'),
+						10  => esc_html__( '10', 'ONE_CORE_SLUG'),
 					],
 				]
 			);
@@ -341,24 +341,24 @@
 	    $this->start_controls_section(
             'th_team_carousel_carousel_navigation',
 	            [
-	                'label' => esc_html__( 'Navigation', ONE_CORE_SLUG ),
+	                'label' => esc_html__( 'Navigation', 'ONE_CORE_SLUG' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 	            ]
 	        );
     		$this->add_control(
 				'th_team_carousel_carousel_arrow_section',
 				[
-					'label' => esc_html__( 'Arrow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
 		    $this->add_control(
 		    	'th_team_carousel_hide_arrow',
 		    	[
-		    		'label' 		=> esc_html__( 'Hide Arrow', ONE_CORE_SLUG ),
+		    		'label' 		=> esc_html__( 'Hide Arrow', 'ONE_CORE_SLUG' ),
 		    		'type' 			=> \Elementor\Controls_Manager::SWITCHER,
-		    		'label_on' 		=> __( 'Show', ONE_CORE_SLUG ),
-		    		'label_off' 	=> __( 'Hide', ONE_CORE_SLUG ),
+		    		'label_on' 		=> __( 'Show', 'ONE_CORE_SLUG' ),
+		    		'label_off' 	=> __( 'Hide', 'ONE_CORE_SLUG' ),
 		    		'return_value' 	=> 'yes',
 		    		'default' 		=> 'no',
 		    	]
@@ -367,13 +367,13 @@
 			$this->add_control(
 				'th_team_carousel_arrow_position',
 				[
-					'label' => esc_html__( 'Select arrow position', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Select arrow position', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 4,
 					'options' => [
-						'ec-text-center'  => esc_html__( 'Center', ONE_CORE_SLUG ),
-						'ec-text-right'  => esc_html__( 'Top Right', ONE_CORE_SLUG ),
-						'ec-text-left'  => esc_html__( 'Top Left', ONE_CORE_SLUG ),
+						'ec-text-center'  => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
+						'ec-text-right'  => esc_html__( 'Top Right', 'ONE_CORE_SLUG' ),
+						'ec-text-left'  => esc_html__( 'Top Left', 'ONE_CORE_SLUG' ),
 					],
 					'default' => 'ec-text-center'
 				]
@@ -385,14 +385,14 @@
 			$this->start_controls_tab(
 				'th_team_carousel_arrow_normal_tab',
 				[
-					'label' => esc_html__( 'Normal', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Normal', 'ONE_CORE_SLUG' ),
 
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_more_btn_background_color',
 				[
-					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -404,7 +404,7 @@
 			$this->add_control(
 				'th_team_carousel_more_btn_color',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -416,7 +416,7 @@
 			$this->add_control(
 				'th_team_carousel_arrow_width',
 				[
-					'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -434,7 +434,7 @@
 			$this->add_control(
 				'th_team_carousel_arrow_height',
 				[
-					'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -452,7 +452,7 @@
 			$this->add_control(
 				'th_team_carousel_arrow_size',
 				[
-					'label' => esc_html__( 'Arrow Size', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow Size', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -470,7 +470,7 @@
 			$this->add_control(
 				'th_team_carousel_more_btn_margin',
 				[
-					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -482,7 +482,7 @@
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'th_team_carousel_more_btn_box_shadow',
-					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .ec-swiper-button-prev, {{WRAPPER}} .ec-swiper-button-next',
 				]
 			);
@@ -490,7 +490,7 @@
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'th_team_carousel_more_btn_border',
-					'label' => __( 'Border', ONE_CORE_SLUG ),
+					'label' => __( 'Border', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .ec-swiper-button-prev, {{WRAPPER}} .ec-swiper-button-next',
 				]
 			);
@@ -498,7 +498,7 @@
 			$this->add_control(
 				'th_team_carousel_more_btn_border_rad',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px'],
 					'range' => [
@@ -519,14 +519,14 @@
 			$this->start_controls_tab(
 				'arrow_hover_tab',
 				[
-					'label' => esc_html__( 'Hover', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Hover', 'ONE_CORE_SLUG' ),
 				]
 			);
 
 			$this->add_control(
 				'th_team_carousel_more_btn_background_color_hover',
 				[
-					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -538,7 +538,7 @@
 			$this->add_control(
 				'th_team_carousel_more_btn_color_hover',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -551,7 +551,7 @@
 			$this->add_control(
 				'th_team_carousel_more_btn_margin_hover',
 				[
-					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -563,14 +563,14 @@
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'th_team_carousel_more_btn_box_shadow_hover',
-					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .ec-swiper-button-prev:hover, {{WRAPPER}} .ec-swiper-button-next:hover',
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_more_btn_border_rad_hover',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px'],
 					'range' => [
@@ -592,17 +592,17 @@
 			$this->add_control(
 				'th_team_carousel_carousel_dot_nav_section',
 				[
-					'label' => esc_html__( 'Navigation', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Navigation', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
 			$this->add_control(
 		    	'th_team_carousel_hide_navigation',
 		    	[
-		    		'label' 		=> esc_html__( 'Hide Dot Navigation', ONE_CORE_SLUG ),
+		    		'label' 		=> esc_html__( 'Hide Dot Navigation', 'ONE_CORE_SLUG' ),
 		    		'type' 			=> \Elementor\Controls_Manager::SWITCHER,
-		    		'label_on' 		=> __( 'Show', ONE_CORE_SLUG ),
-		    		'label_off' 	=> __( 'Hide', ONE_CORE_SLUG ),
+		    		'label_on' 		=> __( 'Show', 'ONE_CORE_SLUG' ),
+		    		'label_off' 	=> __( 'Hide', 'ONE_CORE_SLUG' ),
 		    		'return_value' 	=> 'yes',
 		    		'default' 		=> 'no',
 		    	]
@@ -614,14 +614,14 @@
 				$this->start_controls_tab(
 					'th_team_carousel_dot_nav_normal_tab',
 					[
-						'label' => esc_html__( 'Normal', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Normal', 'ONE_CORE_SLUG' ),
 
 					]
 				);
 				$this->add_control(
 					'th_team_carousel_dot_nav_background_color',
 					[
-						'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						
 						'selectors' => [
@@ -633,7 +633,7 @@
 				$this->add_control(
 					'width_team_carousel_dot_nav_background_opacity',
 					[
-						'label' => esc_html__( 'Opacity', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Opacity', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ '%' ],
 						'range' => [
@@ -651,7 +651,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_width',
 					[
-						'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -669,7 +669,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_height',
 					[
-						'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -687,7 +687,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_margin',
 					[
-						'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -699,7 +699,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_border_rad',
 					[
-						'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px'],
 						'range' => [
@@ -720,14 +720,14 @@
 				$this->start_controls_tab(
 					'th_team_carousel_dot_nav_hover_tab',
 					[
-						'label' => esc_html__( 'Active', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Active', 'ONE_CORE_SLUG' ),
 					]
 				);
 
 				$this->add_control(
 					'width_team_carousel_dot_nav_background_opacity_active',
 					[
-						'label' => esc_html__( 'Opacity', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Opacity', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ '%' ],
 						'range' => [
@@ -745,7 +745,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_background_color_hover',
 					[
-						'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						
 						'selectors' => [
@@ -757,7 +757,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_width_hover',
 					[
-						'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -775,7 +775,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_height_hover',
 					[
-						'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -794,7 +794,7 @@
 				$this->add_control(
 					'th_team_carousel_dot_nav_rad_hover',
 					[
-						'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px'],
 						'range' => [
@@ -817,14 +817,14 @@
 			$this->start_controls_section(
 				'th_team_carousel_section_style',
 				[
-					'label' => esc_html__( 'Box Styles', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Styles', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_box',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -847,7 +847,7 @@
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'th_team_carousel_box_shadow',
-					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .th-team-block',
 				]
 			);
@@ -855,14 +855,14 @@
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'th_team_carousel_border',
-					'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .th-team-block',
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_color_bg',
 				[
-					'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -874,7 +874,7 @@
 			$this->add_control(
 				'th_team_carousel_padding',
 				[
-					'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -895,17 +895,17 @@
 			$this->start_controls_section(
 				'th_team_carousel_image_style',
 				[
-					'label' => esc_html__( 'Image', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Image', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
 			$this->add_control(
 				'hide_image_overflow',
 				[
-					'label' => esc_html__( 'Hide Image Overflow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Hide Image Overflow', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => __( 'Show', ONE_CORE_SLUG ),
-					'label_off' => __( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => __( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => __( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -913,7 +913,7 @@
 			$this->add_responsive_control(
 				'th_team_carousel_image_height',
 				[
-					'label' => esc_html__( 'Image Height', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Image Height', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -935,7 +935,7 @@
 			$this->add_responsive_control(
 				'th_team_carousel_image_widht',
 				[
-					'label' => esc_html__( 'Image Width', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Image Width', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -957,7 +957,7 @@
 			$this->add_control(
 				'th_team_carousel_image_margin',
 				[
-					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -968,7 +968,7 @@
 			$this->add_control(
 				'th_team_carousel_bor_rad',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -991,14 +991,14 @@
 			$this->start_controls_section(
 				'th_team_carousel_content_style',
 				[
-					'label' => esc_html__( 'Content', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Content', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
 			$this->add_control(
 				'th_team_carousel_title_head',
 				[
-					'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Title', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -1007,7 +1007,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'th_team_carousel_title_typo',
-					'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 					
 					'selector' => '{{WRAPPER}} .th-team-name',
 				]
@@ -1015,7 +1015,7 @@
 			$this->add_control(
 				'th_team_carousel_title_color',
 				[
-					'label' => esc_html__( 'Title Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Title Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1027,7 +1027,7 @@
 			$this->add_control(
 				'th_team_carousel_title_margin',
 				[
-					'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Spacing', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1039,7 +1039,7 @@
 			$this->add_control(
 				'th_team_carousel_designation_head',
 				[
-					'label' => esc_html__( 'Designation', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Designation', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -1048,7 +1048,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'th_team_carousel_designation_typo',
-					'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 					
 					'selector' => '{{WRAPPER}} .th-team-designation',
 				]
@@ -1056,7 +1056,7 @@
 			$this->add_control(
 				'th_team_carousel_designation_color',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1067,7 +1067,7 @@
 			$this->add_control(
 				'th_team_carousel_designation_margin',
 				[
-					'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Spacing', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1079,7 +1079,7 @@
 			$this->add_control(
 				'th_team_carousel_desc_head',
 				[
-					'label' => esc_html__( 'Description', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Description', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -1088,7 +1088,7 @@
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'th_team_carousel_desc_typo',
-					'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 					
 					'selector' => '{{WRAPPER}} .th-team-description',
 				]
@@ -1096,7 +1096,7 @@
 			$this->add_control(
 				'th_team_carousel_desc_color',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1107,7 +1107,7 @@
 			$this->add_control(
 				'th_team_carousel_desc_margin',
 				[
-					'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Spacing', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1120,7 +1120,7 @@
 			$this->start_controls_section(
 				'th_team_carousel_social_style',
 				[
-					'label' => esc_html__( 'Social Profiles', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Social Profiles', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -1128,7 +1128,7 @@
 			$this->add_control(
 				'th_team_carousel_social_bg',
 				[
-					'label' => esc_html__( 'Container Background', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Container Background', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1140,7 +1140,7 @@
 			$this->add_control(
 				'th_team_carousel_social_link_color',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1151,7 +1151,7 @@
 			$this->add_control(
 				'th_team_carousel_social_link_hover_color',
 				[
-					'label' => esc_html__( 'Hover Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Hover Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1162,7 +1162,7 @@
 			$this->add_control(
 				'th_team_carousel_social_bg_color',
 				[
-					'label' => esc_html__( 'background', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'background', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1174,7 +1174,7 @@
 			$this->add_control(
 				'th_team_carousel_social_font_size',
 				[
-					'label' => esc_html__( 'Font Size', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Font Size', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1196,7 +1196,7 @@
 			$this->add_control(
 				'th_team_carousel_social_br',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1214,7 +1214,7 @@
 			$this->add_control(
 				'th_team_carousel_social_items_padding',
 				[
-					'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1232,7 +1232,7 @@
 			$this->add_control(
 				'th_team_carousel_social_icons_spacing',
 				[
-					'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Spacing', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1254,7 +1254,7 @@
 			$this->add_control(
 				'th_team_carousel_social_items_bg',
 				[
-					'label' => esc_html__( 'Container Background', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Container Background', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1265,7 +1265,7 @@
 			$this->add_control(
 				'th_team_carousel_social_items_con_padding',
 				[
-					'label' => esc_html__( 'Container padding', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Container padding', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1276,7 +1276,7 @@
 			$this->add_responsive_control(
 				'th_team_carousel_social_border_rad',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1288,14 +1288,14 @@
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'th_team_carousel_socails_box_shadow',
-					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} ul.th-team-socials',
 				]
 			);
 			$this->add_responsive_control(
 				'th_team_carousel_social_container_vertical_position',
 				[
-					'label' => esc_html__( 'Vertical Position', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Vertical Position', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1318,7 +1318,7 @@
 			$this->add_responsive_control(
 				'th_team_carousel_social_items_horizontal_position',
 				[
-					'label' => esc_html__( 'Horizontal Position', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Horizontal Position', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1346,9 +1346,9 @@
 			$r->add_control(
 				'th_team_carousel_additional_fields',
 				[
-					'label' => esc_html__( 'Additional text', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Additional text', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Default title', ONE_CORE_SLUG ),
+					'default' => esc_html__( 'Default title', 'ONE_CORE_SLUG' ),
 				]
 			);
 		}

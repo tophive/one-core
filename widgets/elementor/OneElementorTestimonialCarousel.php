@@ -19,14 +19,14 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Testimonial Carousel', ONE_CORE_SLUG );
+		return esc_html__( 'Testimonial Carousel', 'ONE_CORE_SLUG' );
 	}
 
 	public function get_icon() {
 		return 'eicon-testimonial';
 	}
 	public function get_categories(){
-        return [ ONE_CORE_SLUG ];
+        return [ 'ONE_CORE_SLUG' ];
     }
 	public function get_keywords() {
 		return [ 'testimonial', 'carousel', 'image' ];
@@ -36,7 +36,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_slides',
 			[
-				'label' => esc_html__( 'Slides', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Slides', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -48,7 +48,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'slides',
 			[
-				'label' => esc_html__( 'Slides', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Slides', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::REPEATER,
 				'fields' => $repeater->get_controls(),
 				'default' => $this->get_repeater_defaults(),
@@ -60,12 +60,12 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 			'effect',
 			[
 				'type' => \Elementor\Controls_Manager::SELECT,
-				'label' => esc_html__( 'Effect', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Effect', 'ONE_CORE_SLUG' ),
 				'default' => 'slide',
 				'options' => [
-					'slide' => esc_html__( 'Slide', ONE_CORE_SLUG ),
-					'fade' => esc_html__( 'Fade', ONE_CORE_SLUG ),
-					'cube' => esc_html__( 'Cube', ONE_CORE_SLUG ),
+					'slide' => esc_html__( 'Slide', 'ONE_CORE_SLUG' ),
+					'fade' => esc_html__( 'Fade', 'ONE_CORE_SLUG' ),
+					'cube' => esc_html__( 'Cube', 'ONE_CORE_SLUG' ),
 				],
 				'frontend_available' => true,
 			]
@@ -78,8 +78,8 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		// 	'slides_per_view',
 		// 	[
 		// 		'type' => \Elementor\Controls_Manager::SELECT,
-		// 		'label' => esc_html__( 'Slides Per View', ONE_CORE_SLUG ),
-		// 		'options' => [ '' => esc_html__( 'Default', ONE_CORE_SLUG ) ] + $slides_per_view,
+		// 		'label' => esc_html__( 'Slides Per View', 'ONE_CORE_SLUG' ),
+		// 		'options' => [ '' => esc_html__( 'Default', 'ONE_CORE_SLUG' ) ] + $slides_per_view,
 		// 		'condition' => [
 		// 			'effect' => 'slide',
 		// 		],
@@ -92,9 +92,9 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		// 	'slides_to_scroll',
 		// 	[
 		// 		'type' => \Elementor\Controls_Manager::SELECT,
-		// 		'label' => esc_html__( 'Slides to Scroll', ONE_CORE_SLUG ),
-		// 		'description' => esc_html__( 'Set how many slides are scrolled per swipe.', ONE_CORE_SLUG ),
-		// 		'options' => [ '' => esc_html__( 'Default', ONE_CORE_SLUG ) ] + $slides_per_view,
+		// 		'label' => esc_html__( 'Slides to Scroll', 'ONE_CORE_SLUG' ),
+		// 		'description' => esc_html__( 'Set how many slides are scrolled per swipe.', 'ONE_CORE_SLUG' ),
+		// 		'options' => [ '' => esc_html__( 'Default', 'ONE_CORE_SLUG' ) ] + $slides_per_view,
 		// 		'condition' => [
 		// 			'effect' => 'slide',
 		// 		],
@@ -107,7 +107,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		// 	'height',
 		// 	[
 		// 		'type' => \Elementor\Controls_Manager::SLIDER,
-		// 		'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+		// 		'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 		// 		'size_units' => [ 'px', 'vh' ],
 		// 		'range' => [
 		// 			'px' => [
@@ -128,7 +128,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		// 	'width',
 		// 	[
 		// 		'type' => \Elementor\Controls_Manager::SLIDER,
-		// 		'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+		// 		'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 		// 		'range' => [
 		// 			'px' => [
 		// 				'min' => 100,
@@ -153,7 +153,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_additional_options',
 			[
-				'label' => esc_html__( 'Additional Options', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Additional Options', 'ONE_CORE_SLUG' ),
 			]
 		);
 
@@ -161,10 +161,10 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 			'show_arrows',
 			[
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label' => esc_html__( 'Arrows', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Arrows', 'ONE_CORE_SLUG' ),
 				'default' => 'yes',
-				'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
-				'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
+				'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
+				'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
 				'return_value' => 'yes',
 				'render_type' => 'template',
 				'frontend_available' => true,
@@ -173,7 +173,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'speed',
 			[
-				'label' => esc_html__( 'Transition Duration', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Transition Duration', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
 				'default' => 500,
 				'frontend_available' => true,
@@ -183,7 +183,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'autoplay',
 			[
-				'label' => esc_html__( 'Autoplay', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Autoplay', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'frontend_available' => true,
@@ -193,7 +193,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'autoplay_speed',
 			[
-				'label' => esc_html__( 'Autoplay Speed', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Autoplay Speed', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
 				'default' => 5000,
 				'condition' => [
@@ -206,7 +206,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'loop',
 			[
-				'label' => esc_html__( 'Infinite Loop', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Infinite Loop', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'frontend_available' => true,
@@ -227,7 +227,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_slides_style',
 			[
-				'label' => esc_html__( 'Slides', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Slides', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -235,7 +235,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'content_height',
 			[
-				'label' => esc_html__( 'Slider Height', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Slider Height', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'default' => array(
@@ -257,7 +257,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'content_spacing',
 			[
-				'label' => esc_html__( 'Slider Spacing', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Slider Spacing', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'default' => array(
@@ -281,7 +281,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'slide_padding',
 			[
-				'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'selectors' => [
 					'{{WRAPPER}} .tophive-main-swiper .swiper-slide' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
@@ -292,7 +292,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'slide_margin',
 			[
-				'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'selectors' => [
 					'{{WRAPPER}} .tophive-testimonial' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
@@ -309,7 +309,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_navigation',
 			[
-				'label' => esc_html__( 'Navigation', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Navigation', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -318,14 +318,14 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_tab(
 			'navigation_controls_tabs_testimonial_section', 
 			[ 
-				'label' => esc_html__( 'Arrow', ONE_CORE_SLUG ) 
+				'label' => esc_html__( 'Arrow', 'ONE_CORE_SLUG' ) 
 			] 
 		);
 
 		$this->add_control(
 			'arrows_size',
 			[
-				'label' => esc_html__( 'Size', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Size', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 20,
@@ -343,7 +343,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'arrow_sapcing',
 			[
-				'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Spacing', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -361,7 +361,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'arrow_width',
 			[
-				'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -379,7 +379,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'arrow_height',
 			[
-				'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -397,7 +397,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'arrow_border_radius',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -462,13 +462,13 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_tab(
 			'navigation_controls_tabs_testimonial_section_pagi', 
 			[ 
-				'label' => esc_html__( 'Pagination', ONE_CORE_SLUG ) 
+				'label' => esc_html__( 'Pagination', 'ONE_CORE_SLUG' ) 
 			] 
 		);
 		$this->add_control(
 			'heading_pagination',
 			[
-				'label' => esc_html__( 'Pagination', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Pagination', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::HEADING,
 			]
 		);
@@ -476,7 +476,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pagination_size',
 			[
-				'label' => esc_html__( 'Size', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Size', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -492,7 +492,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pagination_color',
 			[
-				'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .th-slide-dot-nav span' => 'background-color: {{VALUE}}'
@@ -502,7 +502,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pagination_color_active',
 			[
-				'label' => esc_html__( 'Active Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Active Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .th-slide-dot-nav span.active' => 'background-color: {{VALUE}}'
@@ -513,7 +513,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pagination_top_margin',
 			[
-				'label' => esc_html__( 'Pagination Margin Top', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Pagination Margin Top', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -539,15 +539,15 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		// $this->add_control(
 		// 	'layout',
 		// 	[
-		// 		'label' => esc_html__( 'Layout', ONE_CORE_SLUG ),
+		// 		'label' => esc_html__( 'Layout', 'ONE_CORE_SLUG' ),
 		// 		'type' => \Elementor\Controls_Manager::SELECT,
 		// 		'default' => 'image_inline',
 		// 		'options' => [
-		// 			'image_inline' => esc_html__( 'Image Inline', ONE_CORE_SLUG ),
-		// 			'image_stacked' => esc_html__( 'Image Stacked', ONE_CORE_SLUG ),
-		// 			'image_above' => esc_html__( 'Image Above', ONE_CORE_SLUG ),
-		// 			'image_left' => esc_html__( 'Image Left', ONE_CORE_SLUG ),
-		// 			'image_right' => esc_html__( 'Image Right', ONE_CORE_SLUG ),
+		// 			'image_inline' => esc_html__( 'Image Inline', 'ONE_CORE_SLUG' ),
+		// 			'image_stacked' => esc_html__( 'Image Stacked', 'ONE_CORE_SLUG' ),
+		// 			'image_above' => esc_html__( 'Image Above', 'ONE_CORE_SLUG' ),
+		// 			'image_left' => esc_html__( 'Image Left', 'ONE_CORE_SLUG' ),
+		// 			'image_right' => esc_html__( 'Image Right', 'ONE_CORE_SLUG' ),
 		// 		],
 		// 		'prefix_class' => 'tophive-testimonial--layout-',
 		// 		'render_type' => 'template',
@@ -557,21 +557,21 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'alignment',
 			[
-				'label' => esc_html__( 'Alignment', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Alignment', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::CHOOSE,
 				'label_block' => false,
 				'default' => 'center',
 				'options' => [
 					'left' => [
-						'title' => esc_html__( 'Left', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Left', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => esc_html__( 'Center', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
-						'title' => esc_html__( 'Right', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Right', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-right',
 					],
 				],
@@ -584,7 +584,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_skin_style',
 			[
-				'label' => esc_html__( 'Bubble', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Bubble', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'skin' => 'bubble',
@@ -595,7 +595,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'background_color',
 			[
-				'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'alpha' => false,
 				'selectors' => [
@@ -607,7 +607,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'text_padding',
 			[
-				'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'default' => [
@@ -631,7 +631,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'border_radius',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -643,7 +643,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'border',
 			[
-				'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
 				'selectors' => [
 					'{{WRAPPER}} .tophive-testimonial__content, {{WRAPPER}} .tophive-testimonial__content:after' => 'border-style: solid',
@@ -654,7 +654,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'border_color',
 			[
-				'label' => esc_html__( 'Border Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'default' => '#000',
 				'selectors' => [
@@ -670,7 +670,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'border_width',
 			[
-				'label' => esc_html__( 'Border Width', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Width', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -700,7 +700,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_content_style',
 			[
-				'label' => esc_html__( 'Content', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Content', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -708,7 +708,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Background::get_type(),
 			[
 				'name' => 'testimonial_bg_color',
-				'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 				'types' => [ 'classic'],
 				'selector' => '{{WRAPPER}} .tophive-testimonial__content',
 			]
@@ -716,7 +716,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'test_content_padding',
 			[
-				'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -727,7 +727,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'testimonial_content_br',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range' => [
@@ -745,7 +745,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'testimonial_content_spacing',
 			[
-				'label' => esc_html__( 'Left-Right Position', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Left-Right Position', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range' => [
@@ -764,7 +764,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'content_color',
 			[
-				'label' => esc_html__( 'Text Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Text Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tophive-testimonial__text' => 'color: {{VALUE}}',
@@ -784,7 +784,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'content_mb',
 			[
-				'label' => esc_html__( 'Spacing', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Spacing', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -803,7 +803,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'name_title_style',
 			[
-				'label' => esc_html__( 'Name', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Name', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -812,7 +812,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'name_color',
 			[
-				'label' => esc_html__( 'Text Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Text Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tophive-testimonial__name' => 'color: {{VALUE}}',
@@ -833,7 +833,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'heading_title_style',
 			[
-				'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Title', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -842,7 +842,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label' => esc_html__( 'Text Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Text Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tophive-testimonial__title' => 'color: {{VALUE}}',
@@ -862,7 +862,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'heading_rating_style',
 			[
-				'label' => esc_html__( 'Rating', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Rating', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -870,7 +870,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'rating_color',
 			[
-				'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -881,7 +881,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_control(
 			'rating_spacing',
 			[
-				'label' => esc_html__( 'Rating Spacing', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Rating Spacing', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -901,7 +901,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			[
-				'label' => esc_html__( 'Image', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Image', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -909,7 +909,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'image_size_width',
 			[
-				'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -930,7 +930,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'image_size_height',
 			[
-				'label' => esc_html__( 'height', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'height', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -951,7 +951,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'image_position_top',
 			[
-				'label' => esc_html__( 'Position(Top To Bottom)', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Position(Top To Bottom)', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -973,7 +973,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'image_position_bottom',
 			[
-				'label' => esc_html__( 'Position(Side To Side)', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Position(Side To Side)', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -995,7 +995,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'image_border_width',
 			[
-				'label' => esc_html__( 'Border Width', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Width', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -1015,7 +1015,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'image_border_radius',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'selectors' => [
@@ -1060,7 +1060,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$repeater->add_control(
 			'content',
 			[
-				'label' => esc_html__( 'Content', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Content', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::TEXTAREA,
 			]
 		);
@@ -1068,7 +1068,7 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$repeater->add_control(
 			'image',
 			[
-				'label' => esc_html__( 'Image', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Image', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
 			]
 		);
@@ -1076,24 +1076,24 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 		$repeater->add_control(
 			'name',
 			[
-				'label' => esc_html__( 'Name', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Name', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'John Doe', ONE_CORE_SLUG ),
+				'default' => esc_html__( 'John Doe', 'ONE_CORE_SLUG' ),
 			]
 		);
 
 		$repeater->add_control(
 			'title',
 			[
-				'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Title', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'CEO', ONE_CORE_SLUG ),
+				'default' => esc_html__( 'CEO', 'ONE_CORE_SLUG' ),
 			]
 		);
 		$repeater->add_control(
 			'percent',
 			[
-				'label' => esc_html__( 'Rating', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Rating', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ '%' ],
 				'range' => [
@@ -1112,27 +1112,27 @@ class OneElementorTestimonialCarousel extends \Elementor\Widget_Base {
 
 		return [
 			[
-				'content' => esc_html__( 'I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', ONE_CORE_SLUG ),
-				'name' => esc_html__( 'John Doe', ONE_CORE_SLUG ),
-				'title' => esc_html__( 'CEO', ONE_CORE_SLUG ),
+				'content' => esc_html__( 'I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'ONE_CORE_SLUG' ),
+				'name' => esc_html__( 'John Doe', 'ONE_CORE_SLUG' ),
+				'title' => esc_html__( 'CEO', 'ONE_CORE_SLUG' ),
 				'percent' => 0,
 				'image' => [
 					'url' => $placeholder_image_src,
 				],
 			],
 			[
-				'content' => esc_html__( 'I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', ONE_CORE_SLUG ),
-				'name' => esc_html__( 'John Doe', ONE_CORE_SLUG ),
-				'title' => esc_html__( 'CEO', ONE_CORE_SLUG ),
+				'content' => esc_html__( 'I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'ONE_CORE_SLUG' ),
+				'name' => esc_html__( 'John Doe', 'ONE_CORE_SLUG' ),
+				'title' => esc_html__( 'CEO', 'ONE_CORE_SLUG' ),
 				'percent' => 0,
 				'image' => [
 					'url' => $placeholder_image_src,
 				],
 			],
 			[
-				'content' => esc_html__( 'I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', ONE_CORE_SLUG ),
-				'name' => esc_html__( 'John Doe', ONE_CORE_SLUG ),
-				'title' => esc_html__( 'CEO', ONE_CORE_SLUG ),
+				'content' => esc_html__( 'I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'ONE_CORE_SLUG' ),
+				'name' => esc_html__( 'John Doe', 'ONE_CORE_SLUG' ),
+				'title' => esc_html__( 'CEO', 'ONE_CORE_SLUG' ),
 				'percent' => 0,
 				'image' => [
 					'url' => $placeholder_image_src,

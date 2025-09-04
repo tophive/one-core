@@ -8,7 +8,7 @@
  * Author: Tophive
  * Author URI: https://themeforest.net/user/tophive
  * License: Envato
- * Text Domain: one-core
+ * Text Domain: ONE_CORE_SLUG
  *
  */
 
@@ -37,7 +37,7 @@ use ONECORE\widgets\elementor\OneElementorForumTabs;
 use ONECORE\widgets\elementor\OneElementorLoginSignup;
 use ONECORE\widgets\elementor\OneElementorBBPressNewPost;
 use ONECORE\widgets\elementor\OneElementorMemberCount;
-use ONECORE\widgets\elementor\OneElementorStory ;
+use ONECORE\widgets\elementor\OneElementorStory;
 use ONECORE\widgets\onewidgets\WidgetHelper;
 
 class OneCore
@@ -49,7 +49,7 @@ class OneCore
   {
     define('WP_MF_CORE_VERSION',   '1.0');
     define('WP_MF_CORE_PREFIX',   'thcore');
-    define('ONE_CORE_SLUG',   'onecore');
+    define('ONE_CORE_SLUG',   'ONE_CORE_SLUG');
 
     // Need to add extra links on plugin activation
     define('WP_MF_CORE_BASENAME', plugin_basename(__FILE__));
@@ -183,9 +183,9 @@ class OneCore
   public static function OneElementorCat($elements_manager)
   {
     $elements_manager->add_category(
-      ONE_CORE_SLUG,
+      'ONE_CORE_SLUG',
       [
-        'title' => esc_html__('One Widgets', ONE_CORE_SLUG),
+        'title' => esc_html__('One Widgets', 'ONE_CORE_SLUG'),
         'icon' => 'eicon-t-letter',
       ]
     );
@@ -258,7 +258,7 @@ class OneCore
    */
   public static function OneLoadTextdomain()
   {
-    load_plugin_textdomain('one-core', false, basename(dirname(__FILE__)) . '/languages');
+    load_plugin_textdomain('ONE_CORE_SLUG', false, basename(dirname(__FILE__)) . '/languages');
   }
 
   public static function getInstance()

@@ -9,7 +9,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Advanced Course Search', ONE_CORE_SLUG );
+		return esc_html__( 'Advanced Course Search', 'ONE_CORE_SLUG' );
 	}
 
 	public function get_icon() {
@@ -17,21 +17,21 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 	}
 
 	public function get_categories() {
-		return [ ONE_CORE_SLUG ];
+		return [ 'ONE_CORE_SLUG' ];
 	}
 
 	protected function register_controls() {
 		$this->start_controls_section(
 			'advanced_search_fields',
 			[
-				'label' => esc_html__( 'Fields', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Fields', 'ONE_CORE_SLUG' ),
 			]
 		);
 
 		$this->add_control(
 			'advanced_search_fields_text',
 			[
-				'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Title', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'default' => '',
 			]
@@ -40,33 +40,33 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_desc',
 			[
-				'label' => esc_html__( 'Description', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Description', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::TEXTAREA,
 				'default' => '',
-				'placeholder' => esc_html__( 'Search Description', ONE_CORE_SLUG ),
+				'placeholder' => esc_html__( 'Search Description', 'ONE_CORE_SLUG' ),
 			]
 		);
 
 		$this->add_responsive_control(
 			'advanced_search_fields_alignment',
 			[
-				'label' => esc_html__( 'Alignment', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Alignment', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::CHOOSE,
 				'options' => [
 					'ec-text-left'    => [
-						'title' => esc_html__( 'Left', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Left', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-left',
 					],
 					'ec-text-center' => [
-						'title' => esc_html__( 'Center', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-center',
 					],
 					'ec-text-right' => [
-						'title' => esc_html__( 'Right', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Right', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-right',
 					],
 					'ec-text-justify' => [
-						'title' => esc_html__( 'Justified', ONE_CORE_SLUG ),
+						'title' => esc_html__( 'Justified', 'ONE_CORE_SLUG' ),
 						'icon' => 'eicon-text-align-justify',
 					],
 				],
@@ -79,14 +79,14 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'advanced_search_fields_container_styling',
 			[
-				'label' => esc_html__( 'Container', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Container', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 		$this->add_control(
 			'advanced_search_fields_br',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -104,7 +104,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'advanced_search_fields_container_padding',
 			[
-				'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -115,7 +115,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_container_margin',
 			[
-				'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -126,7 +126,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_container_bg',
 			[
-				'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -139,7 +139,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
 				'name' => 'advanced_search_fields_container_box_shadow',
-				'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 				'selector' => '{{WRAPPER}} .tophive-advanced-search-fields',
 			]
 		);
@@ -148,7 +148,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'advanced_search_fields_title_styling',
 			[
-				'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Title', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -163,7 +163,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_title_color',
 			[
-				'label' => esc_html__( 'Title Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Title Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -174,7 +174,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_title_padding',
 			[
-				'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -187,7 +187,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'advanced_search_fields_desc_styling',
 			[
-				'label' => esc_html__( 'Description', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Description', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -202,7 +202,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_desc_color',
 			[
-				'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -214,7 +214,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_desc_padding',
 			[
-				'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -227,23 +227,23 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'advanced_search_fields_input_styling',
 			[
-				'label' => esc_html__( 'Input', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Input', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 		$this->add_control(
 			'advanced_search_fields_input_placeholder',
 			[
-				'label' => esc_html__( 'Placeholder', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Placeholder', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Search any course...', ONE_CORE_SLUG ),
-				'placeholder' => esc_html__( 'Search a course...', ONE_CORE_SLUG ),
+				'default' => esc_html__( 'Search any course...', 'ONE_CORE_SLUG' ),
+				'placeholder' => esc_html__( 'Search a course...', 'ONE_CORE_SLUG' ),
 			]
 		);
 		$this->add_control(
 			'advanced_search_fields_input_color',
 			[
-				'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -255,7 +255,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name' => 'advanced_search_fields_input_content_typography',
-				'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 				
 				'selector' => '{{WRAPPER}} .tophive-advanced-search-fields .search-input',
 			]
@@ -263,7 +263,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_input_padding',
 			[
-				'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -274,7 +274,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_input_margin',
 			[
-				'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -285,7 +285,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'advanced_search_fields_input_height',
 			[
-				'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range' => [
@@ -304,7 +304,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Background::get_type(),
 			[
 				'name' => 'advanced_search_fields_input_background',
-				'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 				'types' => [ 'classic'],
 				'selector' => '{{WRAPPER}} .tophive-advanced-search-fields .search-input',
 			]
@@ -312,7 +312,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_input_br',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
@@ -331,7 +331,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
 				'name' => 'advanced_search_fields_input_box_shadow',
-				'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 				'selector' => '{{WRAPPER}} .tophive-advanced-search-fields .search-input',
 			]
 		);
@@ -339,7 +339,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name' => 'advanced_search_fields_input_border',
-				'label' => __( 'Border', ONE_CORE_SLUG ),
+				'label' => __( 'Border', 'ONE_CORE_SLUG' ),
 				'selector' => '{{WRAPPER}} .tophive-advanced-search-fields .search-input',
 			]
 		);
@@ -347,14 +347,14 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'advanced_search_fields_icon_styling',
 			[
-				'label' => esc_html__( 'Search Icon', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Search Icon', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 		$this->add_control(
 			'advanced_search_fields_icon_color',
 			[
-				'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -366,7 +366,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_icon_color_bg',
 			[
-				'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				
 				'selectors' => [
@@ -378,7 +378,7 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 		$this->add_control(
 			'advanced_search_fields_icon_padding',
 			[
-				'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
@@ -390,14 +390,14 @@ class OneElementorAdvanceSearch extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name' => 'advanced_search_fields_icon_border',
-				'label' => __( 'Border', ONE_CORE_SLUG ),
+				'label' => __( 'Border', 'ONE_CORE_SLUG' ),
 				'selector' => '{{WRAPPER}} .tophive-advanced-search-fields .search-submit',
 			]
 		);
 		$this->add_control(
 			'advanced_search_fields_icon_br',
 			[
-				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [

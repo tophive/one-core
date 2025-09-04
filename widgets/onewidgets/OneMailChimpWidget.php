@@ -17,7 +17,7 @@ class OneMailChimpWidget extends WP_Widget {
             'name'           => 'tophive_mailchimp_panel',
             'type'           => 'panel',
             'priority'       => 100,
-            'title'          => esc_html__( 'Mailchimp', ONE_CORE_SLUG ),
+            'title'          => esc_html__( 'Mailchimp', 'ONE_CORE_SLUG' ),
         );
         $configs[] = array(
             'name'     => 'tophive_mailchimp_panel_api_key_settings',
@@ -29,15 +29,15 @@ class OneMailChimpWidget extends WP_Widget {
             'name' => 'tophive_mailchimp_api_key',
             'type' => 'text',
             'section' => 'tophive_mailchimp_panel_api_key_settings',
-            'label' => esc_html__( 'MailChimp Api Key', ONE_CORE_SLUG ),
-            'description' => sprintf(esc_html__( 'How Can I get My %sApi Key?%s', ONE_CORE_SLUG ), '<a href="'. $api_url_help .'" target="_blank">', '</a>'),
+            'label' => esc_html__( 'MailChimp Api Key', 'ONE_CORE_SLUG' ),
+            'description' => sprintf(esc_html__( 'How Can I get My %sApi Key?%s', 'ONE_CORE_SLUG' ), '<a href="'. $api_url_help .'" target="_blank">', '</a>'),
         );
         $configs[] = array(
             'name' => 'tophive_mailchimp_list_id',
             'type' => 'text',
             'section' => 'tophive_mailchimp_panel_api_key_settings',
-            'label' => esc_html__( 'MailChimp List ID', ONE_CORE_SLUG ),
-            'description' => sprintf(esc_html__( 'How Can I get My %sList ID?%s', ONE_CORE_SLUG ), '<a href="'. $list_url_help .'" target="_blank">', '</a>'),
+            'label' => esc_html__( 'MailChimp List ID', 'ONE_CORE_SLUG' ),
+            'description' => sprintf(esc_html__( 'How Can I get My %sList ID?%s', 'ONE_CORE_SLUG' ), '<a href="'. $list_url_help .'" target="_blank">', '</a>'),
         );
         return $configs;
     }

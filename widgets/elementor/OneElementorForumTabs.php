@@ -16,7 +16,7 @@ if ( ! class_exists( 'bbPress' ) ) {
 class OneElementorForumTabs extends \Elementor\Widget_base
 {
 	public function get_title(){
-		return esc_html__( 'BBPress Forum', ONE_CORE_SLUG );
+		return esc_html__( 'BBPress Forum', 'ONE_CORE_SLUG' );
 	}
 	public function get_name(){
 		return 'th-forum-tabs';
@@ -25,7 +25,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 		return 'eicon-tabs';
 	}
 	public function get_categories(){
-        return [ ONE_CORE_SLUG ];
+        return [ 'ONE_CORE_SLUG' ];
     }
 	public function get_keywords() {
 		return [ 'tabs', 'forum' ];
@@ -34,17 +34,17 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 		$this->start_controls_section(
 			'th_adv_tabs_section',
 			[
-				'label' => esc_html__( 'Activity Tab', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Activity Tab', 'ONE_CORE_SLUG' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);			
 		$this->add_control(
 			'tab_show_activities',
 			[
-				'label' => esc_html__( 'Show Latest Activities', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Show Latest Activities', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => __( 'Show', ONE_CORE_SLUG ),
-				'label_off' => __( 'Hide', ONE_CORE_SLUG ),
+				'label_on' => __( 'Show', 'ONE_CORE_SLUG' ),
+				'label_off' => __( 'Hide', 'ONE_CORE_SLUG' ),
 				'return_value' => 'yes',
 				'default' => 'yes',
 			]
@@ -52,10 +52,10 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 		$this->add_control(
 			'tab_show_forums',
 			[
-				'label' => esc_html__( 'Show Forums', ONE_CORE_SLUG ),
+				'label' => esc_html__( 'Show Forums', 'ONE_CORE_SLUG' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => __( 'Show', ONE_CORE_SLUG ),
-				'label_off' => __( 'Hide', ONE_CORE_SLUG ),
+				'label_on' => __( 'Show', 'ONE_CORE_SLUG' ),
+				'label_off' => __( 'Hide', 'ONE_CORE_SLUG' ),
 				'return_value' => 'yes',
 				'default' => 'yes',
 			]
@@ -86,8 +86,8 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 				<div class="tophive-forum-tabs">
 					<?php if( 'yes' == $settings['tab_show_activities'] && 'yes' == $settings['tab_show_forums'] ){ ?>
 						<ul>
-							<li class="active"><a href="#th_topics"><?php echo esc_html__( 'Recent Activity', ONE_CORE_SLUG ); ?></a></li>
-							<li><a href="#th_forums"><?php echo esc_html__( 'Forums', ONE_CORE_SLUG ); ?></a></li>
+							<li class="active"><a href="#th_topics"><?php echo esc_html__( 'Recent Activity', 'ONE_CORE_SLUG' ); ?></a></li>
+							<li><a href="#th_forums"><?php echo esc_html__( 'Forums', 'ONE_CORE_SLUG' ); ?></a></li>
 						</ul>
 					<?php } ?>
 				</div>
@@ -240,14 +240,14 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 																			$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}posts WHERE post_parent={$post_ide} and post_type='topic'");
 																			echo count($results);
 																			echo '</span>';
-																			esc_html_e( ' Topics', ONE_CORE_SLUG ); ?>
+																			esc_html_e( ' Topics', 'ONE_CORE_SLUG' ); ?>
 																	</div>
 																	<div class="meta-item last-active-time">
 																		<?php 
 																			echo '<span>';
 																			echo bbp_forum_reply_count(get_the_ID());
 																			echo '</span>';
-																			esc_html_e( ' Replies', ONE_CORE_SLUG ); ?>
+																			esc_html_e( ' Replies', 'ONE_CORE_SLUG' ); ?>
 																	</div>
 																</div>
 																<div class="tophive-forum-last-topic">
@@ -305,14 +305,14 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 																			
 																			echo count($results);
 																			echo '</span>';
-																			esc_html_e( ' Topics', ONE_CORE_SLUG ); ?>
+																			esc_html_e( ' Topics', 'ONE_CORE_SLUG' ); ?>
 																	</div>
 																	<div class="meta-item last-active-time">
 																		<?php 
 																			echo '<span>';
 																			echo bbp_forum_reply_count(get_the_ID());
 																			echo '</span>';
-																			esc_html_e( ' Replies', ONE_CORE_SLUG ); ?>
+																			esc_html_e( ' Replies', 'ONE_CORE_SLUG' ); ?>
 																	</div>
 																</div>
 																<div class="tophive-forum-last-topic">

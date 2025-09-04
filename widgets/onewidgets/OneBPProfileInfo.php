@@ -15,7 +15,7 @@ class OneBPProfileInfo extends WP_Widget
   public function widget($args, $instance)
   {
     $profile_id = get_current_user_id();
-    if(!$profile_id) return ;
+    if (!$profile_id) return;
     $html  = '';
     $html .= $args['before_widget'];
     $html .= '<div class="widget-profile-container">';
@@ -23,12 +23,12 @@ class OneBPProfileInfo extends WP_Widget
     // ❯❯❯❯ Profile Photo
     // Get the displayed user's cover/banner
     $cover = bp_attachments_get_attachment('url', [
-        'object_dir' => 'members',
-        'item_id'    => $profile_id,
+      'object_dir' => 'members',
+      'item_id'    => $profile_id,
     ]);
 
-    if ( ! $cover ) {
-        $cover = get_template_directory_uri() . "/assets/images/placeholder.png";
+    if (! $cover) {
+      $cover = get_template_directory_uri() . "/assets/images/placeholder.png";
     }
 
     $html .= "<div class='widget-profile-banner'>";
@@ -36,15 +36,15 @@ class OneBPProfileInfo extends WP_Widget
 
     // Get user avatar HTML
     $avatar_html = bp_core_fetch_avatar([
-        'item_id' => $profile_id,
-        'type'    => 'full',
-        'html'    => true
+      'item_id' => $profile_id,
+      'type'    => 'full',
+      'html'    => true
     ]);
 
     // Fallback if user has no avatar
-    if ( empty( $avatar_html ) ) {
-        $pla_url = get_template_directory_uri() . '/assets/images/people.jpg';
-        $avatar_html = "<img src='{$pla_url}' alt='User Avatar' />";
+    if (empty($avatar_html)) {
+      $pla_url = get_template_directory_uri() . '/assets/images/people.jpg';
+      $avatar_html = "<img src='{$pla_url}' alt='User Avatar' />";
     }
 
     $html .= $avatar_html;
@@ -52,7 +52,7 @@ class OneBPProfileInfo extends WP_Widget
 
     //name
     $name = get_the_author_meta('display_name', $profile_id);
-    $domain = bp_core_get_user_domain( $profile_id );
+    $domain = bp_core_get_user_domain($profile_id);
     $html .= "<div class='widget-profile-name'>";
     $html .= "<a href='{$domain}'>{$name}</a>"; //profile link
     $html .= "</div>";
@@ -89,7 +89,7 @@ class OneBPProfileInfo extends WP_Widget
     // ❯❯❯❯ Profile Tab
 
     // Get member nav items
-    $base_link  = bp_core_get_user_domain( $profile_id );
+    $base_link  = bp_core_get_user_domain($profile_id);
 
     // Define tabs with slug with SVG
     $tabs = [
@@ -114,7 +114,7 @@ class OneBPProfileInfo extends WP_Widget
     ];
 
     $html .= "<div class='widget-profile-action-btns'>";
-    foreach ( $tabs as $label => $data ) {
+    foreach ($tabs as $label => $data) {
       $tab_link = $base_link . $data['slug'];
       $html .= "<a href='{$tab_link}' class='bp-profile-link'>{$data['svg']} {$label}</a>";
     }
@@ -125,10 +125,10 @@ class OneBPProfileInfo extends WP_Widget
     $current_user = get_current_user_id();
     if (Tophive_BP_Members::get_instance()->is_already_following($current_user, $profile_id)) {
       $status = 'following';
-      $text   = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>' . esc_html__(' Following', 'one');
+      $text   = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>' . esc_html__(' Following', 'ONE_CORE_SLUG');
     } else {
       $status = '';
-      $text = esc_html__('+ Follow', 'one');
+      $text = esc_html__('+ Follow', 'ONE_CORE_SLUG');
     }
     $follow_btn = "<a href='' class='bp-th-follow-button' data-follower-id='{$profile_id}' data-following='{$status}' data-following-id='{$current_user}'> {$text} </a>";
 
@@ -145,9 +145,9 @@ class OneBPProfileInfo extends WP_Widget
     */
 
     // Get user description
-    $desc = get_the_author_meta( 'description', $profile_id, false );
+    $desc = get_the_author_meta('description', $profile_id, false);
 
-    if ( ! empty( $desc ) ) {  // If the description is empty, nothing is rendered, keeping your profile card clean.
+    if (! empty($desc)) {  // If the description is empty, nothing is rendered, keeping your profile card clean.
       $html .= "<div class='widget-profile-about'>";
       $html .= '<h4>About us</h4>';
       $html .= "<p>{$desc}</p>";
@@ -162,7 +162,7 @@ class OneBPProfileInfo extends WP_Widget
 
   public function form($instance)
   {
-  /*
+    /*
     $profile_id = ! empty($instance['profile_id']) ? $instance['profile_id'] : '';
     <div class="mchimp-subs_form">
       <p>
@@ -184,3 +184,4 @@ class OneBPProfileInfo extends WP_Widget
     return $instance;
   }
 }
+
