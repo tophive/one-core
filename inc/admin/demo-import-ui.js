@@ -86,7 +86,7 @@
       const pluginsToInstall = [];
       if (selected.buddypress && !done.buddypress) pluginsToInstall.push('buddypress');
       if (selected.forums && !done.forums) pluginsToInstall.push('bbpress');
-      if (selected.events && !done.events) pluginsToInstall.push('the-events-manager');
+      if (selected.events && !done.events) pluginsToInstall.push('the-events-calendar');
       if (selected.woocommerce && !done.woocommerce) pluginsToInstall.push('woocommerce');
       if (selected.directory && !done.directory) pluginsToInstall.push('directorist');
       if (selected.job_manager && !done.job_manager) pluginsToInstall.push('wp-job-manager');
@@ -165,11 +165,20 @@
       const pluginSlugs = [];
       if (selected.buddypress && !done.buddypress) pluginSlugs.push('buddypress');
       if (selected.forums && !done.forums) pluginSlugs.push('bbpress');
-      if (selected.events && !done.events) pluginSlugs.push('the-events-manager');
+      if (selected.events && !done.events) {
+          pluginSlugs.push('the-events-calendar');
+          pluginSlugs.push('event-tickets');
+      } 
       if (selected.woocommerce && !done.woocommerce) pluginSlugs.push('woocommerce');
-      if (selected.directory && !done.directory) pluginSlugs.push('directorist');
+      if (selected.directory && !done.directory) {
+          pluginSlugs.push('directorist');
+          pluginSlugs.push('addonskit-for-elementor');
+      } 
       if (selected.job_manager && !done.job_manager) pluginSlugs.push('wp-job-manager');
-      if (selected.courses && !done.courses) pluginSlugs.push('tutor');
+      if (selected.courses && !done.courses) {
+          pluginSlugs.push('tutor');
+          pluginSlugs.push('tutor-lms-elementor-addons');
+      } 
       if (selected.pmp && !done.pmp) pluginSlugs.push('paid-memberships-pro');
       //default elementor
       pluginSlugs.push('elementor');
