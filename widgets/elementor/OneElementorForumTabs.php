@@ -430,8 +430,6 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 
     $args = [
       "post_status" => "publish",
-      'posts_per_page' => 30,
-      'post_parent' => 0
     ];
 
     if (in_array($tab, ["topic", "forum"])) {
