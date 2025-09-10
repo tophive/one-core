@@ -25,21 +25,6 @@ class OneElementorForumTabs extends \Elementor\Widget_base
     return esc_html__('BBPress Forum', 'ONE_CORE_SLUG');
   }
 
-  public function get_tabs()
-  {
-    $tabs = [
-      "recent_activity" => esc_html__("Recent Activity", "ONE_CORE_SLUG"),
-      "forum" => esc_html__("Forum", "ONE_CORE_SLUG"),
-      "tag" => esc_html__("Tag", "ONE_CORE_SLUG"),
-      "my_topic" => esc_html__("My Topic", "ONE_CORE_SLUG"),
-      "fav" => esc_html__("Favourite", "ONE_CORE_SLUG"),
-      "sub" => esc_html__("Subscription", "ONE_CORE_SLUG"),
-      "eng" => esc_html__("Engagement", "ONE_CORE_SLUG"),
-      "search" => esc_html__("Search", "ONE_CORE_SLUG"),
-    ];
-
-    return $tabs;
-  }
   public function get_name()
   {
     return 'th-forum-tabs';
@@ -86,35 +71,26 @@ class OneElementorForumTabs extends \Elementor\Widget_base
       ]
     );
 
-    $this->add_control(
-      'my_section_label',
+    $repeater = new Repeater();
+    $repeater->add_control(
+      'tab_key',
       [
-        'label' => __('Tabs Order', 'ONE_CORE_SLUG'),
-        'type'  => \Elementor\Controls_Manager::HEADING,
-        'separator' => 'before',
+        'label' => esc_html__('Tab', 'textdomain'),
+        'type' => \Elementor\Controls_Manager::SELECT,
+        'options' => [
+          "recent_activity" => esc_html__("Recent Activity", "ONE_CORE_SLUG"),
+          "forum" => esc_html__("Forum", "ONE_CORE_SLUG"),
+          "tag" => esc_html__("Tag", "ONE_CORE_SLUG"),
+          "my_topic" => esc_html__("My Topic", "ONE_CORE_SLUG"),
+          "fav" => esc_html__("Favourite", "ONE_CORE_SLUG"),
+          "sub" => esc_html__("Subscription", "ONE_CORE_SLUG"),
+          "eng" => esc_html__("Engagement", "ONE_CORE_SLUG"),
+          "search" => esc_html__("Search", "ONE_CORE_SLUG"),
+
+        ],
       ]
     );
 
-
-    $tabs = $this->get_tabs();
-
-    foreach ($tabs as $key => $value) {
-      $this->add_control(
-        $key,
-        [
-          'label' => esc_html__($value, 'ONE_CORE_SLUG'),
-          'type' => \Elementor\Controls_Manager::NUMBER,
-          'min' => 0,
-          'max' => 20,
-          'step' => 1,
-          'default' => 0,
-        ]
-      );
-    }
-
-
-    //drags
-    $repeater = new Repeater();
     $this->add_control(
       'tabs_list',
       [
@@ -122,19 +98,18 @@ class OneElementorForumTabs extends \Elementor\Widget_base
         'type' => Controls_Manager::REPEATER,
         'fields' => $repeater->get_controls(),
         'default' => [
-          ['tab_key' => 'Recent Activity'],
-          ['tab_key' => 'Forum'],
-          ['tab_key' => 'Tag'],
-          ['tab_key' => 'My Topic'],
-          ['tab_key' => 'Favourite'],
-          ['tab_key' => 'Subscription'],
-          ['tab_key' => 'Engagement'],
-          ['tab_key' => 'Search'],
+          ['tab_key' => 'recent_activity'],
+          ['tab_key' => 'forum'],
+          ['tab_key' => 'tag'],
+          ['tab_key' => 'my_topic'],
+          ['tab_key' => 'fav'],
+          ['tab_key' => 'sub'],
+          ['tab_key' => 'eng'],
+          ['tab_key' => 'search'],
         ],
         'title_field' => '{{{ tab_key }}}',
       ]
     );
-    //drags end
     $this->end_controls_section();
   }
 
@@ -553,17 +528,16 @@ class OneElementorForumTabs extends \Elementor\Widget_base
     };
 
     //collect tabs settings
-    $tabs_keys = array_keys($this->get_tabs());
     $tabs = [];
-    foreach ($tabs_keys as $v) {
-      if ($settings[$v] !== "") {
-        $tabs[] = [$v, $settings[$v]];
+
+    if (!empty($settings["tabs_list"])) {
+      foreach ($settings["tabs_list"] as $tab) {
+        if ($tab["tab_key"] !== "") {
+          $tabs[] = $tab["tab_key"];
+        }
       }
     }
 
-    usort($tabs, function ($a, $b) {
-      return $a[1] <=> $b[1];
-    });
 
     //TODO:
     //2.elementor control
@@ -600,7 +574,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
           <?php
           if (!empty($tabs)) {
             foreach ($tabs as $value) {
-              $get_tab_item($value[0]);
+              $get_tab_item($value);
             }
           }
           ?>
