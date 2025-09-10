@@ -2,6 +2,10 @@
 
 namespace ONECORE\widgets\elementor;
 
+use Elementor\Controls_Manager;
+use Elementor\Repeater;
+
+
 if (! class_exists('bbPress')) {
   return;
 }
@@ -107,6 +111,30 @@ class OneElementorForumTabs extends \Elementor\Widget_base
         ]
       );
     }
+
+
+    //drags
+    $repeater = new Repeater();
+    $this->add_control(
+      'tabs_list',
+      [
+        'label' => __('Tabs', 'ONE_CORE_SLUG'),
+        'type' => Controls_Manager::REPEATER,
+        'fields' => $repeater->get_controls(),
+        'default' => [
+          ['tab_key' => 'Recent Activity'],
+          ['tab_key' => 'Forum'],
+          ['tab_key' => 'Tag'],
+          ['tab_key' => 'My Topic'],
+          ['tab_key' => 'Favourite'],
+          ['tab_key' => 'Subscription'],
+          ['tab_key' => 'Engagement'],
+          ['tab_key' => 'Search'],
+        ],
+        'title_field' => '{{{ tab_key }}}',
+      ]
+    );
+    //drags end
     $this->end_controls_section();
   }
 
