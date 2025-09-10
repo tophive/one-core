@@ -49,7 +49,7 @@ class OneBPProfileMedia extends WP_Widget
         }
       }
       if (empty($all_images)) {
-        $media_html .= '<span class="no-photos">' . esc_html__('No photos uploaded', 'ONE_CORE_SLUG') . '</span>';
+        $media_html .= '<span class="no-photos">' . esc_html__('No photos', 'ONE_CORE_SLUG') . '</span>';
       }
       $media_html .= '</div>';
 
@@ -66,7 +66,7 @@ class OneBPProfileMedia extends WP_Widget
         $media_html .= "<a href='{$permalink}' class='view-more-media'>" . esc_html__("View All", "one")  . "</a>";
       }
     } else {
-      $media_html .= '<span class="no-photos">' . esc_html__('No photos uploaded', 'ONE_CORE_SLUG') . '</span>';
+      $media_html .= '<span class="no-photos">' . esc_html__('No photos', 'ONE_CORE_SLUG') . '</span>';
     }
     $html .= $media_html;
     $html .= '</div>';
