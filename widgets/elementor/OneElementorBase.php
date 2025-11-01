@@ -224,13 +224,13 @@ class OneElementorBase
   {
     if (isset($_REQUEST)) {
 
-      $settings = $_REQUEST['settings'];
-      $offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
-      $category = isset($_REQUEST['category']) ? $_REQUEST['category'] : 'all';
+      $settings = isset($_REQUEST['settings']) && is_array($_REQUEST['settings']) ? map_deep($_REQUEST['settings'], 'sanitize_text_field') : array();
+      $offset = isset($_REQUEST['offset']) ? absint($_REQUEST['offset']) : 0;
+      $category = isset($_REQUEST['category']) ? sanitize_text_field(wp_unslash($_REQUEST['category'])) : 'all';
 
-      $sort = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : '';
-      $style = isset($_REQUEST['style']) ? $_REQUEST['style'] : '';
-      $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
+      $sort = isset($_REQUEST['sort']) ? sanitize_key($_REQUEST['sort']) : '';
+      $style = isset($_REQUEST['style']) ? sanitize_key($_REQUEST['style']) : '';
+      $type = isset($_REQUEST['type']) ? sanitize_key($_REQUEST['type']) : '';
 
 
       $args = array(
@@ -302,9 +302,9 @@ class OneElementorBase
   public static function deliverPostsAjaxRequest()
   {
     if (isset($_REQUEST)) {
-      $settings = $_REQUEST['settings'];
-      $offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
-      $category = isset($_REQUEST['category']) ? $_REQUEST['category'] : 'all';
+      $settings = isset($_REQUEST['settings']) && is_array($_REQUEST['settings']) ? map_deep($_REQUEST['settings'], 'sanitize_text_field') : array();
+      $offset = isset($_REQUEST['offset']) ? absint($_REQUEST['offset']) : 0;
+      $category = isset($_REQUEST['category']) ? sanitize_text_field(wp_unslash($_REQUEST['category'])) : 'all';
 
       $args = array(
         'posts_per_page' => $settings['blog_post_count'],
@@ -315,7 +315,7 @@ class OneElementorBase
           array(
             'taxonomy' => 'category',
             'field'    => 'term_id',
-            'terms'    => $category,
+            'terms'    => absint($category),
           )
         );
       }
@@ -649,8 +649,13 @@ class OneElementorBase
   /*------------------------ ADVANCED AJAX SEARCH ----------------------*/
   public function tophiveAdvancedSearch()
   {
-    $text = $_REQUEST['text'];
-    $post_type = $_REQUEST['post_type'];
+    $text = isset($_REQUEST['text']) ? sanitize_text_field(wp_unslash($_REQUEST['text'])) : '';
+    $post_type = isset($_REQUEST['post_type']) ? sanitize_key($_REQUEST['post_type']) : 'post';
+
+    $allowed_post_types = apply_filters('tophive_advanced_search_allowed_post_types', array('post', 'page', 'lp_course'));
+    if (! in_array($post_type, $allowed_post_types, true)) {
+      $post_type = 'post';
+    }
 
     $args = array(
       'post_status' => 'publish',
@@ -682,7 +687,7 @@ class OneElementorBase
       }
       $html .= '</ul>';
     } else {
-      $html .= '<p class="ec-mb-0 ec-p-3">' . esc_html__('Nothing found for ' . $text, 'ONE_CORE_SLUG') . '</p>';
+      $html .= '<p class="ec-mb-0 ec-p-3">' . sprintf( esc_html__( 'Nothing found for %s', 'ONE_CORE_SLUG' ), esc_html( $text ) ) . '</p>';
     }
     echo $html;
     die();
@@ -708,13 +713,20 @@ class OneElementorBase
     if (!class_exists('bbPress')) {
       return;
     }
-    $post_info = $_REQUEST['data'];
+    if ( ! is_user_logged_in() ) {
+      wp_send_json( array( 'status' => esc_html__('failed', 'ONE_CORE_SLUG'), 'msg' => esc_html__('Authentication required', 'ONE_CORE_SLUG') ), 401 );
+    }
+    if ( function_exists('bbp_current_user_can_publish_topics') && ! bbp_current_user_can_publish_topics() ) {
+      wp_send_json( array( 'status' => esc_html__('failed', 'ONE_CORE_SLUG'), 'msg' => esc_html__('Insufficient permissions', 'ONE_CORE_SLUG') ), 403 );
+    }
+
+    $post_info = isset($_REQUEST['data']) && is_array($_REQUEST['data']) ? $_REQUEST['data'] : array();
 
     $post_data = array();
 
-    $post_data['post_title'] = $post_info[0]['value'];
-    $post_data['post_content'] = $post_info[3]['value'];
-    $post_data['post_parent'] = $post_info[1]['value'];
+    $post_data['post_title'] = isset($post_info[0]['value']) ? sanitize_text_field( wp_unslash( $post_info[0]['value'] ) ) : '';
+    $post_data['post_content'] = isset($post_info[3]['value']) ? wp_kses_post( wp_unslash( $post_info[3]['value'] ) ) : '';
+    $post_data['post_parent'] = isset($post_info[1]['value']) ? absint( $post_info[1]['value'] ) : 0;
     $post_data['comment_status'] = 'open';
 
     $post_id = 0;

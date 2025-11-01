@@ -26,9 +26,15 @@ class One_Imports_Controllers
 
   private function restrict_for_admin()
   {
-    if (! current_user_can('administrator')) {
-      wp_send_json("Not an administrator", 401);
+    // Use capability rather than role name for robust permission checks
+    if (! \current_user_can('manage_options')) {
+      \wp_send_json("Not authorized", 401);
     }
+  }
+
+  private function verify_nonce($action = 'one_imports')
+  {
+    \check_ajax_referer($action, '_wpnonce');
   }
 
   private function get_product_id_key()
@@ -97,6 +103,7 @@ class One_Imports_Controllers
   public function check_license()
   {
     $this->restrict_for_admin();
+    $this->verify_nonce();
 
     if (empty($this->get_licence()) || empty($this->get_product_id())) {
       wp_send_json("license required", 400);
@@ -133,11 +140,12 @@ class One_Imports_Controllers
   public function activate_license()
   {
     $this->restrict_for_admin();
+    $this->verify_nonce();
 
     if (!isset($_POST["options"]) || empty($_POST["options"])) {
       wp_send_json("options is missing", 400);
     }
-    $options = map_deep($_POST["options"], "sanitize_text_field");
+    $options = \map_deep($_POST["options"], "sanitize_text_field");
 
     if (!isset($options["license"]) || empty($options["license"])) {
       wp_send_json("license required", 400);
@@ -185,11 +193,12 @@ class One_Imports_Controllers
   public function import_plugin()
   {
     $this->restrict_for_admin();
+    $this->verify_nonce();
 
     if (!isset($_POST["options"]) || empty($_POST["options"])) {
       wp_send_json("options is missing", 400);
     }
-    $options = map_deep($_POST["options"], "sanitize_text_field");
+    $options = \map_deep($_POST["options"], "sanitize_text_field");
     if (!isset($options["download_link"]) || empty($options["download_link"]) || !isset($options["path"]) || empty($options["path"])) {
       wp_send_json("invalid options", 400);
     }
@@ -230,7 +239,17 @@ class One_Imports_Controllers
     $domain = get_site_url();
     $url .= "&domain={$domain}";
 
-    $res = wp_remote_request($url, [
+    // Cache by URL to avoid repeated network calls during browsing/imports
+    $cache_key = 'one_core_templates_' . md5($url);
+    $cached = \get_transient($cache_key);
+    if ($cached) {
+      return [
+        "status_code" => 200,
+        "data" => $cached,
+      ];
+    }
+
+    $res = \wp_remote_request($url, [
       "method" => "GET",
       'timeout' => 60,
       "headers" => [
@@ -239,19 +258,25 @@ class One_Imports_Controllers
       ],
     ]);
 
-    if (is_wp_error($res)) {
-      return new WP_Error(400, "request fail", $res);
+    if (\is_wp_error($res)) {
+      return new \WP_Error(400, "request fail", $res);
     }
 
+    $status_code = \wp_remote_retrieve_response_code($res);
+    $data = json_decode(\wp_remote_retrieve_body($res), true);
+    if ($status_code === 200 && is_array($data)) {
+      \set_transient($cache_key, $data, 5 * MINUTE_IN_SECONDS);
+    }
     return [
-      "status_code" => wp_remote_retrieve_response_code($res),
-      "data" => json_decode(wp_remote_retrieve_body($res), true),
+      "status_code" => $status_code,
+      "data" => $data,
     ];
   }
 
   public function get_templates()
   {
     $this->restrict_for_admin();
+    // Nonce check is optional for GET requests, but consider adding if sensitive.
     $url = str_replace("{resource_type}", 'page', $this->API_ENDPOINT);
 
     //ADD LICENSE ADD PRODUCT_ID
@@ -261,7 +286,14 @@ class One_Imports_Controllers
     $domain = get_site_url();
     $url .= "&domain={$domain}";
 
-    $res = wp_remote_request($url, [
+    // Cache templates list to reduce repeated calls during admin UI
+    $cache_key = 'one_core_templates_list_' . md5($url);
+    $cached = \get_transient($cache_key);
+    if ($cached) {
+      return $cached['templates'] ?? [];
+    }
+
+    $res = \wp_remote_request($url, [
       "method" => "GET",
       'timeout' => 60,
       "headers" => [
@@ -270,19 +302,23 @@ class One_Imports_Controllers
       ],
     ]);
 
-    $body = wp_remote_retrieve_body($res);
+    $body = \wp_remote_retrieve_body($res);
     $data = json_decode($body, true);
+    if (is_array($data)) {
+      \set_transient($cache_key, $data, 5 * MINUTE_IN_SECONDS);
+    }
     return $data['templates'] ?? [];
   }
 
   public function import_resource()
   {
     $this->restrict_for_admin();
+    $this->verify_nonce();
 
     if (!isset($_POST["params"]) || empty($_POST["params"])) {
       wp_send_json("params missing", 400);
     }
-    $params = $_POST["params"];
+    $params = \map_deep($_POST["params"], "sanitize_text_field");
 
     if (
       empty($params["resource_type"]) || empty($params["id"])
@@ -290,7 +326,7 @@ class One_Imports_Controllers
       wp_send_json("resource_type or id missing", 400);
     }
 
-    $id = $params["id"];
+    $id = \absint($params["id"]);
     $resource_type = $params["resource_type"];
     $res = $this->_get_templates(["resource_type" => $resource_type, "id" => $id]);
 

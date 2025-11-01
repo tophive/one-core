@@ -20,7 +20,8 @@ class OneThemeUpdater{
 	            'updating' => esc_html__( 'Updating...', 'ONE_CORE_SLUG' ),
 	            'update_failed' => esc_html__( 'Theme Update Failed.Please try again after few moments', 'ONE_CORE_SLUG' ),
 	            'update_success' => esc_html__( 'Theme Updated Successfully', 'ONE_CORE_SLUG' ),
-	            'update_available' => $update
+	            'update_available' => $update,
+	            'nonce' => wp_create_nonce( 'update_theme_nonce' ),
 	        )
 	    );
 	}
@@ -44,6 +45,13 @@ class OneThemeUpdater{
 		return $body;
 	}
 	public function updateTheme(){
+		// Capability and nonce checks to prevent unauthorized updates
+		if ( ! current_user_can( 'update_themes' ) ) {
+			wp_send_json_error( __( 'Unauthorized', 'ONE_CORE_SLUG' ), 403 );
+		}
+
+		check_ajax_referer( 'update_theme_nonce' );
+
 		$upload_dir = wp_upload_dir();
 
 		$updated_theme_url = $this->getThemeUrl();

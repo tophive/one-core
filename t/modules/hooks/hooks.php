@@ -348,14 +348,15 @@ class OneCoreCustomizer_Module_Hooks extends OneCoreCustomizer_Module_Base {
 
 		if ( isset( $hooks[ $id ] ) ) {
 
-			if ( 'code' == $hooks[ $id ]['editor'] ) {
-				$content = do_shortcode( $hooks[ $id ]['code'] );
-				if ( $hooks[ $id ]['enable_php'] ) {
-					eval( "?>{$content}<?php " );
-				} else {
-					echo $content;
-				}
-			} else {
+            if ( 'code' == $hooks[ $id ]['editor'] ) {
+                $content = do_shortcode( $hooks[ $id ]['code'] );
+                $allow_eval = apply_filters( 'tophive_hooks_allow_php_eval', false, $id, $hooks[ $id ] );
+                if ( $hooks[ $id ]['enable_php'] && true === $allow_eval ) {
+                    eval( "?>{$content}<?php " );
+                } else {
+                    echo $content;
+                }
+            } else {
 				if ( self::$elementor_activated && get_post_meta( $id, '_elementor_edit_mode', true ) == 'builder' ) {
 					self::render_elementor_item_css( $id );
 					$content = \Elementor\Plugin::instance()->frontend->get_builder_content( $id, false );
@@ -379,7 +380,7 @@ class OneCoreCustomizer_Module_Hooks extends OneCoreCustomizer_Module_Base {
 			'post_type' => $this->post_type,
 		);
 
-		$hooks_query = new WP_Query( $args );
+    $hooks_query = new \WP_Query( $args );
 		$hooks = array();
 		foreach ( (array) $hooks_query->get_posts() as $p ) {
 			$hooks[ $p->ID ] = $this->get_settings( $p->ID );

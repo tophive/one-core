@@ -71,6 +71,29 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 	}
 
 	/**
+	 * Helper function to find a condition's readable name from a nested array.
+	 *
+	 * @param string $sub_name The key to search for.
+	 * @param array  $haystack The array to search in.
+	 * @return string The found name or an empty string.
+	 */
+	private function find_condition_name( $sub_name, $haystack ) {
+		foreach ( $haystack as $key => $info ) {
+			if ( $sub_name == $key && is_string( $info ) ) {
+				return $info;
+			}
+
+			if ( isset( $info['options'] ) && is_array( $info['options'] ) ) {
+				if ( isset( $info['options'][ $sub_name ] ) ) {
+					return $info['options'][ $sub_name ];
+				}
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Convert condition to human readable.
 	 *
 	 * @since unknown
@@ -98,21 +121,8 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 					return __( 'Search Results', 'tophive-pro' );
 					break;
 				default:
-					$name = '';
 					$archives = OneCoreCustomizer_Conditional::get_instance()->get_all_archive();
-
-					foreach ( $archives as $k => $info ) {
-						if ( $condition['sub_name'] == $k && is_string( $info ) ) {
-							$name = $info;
-						} else {
-							foreach ( $info['options'] as $_k => $l ) {
-								if ( $_k == $condition['sub_name'] ) {
-									$name = $l;
-								}
-							}
-						}
-					}
-
+					$name     = $this->find_condition_name( $condition['sub_name'], $archives );
 					if ( $name ) {
 						if ( $condition['sub_id_label'] ) {
 							$name .= '/' . $condition['sub_id_label'];
@@ -121,7 +131,6 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 					}
 
 					return $default;
-
 			}
 		} elseif ( 'singular' == $condition['name'] ) {
 
@@ -129,7 +138,7 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 
 			switch ( $condition['sub_name'] ) {
 				case 'front_page':
-					return __( 'Author Archive', 'tophive-pro' );
+					return __( 'Front Page', 'tophive-pro' );
 					break;
 				case 'attachment':
 					return __( 'Media', 'tophive-pro' );
@@ -139,19 +148,7 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 					break;
 				default:
 					$all_singular = OneCoreCustomizer_Conditional::get_instance()->get_all_single();
-					$name = '';
-					foreach ( $all_singular as $k => $info ) {
-						if ( $condition['sub_name'] == $k && is_string( $info ) ) {
-							$name = $info;
-						} elseif ( isset( $info['options'] ) && is_array( $info['options'] ) ) {
-							foreach ( $info['options'] as $_k => $l ) {
-								if ( $_k == $condition['sub_name'] ) {
-									$name = $l;
-								}
-							}
-						}
-					}
-
+					$name         = $this->find_condition_name( $condition['sub_name'], $all_singular );
 					if ( $name ) {
 						if ( $condition['sub_id_label'] ) {
 							$name .= '/' . $condition['sub_id_label'];
@@ -327,7 +324,7 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 		}
 
 		// Check if user has permissions to save data.
-		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 
@@ -433,4 +430,3 @@ class OneCoreCustomizer_Module_Hooks_Admin {
 		add_action( 'admin_footer', array( OneCoreCustomizer_Conditional::get_instance(), 'form_tpl' ) );
 	}
 }
-

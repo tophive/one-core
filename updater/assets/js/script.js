@@ -13,7 +13,8 @@ jQuery(document).ready(function( $ ){
 	    	type: 'POST',
 	        url: th_theme_updater_ajax.ajaxurl,
 	        data: {
-	            'action': 'update_theme'
+	            'action': 'update_theme',
+	            'nonce': th_theme_updater_ajax.nonce
 	        },
 	        success:function(data) {
 	        	console.log(data);

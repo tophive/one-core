@@ -18,11 +18,11 @@ if (! class_exists('bbPress')) {
  *
  *
  */
-class OneElementorForumTabs extends \Elementor\Widget_base
+class OneElementorForumTabs extends \Elementor\Widget_Base
 {
   public function get_title()
   {
-    return esc_html__('BBPress Forum', 'ONE_CORE_SLUG');
+    return \esc_html__('BBPress Forum', 'ONE_CORE_SLUG');
   }
 
   public function get_name()
@@ -46,12 +46,12 @@ class OneElementorForumTabs extends \Elementor\Widget_base
     $this->start_controls_section(
       'th_adv_tabs_section',
       [
-        'label' => esc_html__('Activity Tab', 'ONE_CORE_SLUG'),
+        'label' => \esc_html__('Activity Tab', 'ONE_CORE_SLUG'),
         'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
       ]
     );
 
-    $tags = get_terms(['taxonomy'   => 'topic-tag', 'hide_empty' => false]);
+    $tags = \get_terms(['taxonomy'   => 'topic-tag', 'hide_empty' => false]);
 
     $options = [];
     if (! empty($tags) && ! is_wp_error($tags)) {
@@ -63,7 +63,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
     $this->add_control(
       'selected_tags',
       [
-        'label' => __('Select Tags', 'ONE_CORE_SLUG'),
+        'label' => \__('Select Tags', 'ONE_CORE_SLUG'),
         'type' => \Elementor\Controls_Manager::SELECT2,
         'multiple' => true,
         'options' => $options,
@@ -75,17 +75,17 @@ class OneElementorForumTabs extends \Elementor\Widget_base
     $repeater->add_control(
       'tab_key',
       [
-        'label' => esc_html__('Tab', 'textdomain'),
+        'label' => \esc_html__('Tab', 'textdomain'),
         'type' => \Elementor\Controls_Manager::SELECT,
         'options' => [
-          "recent_activity" => esc_html__("Recent Activity", "ONE_CORE_SLUG"),
-          "forum" => esc_html__("Forum", "ONE_CORE_SLUG"),
-          "tag" => esc_html__("Tag", "ONE_CORE_SLUG"),
-          "my_topic" => esc_html__("My Topic", "ONE_CORE_SLUG"),
-          "fav" => esc_html__("Favourite", "ONE_CORE_SLUG"),
-          "sub" => esc_html__("Subscription", "ONE_CORE_SLUG"),
-          "eng" => esc_html__("Engagement", "ONE_CORE_SLUG"),
-          "search" => esc_html__("Search", "ONE_CORE_SLUG"),
+          "recent_activity" => \esc_html__("Recent Activity", "ONE_CORE_SLUG"),
+          "forum" => \esc_html__("Forum", "ONE_CORE_SLUG"),
+          "tag" => \esc_html__("Tag", "ONE_CORE_SLUG"),
+          "my_topic" => \esc_html__("My Topic", "ONE_CORE_SLUG"),
+          "fav" => \esc_html__("Favourite", "ONE_CORE_SLUG"),
+          "sub" => \esc_html__("Subscription", "ONE_CORE_SLUG"),
+          "eng" => \esc_html__("Engagement", "ONE_CORE_SLUG"),
+          "search" => \esc_html__("Search", "ONE_CORE_SLUG"),
 
         ],
       ]
@@ -157,17 +157,23 @@ class OneElementorForumTabs extends \Elementor\Widget_base
                   echo '<span>';
                   global $wpdb;
                   $post_ide = get_the_ID();
-                  $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}posts WHERE post_parent={$post_ide} and post_type='topic'");
-                  echo count($results);
+                  $topic_count = $wpdb->get_var(
+                    $wpdb->prepare(
+                      "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = %d AND post_type = %s",
+                      $post_ide,
+                      'topic'
+                    )
+                  );
+                  echo absint($topic_count);
                   echo '</span>';
-                  esc_html_e(' Topics', 'ONE_CORE_SLUG'); ?>
+                  \esc_html_e(' Topics', 'ONE_CORE_SLUG'); ?>
                 </div>
                 <div class="meta-item last-active-time">
                   <?php
                   echo '<span>';
                   echo bbp_forum_reply_count(get_the_ID());
                   echo '</span>';
-                  esc_html_e(' Replies', 'ONE_CORE_SLUG'); ?>
+                  \esc_html_e(' Replies', 'ONE_CORE_SLUG'); ?>
                 </div>
               </div>
               <div class="tophive-forum-last-topic">
@@ -222,9 +228,15 @@ class OneElementorForumTabs extends \Elementor\Widget_base
                 global $wpdb;
                 $post_ide = get_the_ID();
 
-                $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}posts WHERE post_parent={$post_ide} and post_type='topic'");
+                $topic_count = $wpdb->get_var(
+                  $wpdb->prepare(
+                    "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = %d AND post_type = %s",
+                    $post_ide,
+                    'topic'
+                  )
+                );
 
-                echo count($results);
+                echo absint($topic_count);
                 echo '</span>';
                 esc_html_e(' Topics', 'ONE_CORE_SLUG'); ?>
               </div>
@@ -262,7 +274,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
       //outer if
       //if no outer if post
     } else {
-      echo esc_html__("No Content", "ONE_CORE_SLUG");
+      echo \esc_html__("No Content", "ONE_CORE_SLUG");
     }
 
     //close container
@@ -280,7 +292,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
           <div class="topic-lead-question-head">
             <?php
             echo '<h6>' . get_the_title() . '</h6>';
-            echo bbp_reply_post_date(get_the_ID(), true);
+            echo \bbp_reply_post_date(\get_the_ID(), true);
             ?>
           </div>
           <div class="topic-lead-question-user">
@@ -298,12 +310,12 @@ class OneElementorForumTabs extends \Elementor\Widget_base
           <div class="topic-lead-question-details">
             <div class="topic-lead-question-details-gamipress">
               <?php
-              $user_id = bbp_get_reply_author_id(get_the_ID());
-              do_action('th_bbp_gamipress_author', $user_id);
+              $user_id = \bbp_get_reply_author_id(\get_the_ID());
+              \do_action('th_bbp_gamipress_author', $user_id);
               ?>
             </div>
             <div class="topic-lead-question-content">
-              <?php the_content(); ?>
+              <?php \the_content(); ?>
             </div>
           </div>
           <div class="topic-lead-question-meta">
@@ -319,38 +331,39 @@ class OneElementorForumTabs extends \Elementor\Widget_base
             ?>
 
             <?php
-            $reply_ids = get_posts([
+            $reply_ids = \get_posts([
               'post_type'   => 'reply',
               'post_parent' => $post_id,
               'numberposts' => 3,
               'orderby'     => 'date',
               'order'       => 'DESC',
               'fields'      => 'ids',
+              'no_found_rows' => true,
             ]);
 
             // Collect unique user IDs
             $unique_user_ids = [];
             foreach ($reply_ids as $rid) {
-              $uid = get_post_field('post_author', $rid);
+              $uid = \get_post_field('post_author', $rid);
               $unique_user_ids[$uid] = $uid;
             }
 
             // Render reply avatars
             echo '<div class="one-topic-avatars d-flex gap-1">';
             foreach ($unique_user_ids as $uid) {
-              echo get_avatar($uid, 24, '', '', ['class' => 'one-participant-avatar']);
+              echo \get_avatar($uid, 24, '', '', ['class' => 'one-participant-avatar']);
             }
             ob_start();
-            bbp_topic_reply_count(get_the_ID());
+            \bbp_topic_reply_count(\get_the_ID());
             $topic_reply_count = ob_get_clean();
 
             if ($topic_reply_count !== "0") {
-              echo tophive_sanitize_filter($topic_reply_count) . esc_html__(' Replies', 'one');
+              echo tophive_sanitize_filter($topic_reply_count) . \esc_html__(' Replies', 'one');
             }
             echo '</div>';
             ?>
             <!-- reactions -->
-            <div class="bbp-like-dislike" data-post="<?php echo esc_attr($post_id); ?>">
+            <div class="bbp-like-dislike" data-post="<?php echo \esc_attr($post_id); ?>">
 
               <button class="bbp-like-btn <?php echo tophive_sanitize_filter($is_liked) ? 'liked' : ''; ?>">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -370,7 +383,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
 
             </div>
             <?php
-            $views = (int) get_post_meta(get_the_ID(), '_bbp_views', true);
+            $views = (int) \get_post_meta(\get_the_ID(), '_bbp_views', true);
             echo '<div class="bbp-views">
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<circle opacity="0.4" cx="12" cy="12" r="10" fill="currentColor"/>
@@ -382,7 +395,7 @@ class OneElementorForumTabs extends \Elementor\Widget_base
             ?>
             <?php
             //$topic_id = bbp_get_topic_id();
-            $tags = bbp_get_topic_tags($post_id);
+            $tags = \bbp_get_topic_tags($post_id);
 
             if (! empty($tags) && ! is_wp_error($tags)) {
               echo '<div class="bbp-custom-tags"><strong>Tags:</strong> ';
@@ -390,8 +403,8 @@ class OneElementorForumTabs extends \Elementor\Widget_base
               foreach ($tags as $tag) {
                 // Random background color
                 $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-                $link  = esc_url(get_term_link($tag));
-                $name  = esc_html($tag->name);
+                $link  = \esc_url(\get_term_link($tag));
+                $name  = \esc_html($tag->name);
 
                 echo '<a href="' . $link . '" class="tag-box" style="border:1px solid ' . $color . ';color:' . $color . ';">' . $name . '</a>';
               }
@@ -419,13 +432,13 @@ class OneElementorForumTabs extends \Elementor\Widget_base
   {
     $settings = $this->get_settings_for_display();
 
-    $tag = isset($_GET['tag']) ? sanitize_text_field($_GET['tag']) : '';
-    $tab    = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : '';
-    $search  = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
-    $fav  = isset($_GET['fav']) ? sanitize_text_field($_GET['fav']) : '';
-    $sub  = isset($_GET['sub']) ? sanitize_text_field($_GET['sub']) : '';
-    $engagement  = isset($_GET['engagement']) ? sanitize_text_field($_GET['engagement']) : '';
-    $my_topic  = isset($_GET['my-topic']) ? sanitize_text_field($_GET['my-topic']) : '';
+    $tag = isset($_GET['tag']) ? \sanitize_text_field($_GET['tag']) : '';
+    $tab    = isset($_GET['tab']) ? \sanitize_text_field($_GET['tab']) : '';
+    $search  = isset($_GET['search']) ? \sanitize_text_field($_GET['search']) : '';
+    $fav  = isset($_GET['fav']) ? \sanitize_text_field($_GET['fav']) : '';
+    $sub  = isset($_GET['sub']) ? \sanitize_text_field($_GET['sub']) : '';
+    $engagement  = isset($_GET['engagement']) ? \sanitize_text_field($_GET['engagement']) : '';
+    $my_topic  = isset($_GET['my-topic']) ? \sanitize_text_field($_GET['my-topic']) : '';
     $method = "forum_activity_post_markup"; //default
 
     $args = [
@@ -452,20 +465,20 @@ class OneElementorForumTabs extends \Elementor\Widget_base
       $args["s"] = $search;
     }
 
-    if (!empty($my_topic) && is_user_logged_in()) {
-      $args['author'] = get_current_user_id();
+    if (!empty($my_topic) && \is_user_logged_in()) {
+      $args['author'] = \get_current_user_id();
     }
 
     if (!empty($fav)) {
-      $args['meta_query'][] = ['key' => '_bbp_favorite', 'value' => get_current_user_id()];
+      $args['meta_query'][] = ['key' => '_bbp_favorite', 'value' => \get_current_user_id()];
     }
 
     if (!empty($sub)) {
-      $args['meta_query'][] = ['key' => '_bbp_subscription', 'value' => get_current_user_id()];
+      $args['meta_query'][] = ['key' => '_bbp_subscription', 'value' => \get_current_user_id()];
     }
 
     if (!empty($engagement)) {
-      $args['meta_query'][] = ['key' => '_bbp_engagement', 'value' => get_current_user_id()];
+      $args['meta_query'][] = ['key' => '_bbp_engagement', 'value' => \get_current_user_id()];
     }
 
     $query = new \WP_Query($args);
@@ -479,42 +492,42 @@ class OneElementorForumTabs extends \Elementor\Widget_base
     $get_tab_item = function ($tab_key) use ($settings) {
       switch ($tab_key) {
         case "recent_activity": ?>
-          <li><a class='<?php echo helper_tab_active_class("tab=topic"); ?>' href="?tab=topic"><?php echo esc_html__('Recent Activity', 'ONE_CORE_SLUG'); ?></a></li>
+          <li><a class='<?php echo helper_tab_active_class("tab=topic"); ?>' href="?tab=topic"><?php echo \esc_html__('Recent Activity', 'ONE_CORE_SLUG'); ?></a></li>
         <?php
           break;
         case "forum": ?>
-          <li><a class='<?php echo helper_tab_active_class("tab=forum"); ?>' href="?tab=forum"><?php echo esc_html__('Forums', 'ONE_CORE_SLUG'); ?></a></li>
+          <li><a class='<?php echo helper_tab_active_class("tab=forum"); ?>' href="?tab=forum"><?php echo \esc_html__('Forums', 'ONE_CORE_SLUG'); ?></a></li>
         <?php
           break;
         case "tag": ?>
           <?php if (!empty($settings["selected_tags"])): ?>
             <?php foreach ($settings["selected_tags"] as $value) : ?>
-              <li><a class='<?php echo helper_tab_active_class("tag={$value}"); ?>' href=<?php echo "?tag={$value}";  ?>><?php echo (get_term_by('slug', $value, 'topic-tag'))->name ?></a></li>
+              <li><a class='<?php echo helper_tab_active_class("tag={$value}"); ?>' href=<?php echo "?tag={$value}";  ?>><?php echo (\get_term_by('slug', $value, 'topic-tag'))->name ?></a></li>
             <?php endforeach; ?>
           <?php endif; ?>
         <?php
           break;
         case "my_topic": ?>
-          <?php if (is_user_logged_in()): ?>
-            <li><a class='<?php echo helper_tab_active_class("my-topic=me"); ?>' href="?my-topic=me"><?php echo esc_html__('My Topic', 'ONE_CORE_SLUG'); ?></a></li>
+          <?php if (\is_user_logged_in()): ?>
+            <li><a class='<?php echo helper_tab_active_class("my-topic=me"); ?>' href="?my-topic=me"><?php echo \esc_html__('My Topic', 'ONE_CORE_SLUG'); ?></a></li>
           <?php endif; ?>
         <?php
           break;
         case "fav": ?>
-          <?php if (is_user_logged_in()): ?>
-            <li><a class='<?php echo helper_tab_active_class("fav=me"); ?>' href="?fav=me"><?php echo esc_html__('Favourite', 'ONE_CORE_SLUG'); ?></a></li>
+          <?php if (\is_user_logged_in()): ?>
+            <li><a class='<?php echo helper_tab_active_class("fav=me"); ?>' href="?fav=me"><?php echo \esc_html__('Favourite', 'ONE_CORE_SLUG'); ?></a></li>
           <?php endif; ?>
         <?php
           break;
         case "sub": ?>
-          <?php if (is_user_logged_in()): ?>
-            <li><a class='<?php echo helper_tab_active_class("sub=me"); ?>' href="?sub=me"><?php echo esc_html__('Subscription', 'ONE_CORE_SLUG'); ?></a></li>
+          <?php if (\is_user_logged_in()): ?>
+            <li><a class='<?php echo helper_tab_active_class("sub=me"); ?>' href="?sub=me"><?php echo \esc_html__('Subscription', 'ONE_CORE_SLUG'); ?></a></li>
           <?php endif; ?>
         <?php
           break;
         case "eng": ?>
-          <?php if (is_user_logged_in()): ?>
-            <li><a class='<?php echo helper_tab_active_class("engagement=me"); ?>' href="?engagement=me"><?php echo esc_html__('Engagement', 'ONE_CORE_SLUG'); ?></a></li>
+          <?php if (\is_user_logged_in()): ?>
+            <li><a class='<?php echo helper_tab_active_class("engagement=me"); ?>' href="?engagement=me"><?php echo \esc_html__('Engagement', 'ONE_CORE_SLUG'); ?></a></li>
           <?php endif; ?>
         <?php
           break;

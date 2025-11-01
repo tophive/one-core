@@ -3,6 +3,11 @@ if (! defined('ABSPATH')) exit;
 
 require_once __DIR__ . '/One_Imports_Controllers.php';
 
+// Ensure plugin functions like is_plugin_active are available
+if ( ! function_exists( 'is_plugin_active' ) ) {
+  require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
 
 // 1. Enqueue JS + Modal Styles + Localize Steps
 add_action('admin_enqueue_scripts', function () {
@@ -195,10 +200,17 @@ function bp_demo_import_page()
 
 // 3. AJAX Endpoints
 add_action('wp_ajax_bp_demo_import_step', function () {
+  if ( ! current_user_can( 'manage_options' ) ) {
+    wp_send_json_error( [ 'message' => 'Unauthorized' ], 403 );
+  }
+  if ( isset( $_POST['_wpnonce'] ) ) {
+    check_ajax_referer( 'bp_demo_import_step', '_wpnonce' );
+  }
   $step = sanitize_text_field($_POST['step'] ?? '');
   $payload_slugs = isset($_POST['slugs']) && is_array($_POST['slugs']) ? array_map('sanitize_text_field', $_POST['slugs']) : [];
 
-  $Tophovive_License_Instance = new Tophive_Licence();
+  // Guard instantiation to avoid diagnostics when class not loaded yet
+  $Tophovive_License_Instance = class_exists('Tophive_Licence') ? new Tophive_Licence() : null;
 
   try {
     switch ($step) {
