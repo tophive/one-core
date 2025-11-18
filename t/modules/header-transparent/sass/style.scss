@@ -25,11 +25,6 @@
     
 }
 
-.site-branding {
-    .site-img-logo-tran {
-        display: none;
-    }
-}
 .is-header-transparent {
     .header--transparent {
         .nav-menu-desktop.style-border-top .nav-menu > li:hover > a .link-before:before,
@@ -42,6 +37,9 @@
             background-color: currentColor;
         }
         .site-branding {
+            .site-img-logo-tran {
+                display: none;
+            }
             &.has-tran-logo {
                 .site-img-logo {
                     display: none;

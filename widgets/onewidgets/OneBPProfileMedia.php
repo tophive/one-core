@@ -27,11 +27,13 @@ class OneBPProfileMedia extends WP_Widget
     if (!empty($activities)) {
       foreach ($activities as $key => $value) {
         $images = bp_activity_get_meta($value[0], 'activity_media', false);
-        $newImages = $images[0];
-        $newImages[0]['activity_id'] = $value[0];
-
-        if (!empty($images))
+        if (!empty($images[0])) {
+          $newImages = $images[0];
+          foreach ($newImages as &$image) {
+            $image['activity_id'] = $value[0];
+          }
           array_push($all_images, ...$newImages);
+        }
       }
       array_filter($all_images);
       $media_html .= '<div class="ec-row bp-image-previewer mesonry bp-member-photo-widget">';
@@ -43,7 +45,7 @@ class OneBPProfileMedia extends WP_Widget
           break;
         }
 
-        if (!empty($url['thumb'])) {
+        if (!empty($url['thumb']) && isset($url['full']) && isset($url['attachment_id']) && isset($url['activity_id'])) {
           $media_html .= "<img class='media-popup-thumbnail bp-image-single' src='{$url['full']} ' alt='gm' href={$url['full']} data-id={$url['attachment_id']} data-activity={$url['activity_id']}>";
           $i++;
         }
