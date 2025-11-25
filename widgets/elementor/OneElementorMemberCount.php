@@ -15,7 +15,7 @@
 	class OneElementorMemberCount extends \Elementor\Widget_base
 	{
 		public function get_title(){
-			return esc_html__( 'Members count', ONE_CORE_SLUG );
+			return esc_html__( 'Members count', 'ONE_CORE_SLUG' );
 		}
 		public function get_name(){
 			return 'th-login-member-count-block';
@@ -24,7 +24,7 @@
 			return 'eicon-user-circle-o';
 		}
 		public function get_categories(){
-	        return [ ONE_CORE_SLUG ];
+	        return [ 'ONE_CORE_SLUG' ];
 	    	}
 		public function get_keywords() {
 			return [ 'member', 'count', 'users' ];
@@ -33,7 +33,7 @@
 			$this->start_controls_section(
 				'th_member_count_section',
 				[
-					'label' => esc_html__( 'Members Count', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Members Count', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
@@ -41,7 +41,7 @@
 			       $this->add_control(
 				'th_member_img_size',
 				[
-					'label' => esc_html__( 'Member Image Size', ONE_CORE_SLUG),
+					'label' => esc_html__( 'Member Image Size', 'ONE_CORE_SLUG'),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px','%' ],
 					'range' => [
@@ -67,7 +67,7 @@
 				$this->add_control(
 					'th_member_img_radius',
 					[
-						'label' => esc_html__( 'Image Border Radius', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Image Border Radius', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -79,14 +79,14 @@
 					\Elementor\Group_Control_Border::get_type(),
 					[
 							'name' => 'th_member_img_border',
-							'label' => esc_html__( 'Image Border', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Image Border', 'ONE_CORE_SLUG' ),
 							'selector' => '{{WRAPPER}} .members-images figure',
 					]
 				);
 			       $this->add_control(
 				'th_member_img_gap',
 				[
-					'label' => esc_html__( 'Member Image Gap', ONE_CORE_SLUG),
+					'label' => esc_html__( 'Member Image Gap', 'ONE_CORE_SLUG'),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px','%' ],
 					'range' => [
@@ -112,7 +112,7 @@
 				$this->add_control(
 					'th_member_img_margin',
 					[
-						'label' => esc_html__( 'Image Margin', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Image Margin', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -124,14 +124,14 @@
 					\Elementor\Group_Control_Typography::get_type(),
 					[
 						'name' => 'th_member_count_text_typo',
-						'label' => esc_html__( 'Count text typography', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Count text typography', 'ONE_CORE_SLUG' ),
 						'selector' => '{{WRAPPER}} .member-count span',
 					]
 				);
 				$this->add_control(
 					'th_member_count_text_color',
 					[
-						'label' => esc_html__( 'Count text color', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Count text color', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .member-count span' => 'color: {{VALUE}}',
@@ -141,7 +141,7 @@
 				$this->add_control(
 					'th_member_box_padding',
 					[
-						'label' => esc_html__( 'Member Box Padding', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Member Box Padding', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -152,7 +152,7 @@
 				$this->add_control(
 					'th_member_box_bg',
 					[
-						'label' => esc_html__( 'Member Box Background', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Member Box Background', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .member-count-element' => 'background-color: {{VALUE}}',
@@ -162,7 +162,7 @@
 				$this->add_control(
 					'th_member_box_margin',
 					[
-						'label' => esc_html__( 'Member Box Margin', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Member Box Margin', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -173,7 +173,7 @@
 				$this->add_control(
 					'th_member_box_radius',
 					[
-						'label' => esc_html__( 'Member Box Radius', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Member Box Radius', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -226,7 +226,7 @@
 				<?php endforeach; ?>
 			    </div>
 			    <div class="member-count">
-			       <span><?php esc_html_e("Join ",ONE_CORE_SLUG); echo $user_count["total_users"];esc_html_e("+ users",ONE_CORE_SLUG); ?></span>
+			       <span><?php esc_html_e("Join ",'ONE_CORE_SLUG'); echo $user_count["total_users"];esc_html_e("+ users",'ONE_CORE_SLUG'); ?></span>
 			    </div>
 			</div>
 	<?php }

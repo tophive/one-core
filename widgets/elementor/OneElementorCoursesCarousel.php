@@ -7,13 +7,13 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         return 'thcoursescarousel';
     }
     public function get_title(){
-        return esc_html__( 'LP Course Carousel', ONE_CORE_SLUG );
+        return esc_html__( 'LP Course Carousel', 'ONE_CORE_SLUG' );
     }
     public function get_icon(){
         return 'eicon-single-post';
     }
     public function get_categories(){
-        return [ ONE_CORE_SLUG ];
+        return [ 'ONE_CORE_SLUG' ];
     }
     public function get_script_depends() {
 		return [ 'jquery-slick' ];
@@ -33,7 +33,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'thcoursescarousel_content_section',
 				[
-					'label' => esc_html__( 'Course Carousel', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Course Carousel', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
@@ -41,10 +41,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_thumbnail_show_hide',
 				[
-					'label' => esc_html__( 'Show Image', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Show Image', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -52,11 +52,11 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_posts_order',
 				[
-					'label' => esc_html__( 'Order by', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Order by', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'ASC' 	=> esc_html__( 'Ascending', ONE_CORE_SLUG ),
-						'DESC' 	=> esc_html__( 'Descending', ONE_CORE_SLUG ),
+						'ASC' 	=> esc_html__( 'Ascending', 'ONE_CORE_SLUG' ),
+						'DESC' 	=> esc_html__( 'Descending', 'ONE_CORE_SLUG' ),
 					],
 					'default' => 'ASC',
 				]
@@ -64,11 +64,11 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_posts_layout',
 				[
-					'label' => esc_html__( 'Layout', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Layout', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'' 	=> esc_html__( 'Full Width', ONE_CORE_SLUG ),
-						' ec-overflow-hidden' 	=> esc_html__( 'Fixed Width', ONE_CORE_SLUG ),
+						'' 	=> esc_html__( 'Full Width', 'ONE_CORE_SLUG' ),
+						' ec-overflow-hidden' 	=> esc_html__( 'Fixed Width', 'ONE_CORE_SLUG' ),
 					],
 					'default' => '',
 				]
@@ -76,17 +76,17 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_select_columns',
 				[
-					'label' => esc_html__( 'Select Columns', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Select Columns', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'1' 	=> esc_html__( '1 Column', ONE_CORE_SLUG ),
-						'2' 	=> esc_html__( '2 Columns', ONE_CORE_SLUG ),
-						'3'  	=> esc_html__( '3 Columns', ONE_CORE_SLUG ),
-						'4' 	=> esc_html__( '4 Columns', ONE_CORE_SLUG ),
-						'5' 	=> esc_html__( '5 Columns', ONE_CORE_SLUG ),
-						'6' 	=> esc_html__( '6 Columns', ONE_CORE_SLUG ),
-						'7' 	=> esc_html__( '7 Columns', ONE_CORE_SLUG ),
-						'8' 	=> esc_html__( '8 Columns', ONE_CORE_SLUG ),
+						'1' 	=> esc_html__( '1 Column', 'ONE_CORE_SLUG' ),
+						'2' 	=> esc_html__( '2 Columns', 'ONE_CORE_SLUG' ),
+						'3'  	=> esc_html__( '3 Columns', 'ONE_CORE_SLUG' ),
+						'4' 	=> esc_html__( '4 Columns', 'ONE_CORE_SLUG' ),
+						'5' 	=> esc_html__( '5 Columns', 'ONE_CORE_SLUG' ),
+						'6' 	=> esc_html__( '6 Columns', 'ONE_CORE_SLUG' ),
+						'7' 	=> esc_html__( '7 Columns', 'ONE_CORE_SLUG' ),
+						'8' 	=> esc_html__( '8 Columns', 'ONE_CORE_SLUG' ),
 					],
 					'default' => '4',
 				]
@@ -94,16 +94,16 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_courses_count',
 				[
-					'label' => esc_html__( 'Courses Count', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Courses Count', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'description' => esc_html__('-1 For showing all', ONE_CORE_SLUG),
+					'description' => esc_html__('-1 For showing all', 'ONE_CORE_SLUG'),
 					'default' => 4,
 				]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_word_count',
 	        	[
-	        		'label' => esc_html__( 'Word Count for description', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Word Count for description', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::NUMBER,
 	        		'min' => 2,
 	        		'max' => 30,
@@ -114,10 +114,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_cat_display',
 	        	[
-	        		'label' => esc_html__('Show Category', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Show Category', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 	        	]
@@ -125,10 +125,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_tags',
 	        	[
-	        		'label' => esc_html__( 'Show tags', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show tags', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => __( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => __( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => __( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => __( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'no',
 	        	]
@@ -136,10 +136,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_desc',
 	        	[
-	        		'label' => esc_html__( 'Show Description', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Description', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -147,10 +147,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_pricing',
 	        	[
-	        		'label' => esc_html__( 'Show Price', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Price', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -158,10 +158,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_pricing_prev',
 	        	[
-	        		'label' => esc_html__( 'Show Previous Pricing', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Previous Pricing', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -169,10 +169,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_author',
 	        	[
-	        		'label' => esc_html__( 'Show Author', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Author', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -180,10 +180,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_lessons',
 	        	[
-	        		'label' => esc_html__( 'Show Lessons', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Lessons', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'no',
 	        	]
@@ -191,10 +191,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_level',
 	        	[
-	        		'label' => esc_html__( 'Show Level', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Level', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'no',
 	        	]
@@ -202,10 +202,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
        		$this->add_control(
 	        	'thcoursescarousel_show_rating',
 	        	[
-	        		'label' => esc_html__( 'Show Rating', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Rating', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -214,17 +214,17 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'thcoursescarousel_carousel_options',
 				[
-					'label' => esc_html__( 'Carousel Options', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Carousel Options', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			$this->add_control(
 				'thcoursescarousel_autoplay',
 				[
-					'label' => esc_html__( 'Autoplay', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Autoplay', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => __( 'Yes', ONE_CORE_SLUG ),
-					'label_off' => __( 'No', ONE_CORE_SLUG ),
+					'label_on' => __( 'Yes', 'ONE_CORE_SLUG' ),
+					'label_off' => __( 'No', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -232,22 +232,22 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_autoplay_delay',
 				[
-					'label' => esc_html__( 'Autoplay Delay', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Autoplay Delay', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 1000,
 					'options' => [
-						300  => esc_html__( '300ms', ONE_CORE_SLUG),
-						400  => esc_html__( '400ms', ONE_CORE_SLUG),
-						500  => esc_html__( '500ms', ONE_CORE_SLUG),
-						600  => esc_html__( '600ms', ONE_CORE_SLUG),
-						700  => esc_html__( '700ms', ONE_CORE_SLUG),
-						800  => esc_html__( '800ms', ONE_CORE_SLUG),
-						900  => esc_html__( '900ms', ONE_CORE_SLUG),
-						1000  => esc_html__( '1s', ONE_CORE_SLUG),
-						1500  => esc_html__( '1.5s', ONE_CORE_SLUG),
-						2000  => esc_html__( '2s', ONE_CORE_SLUG),
-						2500  => esc_html__( '2.5s', ONE_CORE_SLUG),
-						3000  => esc_html__( '3s', ONE_CORE_SLUG),
+						300  => esc_html__( '300ms', 'ONE_CORE_SLUG'),
+						400  => esc_html__( '400ms', 'ONE_CORE_SLUG'),
+						500  => esc_html__( '500ms', 'ONE_CORE_SLUG'),
+						600  => esc_html__( '600ms', 'ONE_CORE_SLUG'),
+						700  => esc_html__( '700ms', 'ONE_CORE_SLUG'),
+						800  => esc_html__( '800ms', 'ONE_CORE_SLUG'),
+						900  => esc_html__( '900ms', 'ONE_CORE_SLUG'),
+						1000  => esc_html__( '1s', 'ONE_CORE_SLUG'),
+						1500  => esc_html__( '1.5s', 'ONE_CORE_SLUG'),
+						2000  => esc_html__( '2s', 'ONE_CORE_SLUG'),
+						2500  => esc_html__( '2.5s', 'ONE_CORE_SLUG'),
+						3000  => esc_html__( '3s', 'ONE_CORE_SLUG'),
 					],
 					'condition' => ['thcoursescarousel_autoplay' => 'yes']
 				]
@@ -255,44 +255,44 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_play_speed',
 				[
-					'label' => esc_html__( 'Play Speed', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Play Speed', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 500,
 					'options' => [
-						100  => esc_html__( '100ms', ONE_CORE_SLUG),
-						200  => esc_html__( '200ms', ONE_CORE_SLUG),
-						300  => esc_html__( '300ms', ONE_CORE_SLUG),
-						400  => esc_html__( '400ms', ONE_CORE_SLUG),
-						500  => esc_html__( '500ms', ONE_CORE_SLUG),
-						600  => esc_html__( '600ms', ONE_CORE_SLUG),
-						700  => esc_html__( '700ms', ONE_CORE_SLUG),
-						800  => esc_html__( '800ms', ONE_CORE_SLUG),
-						900  => esc_html__( '900ms', ONE_CORE_SLUG),
-						1000  => esc_html__( '1s', ONE_CORE_SLUG),
-						1500  => esc_html__( '1.5s', ONE_CORE_SLUG),
-						2000  => esc_html__( '2s', ONE_CORE_SLUG),
-						2500  => esc_html__( '2.5s', ONE_CORE_SLUG),
-						3000  => esc_html__( '3s', ONE_CORE_SLUG),
+						100  => esc_html__( '100ms', 'ONE_CORE_SLUG'),
+						200  => esc_html__( '200ms', 'ONE_CORE_SLUG'),
+						300  => esc_html__( '300ms', 'ONE_CORE_SLUG'),
+						400  => esc_html__( '400ms', 'ONE_CORE_SLUG'),
+						500  => esc_html__( '500ms', 'ONE_CORE_SLUG'),
+						600  => esc_html__( '600ms', 'ONE_CORE_SLUG'),
+						700  => esc_html__( '700ms', 'ONE_CORE_SLUG'),
+						800  => esc_html__( '800ms', 'ONE_CORE_SLUG'),
+						900  => esc_html__( '900ms', 'ONE_CORE_SLUG'),
+						1000  => esc_html__( '1s', 'ONE_CORE_SLUG'),
+						1500  => esc_html__( '1.5s', 'ONE_CORE_SLUG'),
+						2000  => esc_html__( '2s', 'ONE_CORE_SLUG'),
+						2500  => esc_html__( '2.5s', 'ONE_CORE_SLUG'),
+						3000  => esc_html__( '3s', 'ONE_CORE_SLUG'),
 					],
 				]
 			);
 			$this->add_control(
 				'thcoursescarousel_per_slide',
 				[
-					'label' => esc_html__( 'Course Per Slide', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Course Per Slide', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 2,
 					'options' => [
-						1  => esc_html__( '1', ONE_CORE_SLUG),
-						2  => esc_html__( '2', ONE_CORE_SLUG),
-						3  => esc_html__( '3', ONE_CORE_SLUG),
-						4  => esc_html__( '4', ONE_CORE_SLUG),
-						5  => esc_html__( '5', ONE_CORE_SLUG),
-						6  => esc_html__( '6', ONE_CORE_SLUG),
-						7  => esc_html__( '7', ONE_CORE_SLUG),
-						8  => esc_html__( '8', ONE_CORE_SLUG),
-						9  => esc_html__( '9', ONE_CORE_SLUG),
-						10  => esc_html__( '10', ONE_CORE_SLUG),
+						1  => esc_html__( '1', 'ONE_CORE_SLUG'),
+						2  => esc_html__( '2', 'ONE_CORE_SLUG'),
+						3  => esc_html__( '3', 'ONE_CORE_SLUG'),
+						4  => esc_html__( '4', 'ONE_CORE_SLUG'),
+						5  => esc_html__( '5', 'ONE_CORE_SLUG'),
+						6  => esc_html__( '6', 'ONE_CORE_SLUG'),
+						7  => esc_html__( '7', 'ONE_CORE_SLUG'),
+						8  => esc_html__( '8', 'ONE_CORE_SLUG'),
+						9  => esc_html__( '9', 'ONE_CORE_SLUG'),
+						10  => esc_html__( '10', 'ONE_CORE_SLUG'),
 					],
 				]
 			);
@@ -307,17 +307,17 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'thcoursescarousel_category_filter_section',
 				[
-					'label' => esc_html__( 'Course Category', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Course Category', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			// $this->add_control(
 			// 	'thcoursescarousel_show_category_filter',
 			// 	[
-			// 		'label' => esc_html__( 'Show Category Filter', ONE_CORE_SLUG ),
+			// 		'label' => esc_html__( 'Show Category Filter', 'ONE_CORE_SLUG' ),
 			// 		'type' => \Elementor\Controls_Manager::SWITCHER,
-			// 		'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-			// 		'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+			// 		'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+			// 		'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 			// 		'return_value' => 'yes',
 			// 		'default' => 'no',
 			// 	]
@@ -325,20 +325,20 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// $this->add_control(
 			// 	'thcoursescarousel_filter_position',
 			// 	[
-			// 		'label' => esc_html__( 'Filter Position', ONE_CORE_SLUG ),
+			// 		'label' => esc_html__( 'Filter Position', 'ONE_CORE_SLUG' ),
 			// 		'type' => \Elementor\Controls_Manager::SELECT,
 			// 		'default' => 'solid',
 			// 		'options' => [
-			// 			'top'  => esc_html__( 'Top', ONE_CORE_SLUG ),
-			// 			'v-left'  => esc_html__( 'Left Side', ONE_CORE_SLUG ),
-			// 			'v-right'  => esc_html__( 'Right Side', ONE_CORE_SLUG ),
+			// 			'top'  => esc_html__( 'Top', 'ONE_CORE_SLUG' ),
+			// 			'v-left'  => esc_html__( 'Left Side', 'ONE_CORE_SLUG' ),
+			// 			'v-right'  => esc_html__( 'Right Side', 'ONE_CORE_SLUG' ),
 			// 		],
 			// 	]
 			// );
 			// $this->add_control(
 			// 	'thcoursescarousel_filter_nav_width',
 			// 	[
-			// 		'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+			// 		'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 			// 		'type' => \Elementor\Controls_Manager::SLIDER,
 			// 		'size_units' => [ 'px', '%' ],
 			// 		'range' => [
@@ -356,7 +356,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_select_categories',
 				[
-					'label' => esc_html__( 'Select Categories', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Select Categories', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT2,
 					'multiple' => true,
 					'options' => $this->parse_filter_categories(),
@@ -366,19 +366,19 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// $this->add_control(
 			// 	'thcoursescarousel_filter_text_align',
 			// 	[
-			// 		'label' => esc_html__( 'Alignment', ONE_CORE_SLUG ),
+			// 		'label' => esc_html__( 'Alignment', 'ONE_CORE_SLUG' ),
 			// 		'type' => \Elementor\Controls_Manager::CHOOSE,
 			// 		'options' => [
 			// 			'ec-text-left' => [
-			// 				'title' => esc_html__( 'Left', ONE_CORE_SLUG ),
+			// 				'title' => esc_html__( 'Left', 'ONE_CORE_SLUG' ),
 			// 				'icon' => 'fa fa-align-left',
 			// 			],
 			// 			'ec-text-center' => [
-			// 				'title' => esc_html__( 'Center', ONE_CORE_SLUG ),
+			// 				'title' => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
 			// 				'icon' => 'fa fa-align-center',
 			// 			],
 			// 			'ec-text-right' => [
-			// 				'title' => esc_html__( 'Right', ONE_CORE_SLUG ),
+			// 				'title' => esc_html__( 'Right', 'ONE_CORE_SLUG' ),
 			// 				'icon' => 'fa fa-align-right',
 			// 			],
 			// 		],
@@ -409,7 +409,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 			\Elementor\Group_Control_Border::get_type(),
 			// 			[
 			// 				'name' => 'thcoursescarousel_filter_border',
-			// 				'label' => esc_html__( 'Filter Border', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Filter Border', 'ONE_CORE_SLUG' ),
 			// 				'selector' => '{{WRAPPER}} ul.th-course-categories-filter li',
 			// 			]
 			// 		);
@@ -424,7 +424,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_bg_color',
 			// 			[
-			// 				'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::COLOR,
 			// 				
 			// 				'selectors' => [
@@ -436,7 +436,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_text_color',
 			// 			[
-			// 				'label' => esc_html__( 'Text Color', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Text Color', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::COLOR,
 			// 				
 			// 				'selectors' => [
@@ -448,7 +448,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_text_bg_color',
 			// 			[
-			// 				'label' => esc_html__( 'Item Background', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Item Background', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::COLOR,
 			// 				
 			// 				'selectors' => [
@@ -468,7 +468,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_box_margin',
 			// 			[
-			// 				'label' => esc_html__( 'Filter Box Margin', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Filter Box Margin', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 			// 				'size_units' => [ 'px', '%', 'em' ],
 			// 				'selectors' => [
@@ -479,7 +479,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_items_padding',
 			// 			[
-			// 				'label' => esc_html__( 'Filter Items Padding', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Filter Items Padding', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 			// 				'size_units' => [ 'px', '%', 'em' ],
 			// 				'selectors' => [
@@ -490,7 +490,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_gap_between',
 			// 			[
-			// 				'label' => esc_html__( 'Gap Between Items', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Gap Between Items', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::SLIDER,
 			// 				'size_units' => [ 'px' ],
 			// 				'range' => [
@@ -510,7 +510,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 			\Elementor\Group_Control_Typography::get_type(),
 			// 			[
 			// 				'name' => 'thcoursescarousel_filter_text_typo',
-			// 				'label' => esc_html__( 'Text Typography', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Text Typography', 'ONE_CORE_SLUG' ),
 			// 				
 			// 				'selector' => '{{WRAPPER}} .th-course-categories-filter li',
 			// 			]
@@ -528,7 +528,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_border_rad',
 			// 			[
-			// 				'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::SLIDER,
 			// 				'size_units' => [ 'px', '%' ],
 			// 				'range' => [
@@ -547,7 +547,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			// 			[
 			// 				'name' => 'thcoursescarousel_filter_box_shadow',
-			// 				'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 			// 				'selector' => '{{WRAPPER}} .th-course-categories-filter li',
 			// 			]
 			// 		);
@@ -564,7 +564,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_text_color_hover',
 			// 			[
-			// 				'label' => esc_html__( 'Hover Text Color', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Hover Text Color', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::COLOR,
 			// 				
 			// 				'selectors' => [
@@ -577,7 +577,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 		$this->add_control(
 			// 			'thcoursescarousel_filter_text_hover_bg',
 			// 			[
-			// 				'label' => esc_html__( 'Text Background Color on Hover', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Text Background Color on Hover', 'ONE_CORE_SLUG' ),
 			// 				'type' => \Elementor\Controls_Manager::COLOR,
 			// 				
 			// 				'selectors' => [
@@ -591,7 +591,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 			\Elementor\Group_Control_Border::get_type(),
 			// 			[
 			// 				'name' => 'thcoursescarousel_filter_border_hover',
-			// 				'label' => esc_html__( 'Filter Border', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Filter Border', 'ONE_CORE_SLUG' ),
 			// 				'selector' => '{{WRAPPER}} ul.th-course-categories-filter li:hover, {{WRAPPER}} ul.th-course-categories-filter li:focus, {{WRAPPER}} ul.th-course-categories-filter li.active',
 			// 			]
 			// 		);
@@ -600,7 +600,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			// 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			// 			[
 			// 				'name' => 'thcoursescarousel_filter_box_shadow_hover',
-			// 				'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+			// 				'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 			// 				'selector' => '{{WRAPPER}} .th-course-categories-filter li:hover, {{WRAPPER}} .th-course-categories-filter li:focus, {{WRAPPER}} .th-course-categories-filter li.active',
 			// 			]
 			// 		);
@@ -613,17 +613,17 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'thcoursescarousel_treanding_filter_section',
 				[
-					'label' => esc_html__( 'Filter Tabs', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Filter Tabs', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 				]
 			);
 			$this->add_control(
 				'thcoursescarousel_show_latest_filter_tabs',
 				[
-					'label' => esc_html__( 'Show Latest Filter tab', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Show Latest Filter tab', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -631,10 +631,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_show_treanding_filter_tabs',
 				[
-					'label' => esc_html__( 'Show Treanding Filter tab', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Show Treanding Filter tab', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -642,10 +642,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_show_popular_filter_tabs',
 				[
-					'label' => esc_html__( 'Show Popular Filter tab', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Show Popular Filter tab', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-					'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+					'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+					'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -653,19 +653,19 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 			'filter_text_align',
 				[
-					'label' => __( 'Alignment', ONE_CORE_SLUG ),
+					'label' => __( 'Alignment', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'ec-text-left' => [
-							'title' => __( 'Left', ONE_CORE_SLUG ),
+							'title' => __( 'Left', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-left',
 						],
 						'ec-text-center' => [
-							'title' => __( 'Center', ONE_CORE_SLUG ),
+							'title' => __( 'Center', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-center',
 						],
 						'ec-text-right' => [
-							'title' => __( 'Right', ONE_CORE_SLUG ),
+							'title' => __( 'Right', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-right',
 						],
 					],
@@ -676,7 +676,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_show_popular_filter_margin',
 				[
-					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -688,7 +688,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'thcoursescarousel_show_popular_filter_border',
-					'label' => __( 'Border', ONE_CORE_SLUG ),
+					'label' => __( 'Border', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} ul.th-course-trending-popular-filter',
 				]
 			);
@@ -714,7 +714,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'thcoursescarousel_filter_border',
-							'label' => esc_html__( 'Filter Border', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Filter Border', 'ONE_CORE_SLUG' ),
 							'selector' => '{{WRAPPER}} ul.th-course-trending-popular-filter li',
 						]
 					);
@@ -729,7 +729,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_bg_color',
 						[
-							'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							
 							'selectors' => [
@@ -741,7 +741,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_text_color',
 						[
-							'label' => esc_html__( 'Text Color', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Text Color', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							
 							'selectors' => [
@@ -753,7 +753,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_text_bg_color',
 						[
-							'label' => esc_html__( 'Item Background', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Item Background', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							
 							'selectors' => [
@@ -773,7 +773,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_box_margin',
 						[
-							'label' => esc_html__( 'Filter Box Margin', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Filter Box Margin', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px', '%', 'em' ],
 							'selectors' => [
@@ -784,7 +784,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_items_padding',
 						[
-							'label' => esc_html__( 'Filter Items Padding', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Filter Items Padding', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px', '%', 'em' ],
 							'selectors' => [
@@ -795,7 +795,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_gap_between',
 						[
-							'label' => esc_html__( 'Gap Between Items', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Gap Between Items', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::SLIDER,
 							'size_units' => [ 'px' ],
 							'range' => [
@@ -815,7 +815,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Typography::get_type(),
 						[
 							'name' => 'thcoursescarousel_filter_text_typo',
-							'label' => esc_html__( 'Text Typography', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Text Typography', 'ONE_CORE_SLUG' ),
 							
 							'selector' => '{{WRAPPER}} .th-course-trending-popular-filter li',
 						]
@@ -833,7 +833,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_border_rad',
 						[
-							'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::SLIDER,
 							'size_units' => [ 'px', '%' ],
 							'range' => [
@@ -852,7 +852,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Box_Shadow::get_type(),
 						[
 							'name' => 'thcoursescarousel_filter_box_shadow',
-							'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 							'selector' => '{{WRAPPER}} .th-course-trending-popular-filter li',
 						]
 					);
@@ -869,7 +869,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_text_color_hover',
 						[
-							'label' => esc_html__( 'Hover Text Color', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Hover Text Color', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							
 							'selectors' => [
@@ -882,7 +882,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 					$this->add_control(
 						'thcoursescarousel_filter_text_hover_bg',
 						[
-							'label' => esc_html__( 'Text Background Color on Hover', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Text Background Color on Hover', 'ONE_CORE_SLUG' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							
 							'selectors' => [
@@ -896,7 +896,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'thcoursescarousel_filter_border_hover',
-							'label' => esc_html__( 'Filter Border', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Filter Border', 'ONE_CORE_SLUG' ),
 							'selector' => '{{WRAPPER}} ul.th-course-trending-popular-filter li:hover, {{WRAPPER}} ul.th-course-trending-popular-filter li:focus, {{WRAPPER}} ul.th-course-trending-popular-filter li.active',
 						]
 					);
@@ -905,7 +905,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Box_Shadow::get_type(),
 						[
 							'name' => 'thcoursescarousel_filter_box_shadow_hover',
-							'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+							'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 							'selector' => '{{WRAPPER}} .th-course-trending-popular-filter li:hover, {{WRAPPER}} .th-course-trending-popular-filter li:focus, {{WRAPPER}} .th-course-categories-filter li.active',
 						]
 					);
@@ -924,17 +924,17 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// $this->start_controls_section(
 		// 	'thcoursescarousel_hover_info',
 		// 		[
-		// 			'label' => esc_html__( 'Hover Information', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Hover Information', 'ONE_CORE_SLUG' ),
 		// 			'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 		// 		]
 		// 	);
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hover_info',
 		// 		[
-		// 			'label' => esc_html__( 'Show Hover Info', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Hover Info', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 		]
@@ -942,7 +942,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hover_info_top',
 		// 		[
-		// 			'label' => esc_html__( 'Top', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Top', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SLIDER,
 		// 			'size_units' => [ 'px', '%' ],
 		// 			'range' => [
@@ -972,7 +972,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hover_info_bg_color',
 		// 		[
-		// 			'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'selectors' => [
@@ -985,7 +985,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hover_info_border_rad',
 		// 		[
-		// 			'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SLIDER,
 		// 			'size_units' => [ 'px' ],
 		// 			'range' => [
@@ -1004,7 +1004,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hover_info_padding',
 		// 		[
-		// 			'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::DIMENSIONS,
 		// 			'size_units' => [ 'px', '%', 'em' ],
 		// 			'selectors' => [
@@ -1017,7 +1017,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Box_Shadow::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_hover_info_box_shadow',
-		// 			'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 		// 			'selector' => '{{WRAPPER}} .hover-section',
 		// 			'condition' => ['show_hover_info' => 'yes']
 		// 		]
@@ -1032,10 +1032,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_title',
 		// 		[
-		// 			'label' => esc_html__( 'Show Title', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Title', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1044,10 +1044,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_cat',
 		// 		[
-		// 			'label' => esc_html__( 'Show category', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show category', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1056,10 +1056,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_lessons',
 		// 		[
-		// 			'label' => esc_html__( 'Show Number Of Chapters/lessons', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Number Of Chapters/lessons', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1068,10 +1068,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_course_duration',
 		// 		[
-		// 			'label' => esc_html__( 'Show Course Duration', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Course Duration', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1080,10 +1080,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_course_details',
 		// 		[
-		// 			'label' => esc_html__( 'Show Details', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Details', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1092,10 +1092,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_add_to_cart',
 		// 		[
-		// 			'label' => esc_html__( 'Show Add To Cart', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Add To Cart', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1104,10 +1104,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_show_hi_wishlist',
 		// 		[
-		// 			'label' => esc_html__( 'Show Wishlist', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Show Wishlist', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SWITCHER,
-		// 			'label_on' => esc_html__( 'Show', ONE_CORE_SLUG ),
-		// 			'label_off' => esc_html__( 'Hide', ONE_CORE_SLUG ),
+		// 			'label_on' => esc_html__( 'Show', 'ONE_CORE_SLUG' ),
+		// 			'label_off' => esc_html__( 'Hide', 'ONE_CORE_SLUG' ),
 		// 			'return_value' => 'yes',
 		// 			'default' => 'no',
 		// 			'condition' => ['show_hover_info' => 'yes']
@@ -1123,7 +1123,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_title_opt',
 		// 		[
-		// 			'label' => esc_html__( 'Title', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Title', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::HEADING,
 		// 			'separator' => 'none',
 		// 		]
@@ -1132,7 +1132,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Typography::get_type(),
 		// 		[
 		// 			'name' => 'hi_title_typography',
-		// 			'label' => esc_html__( 'Title Typography', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Title Typography', 'ONE_CORE_SLUG' ),
 		// 			
 		// 			'selector' => '{{WRAPPER}} .hover-info-title',
 		// 			'condition' => ['show_hi_title' => 'yes']
@@ -1141,7 +1141,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_title_color',
 		// 		[
-		// 			'label' => esc_html__( 'Title Color', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Title Color', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'selectors' => [
@@ -1160,7 +1160,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_desc',
 		// 		[
-		// 			'label' => esc_html__( 'Description', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Description', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::HEADING,
 		// 			'separator' => 'none',
 		// 		]
@@ -1169,7 +1169,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Typography::get_type(),
 		// 		[
 		// 			'name' => 'hi_desc_typo',
-		// 			'label' => esc_html__( 'Description Typography', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Description Typography', 'ONE_CORE_SLUG' ),
 		// 			
 		// 			'selector' => '{{WRAPPER}} .hover-info-desc',
 		// 			'condition' => ['show_hi_course_details' => 'yes']
@@ -1178,7 +1178,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_desc_excerpt',
 		// 		[
-		// 			'label' => esc_html__( 'Description Word Count', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Description Word Count', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::NUMBER,
 		// 			'min' => 5,
 		// 			'max' => 30,
@@ -1190,7 +1190,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_desc_padding',
 		// 		[
-		// 			'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::DIMENSIONS,
 		// 			'size_units' => [ 'px', '%', 'em' ],
 		// 			'selectors' => [
@@ -1212,7 +1212,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_cart_button',
 		// 		[
-		// 			'label' => esc_html__( 'Cart Button', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Cart Button', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::HEADING,
 		// 			'separator' => 'none',
 		// 			'condition' => ['show_hi_add_to_cart' => 'yes']
@@ -1224,7 +1224,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Typography::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_hi_cart_button',
-		// 			'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 		// 			
 		// 			'selector' => '{{WRAPPER}} .hover-info-add-cart',
 		// 			'condition' => ['show_hi_add_to_cart' => 'yes']
@@ -1233,7 +1233,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_cart_btn_color',
 		// 		[
-		// 			'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'default' => '#666',
@@ -1246,7 +1246,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_cart_btn_color_bg',
 		// 		[
-		// 			'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'default' => '#f1f1f1',
@@ -1259,7 +1259,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_cart_btn_br',
 		// 		[
-		// 			'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SLIDER,
 		// 			'size_units' => [ 'px', '%' ],
 		// 			'range' => [
@@ -1278,7 +1278,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Border::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_cart_buttonborder',
-		// 			'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border', 'ONE_CORE_SLUG' ),
 		// 			'selector' => '{{WRAPPER}} .hover-info-add-cart',
 		// 			'condition' => ['show_hi_add_to_cart' => 'yes']
 		// 		]
@@ -1286,7 +1286,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_padding_hi',
 		// 		[
-		// 			'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::DIMENSIONS,
 		// 			'size_units' => [ 'px', '%', 'em' ],
 		// 			'selectors' => [
@@ -1301,7 +1301,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_cart_btn_color_hover',
 		// 		[
-		// 			'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'default' => '#888',
@@ -1314,7 +1314,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_cart_btn_color_bg_hover',
 		// 		[
-		// 			'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'default' => '#666',
@@ -1328,7 +1328,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Border::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_cart_buttonborder_hover',
-		// 			'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border', 'ONE_CORE_SLUG' ),
 		// 			'selector' => '{{WRAPPER}} .hover-info-add-cart:hover',
 		// 			'condition' => ['show_hi_add_to_cart' => 'yes']
 		// 		]
@@ -1341,7 +1341,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_wishl_header',
 		// 		[
-		// 			'label' => esc_html__( 'Wishlist', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Wishlist', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::HEADING,
 		// 			'separator' => 'before',
 		// 			'condition' => ['show_hi_wishlist' => 'yes']
@@ -1350,7 +1350,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_wishlist_icon',
 		// 		[
-		// 			'label' => esc_html__( 'Wishlist Icon', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Wishlist Icon', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::ICON,
 		// 			'default' => 'fa fa-heart-o',
 		// 			'condition' => ['show_hi_wishlist' => 'yes']
@@ -1359,7 +1359,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_wishlist_icon_br',
 		// 		[
-		// 			'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::SLIDER,
 		// 			'size_units' => [ 'px', '%' ],
 		// 			'range' => [
@@ -1378,7 +1378,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Typography::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_hi_wish_list_button',
-		// 			'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 		// 			
 		// 			'selector' => '{{WRAPPER}} .hover-info-wishlist a',
 		// 			'condition' => ['show_hi_wishlist' => 'yes']
@@ -1387,7 +1387,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_wish_list_btn_color',
 		// 		[
-		// 			'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'selectors' => [
@@ -1400,7 +1400,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_wish_list_btn_color_bg',
 		// 		[
-		// 			'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'selectors' => [
@@ -1414,7 +1414,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Border::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_wishlist_buttonborder',
-		// 			'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border', 'ONE_CORE_SLUG' ),
 		// 			'selector' => '{{WRAPPER}} .hover-info-wishlist a',
 		// 			'condition' => ['show_hi_wishlist' => 'yes']
 		// 		]
@@ -1422,7 +1422,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_padding_hi_wl',
 		// 		[
-		// 			'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::DIMENSIONS,
 		// 			'size_units' => [ 'px', '%', 'em' ],
 		// 			'selectors' => [
@@ -1434,7 +1434,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_wish_list_hover',
 		// 		[
-		// 			'label' => esc_html__( 'Hover', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Hover', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::HEADING,
 		// 			'separator' => 'none',
 		// 			'condition' => ['show_hi_wishlist' => 'yes']
@@ -1443,7 +1443,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_wishlist_btn_color_hover',
 		// 		[
-		// 			'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'selectors' => [
@@ -1456,7 +1456,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 	$this->add_control(
 		// 		'thcoursescarousel_hi_wishlist_color_bg_hover',
 		// 		[
-		// 			'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
 		// 			'type' => \Elementor\Controls_Manager::COLOR,
 		// 			
 		// 			'selectors' => [
@@ -1470,7 +1470,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		// 		\Elementor\Group_Control_Border::get_type(),
 		// 		[
 		// 			'name' => 'thcoursescarousel_wishlist_border_hover',
-		// 			'label' => esc_html__( 'Border', ONE_CORE_SLUG ),
+		// 			'label' => esc_html__( 'Border', 'ONE_CORE_SLUG' ),
 		// 			'selector' => '{{WRAPPER}} .hover-info-wishlist a:hover, {{WRAPPER}} .hover-info-wishlist a.on',
 		// 			'condition' => ['show_hi_wishlist' => 'yes']
 		// 		]
@@ -1484,24 +1484,24 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	    $this->start_controls_section(
             'thcoursescarousel_carousel_navigation',
 	            [
-	                'label' => esc_html__( 'Navigation', ONE_CORE_SLUG ),
+	                'label' => esc_html__( 'Navigation', 'ONE_CORE_SLUG' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 	            ]
 	        );
     		$this->add_control(
 				'thcoursescarousel_carousel_arrow_section',
 				[
-					'label' => esc_html__( 'Arrow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
 		    $this->add_control(
 		    	'thcoursescarousel_hide_arrow',
 		    	[
-		    		'label' 		=> esc_html__( 'Hide Arrow', ONE_CORE_SLUG ),
+		    		'label' 		=> esc_html__( 'Hide Arrow', 'ONE_CORE_SLUG' ),
 		    		'type' 			=> \Elementor\Controls_Manager::SWITCHER,
-		    		'label_on' 		=> __( 'Show', ONE_CORE_SLUG ),
-		    		'label_off' 	=> __( 'Hide', ONE_CORE_SLUG ),
+		    		'label_on' 		=> __( 'Show', 'ONE_CORE_SLUG' ),
+		    		'label_off' 	=> __( 'Hide', 'ONE_CORE_SLUG' ),
 		    		'return_value' 	=> 'yes',
 		    		'default' 		=> 'no',
 		    	]
@@ -1510,13 +1510,13 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_arrow_position',
 				[
-					'label' => esc_html__( 'Select arrow position', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Select arrow position', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 4,
 					'options' => [
-						'ec-text-center'  => esc_html__( 'Center', ONE_CORE_SLUG ),
-						'ec-text-right'  => esc_html__( 'Top Right', ONE_CORE_SLUG ),
-						'ec-text-left'  => esc_html__( 'Top Left', ONE_CORE_SLUG ),
+						'ec-text-center'  => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
+						'ec-text-right'  => esc_html__( 'Top Right', 'ONE_CORE_SLUG' ),
+						'ec-text-left'  => esc_html__( 'Top Left', 'ONE_CORE_SLUG' ),
 					],
 					'default' => 'ec-text-center'
 				]
@@ -1528,14 +1528,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->start_controls_tab(
 				'thcoursescarousel_arrow_normal_tab',
 				[
-					'label' => esc_html__( 'Normal', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Normal', 'ONE_CORE_SLUG' ),
 
 				]
 			);
 			$this->add_control(
 				'thcoursescarousel_more_btn_background_color',
 				[
-					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1547,7 +1547,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_more_btn_color',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1559,7 +1559,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_arrow_width',
 				[
-					'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1577,7 +1577,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_arrow_height',
 				[
-					'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1595,7 +1595,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_arrow_size',
 				[
-					'label' => esc_html__( 'Arrow Size', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Arrow Size', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -1613,7 +1613,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_more_btn_margin',
 				[
-					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1625,7 +1625,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'thcoursescarousel_more_btn_box_shadow',
-					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .ec-swiper-button-prev, {{WRAPPER}} .ec-swiper-button-next',
 				]
 			);
@@ -1633,7 +1633,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'thcoursescarousel_more_btn_border',
-					'label' => __( 'Border', ONE_CORE_SLUG ),
+					'label' => __( 'Border', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .ec-swiper-button-prev, {{WRAPPER}} .ec-swiper-button-next',
 				]
 			);
@@ -1641,7 +1641,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_more_btn_border_rad',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px'],
 					'range' => [
@@ -1662,14 +1662,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->start_controls_tab(
 				'arrow_hover_tab',
 				[
-					'label' => esc_html__( 'Hover', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Hover', 'ONE_CORE_SLUG' ),
 				]
 			);
 
 			$this->add_control(
 				'thcoursescarousel_more_btn_background_color_hover',
 				[
-					'label' => esc_html__( 'Background Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Background Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1681,7 +1681,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_more_btn_color_hover',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -1694,7 +1694,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_more_btn_margin_hover',
 				[
-					'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -1706,14 +1706,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'thcoursescarousel_more_btn_box_shadow_hover',
-					'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .ec-swiper-button-prev:hover, {{WRAPPER}} .ec-swiper-button-next:hover',
 				]
 			);
 			$this->add_control(
 				'thcoursescarousel_more_btn_border_rad_hover',
 				[
-					'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px'],
 					'range' => [
@@ -1735,17 +1735,17 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_carousel_dot_nav_section',
 				[
-					'label' => esc_html__( 'Navigation', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Navigation', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
 			$this->add_control(
 		    	'thcoursescarousel_hide_navigation',
 		    	[
-		    		'label' 		=> esc_html__( 'Hide Dot Navigation', ONE_CORE_SLUG ),
+		    		'label' 		=> esc_html__( 'Hide Dot Navigation', 'ONE_CORE_SLUG' ),
 		    		'type' 			=> \Elementor\Controls_Manager::SWITCHER,
-		    		'label_on' 		=> __( 'Show', ONE_CORE_SLUG ),
-		    		'label_off' 	=> __( 'Hide', ONE_CORE_SLUG ),
+		    		'label_on' 		=> __( 'Show', 'ONE_CORE_SLUG' ),
+		    		'label_off' 	=> __( 'Hide', 'ONE_CORE_SLUG' ),
 		    		'return_value' 	=> 'yes',
 		    		'default' 		=> 'no',
 		    	]
@@ -1757,14 +1757,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->start_controls_tab(
 					'thcoursescarousel_dot_nav_normal_tab',
 					[
-						'label' => esc_html__( 'Normal', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Normal', 'ONE_CORE_SLUG' ),
 
 					]
 				);
 				$this->add_control(
 					'thcoursescarousel_dot_nav_background_color',
 					[
-						'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						
 						'selectors' => [
@@ -1776,7 +1776,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'widthcoursescarousel_dot_nav_background_opacity',
 					[
-						'label' => esc_html__( 'Opacity', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Opacity', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ '%' ],
 						'range' => [
@@ -1794,7 +1794,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_width',
 					[
-						'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -1812,7 +1812,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_height',
 					[
-						'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -1830,7 +1830,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_margin',
 					[
-						'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::DIMENSIONS,
 						'size_units' => [ 'px', '%', 'em' ],
 						'selectors' => [
@@ -1842,7 +1842,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_border_rad',
 					[
-						'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px'],
 						'range' => [
@@ -1863,14 +1863,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->start_controls_tab(
 					'thcoursescarousel_dot_nav_hover_tab',
 					[
-						'label' => esc_html__( 'Active', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Active', 'ONE_CORE_SLUG' ),
 					]
 				);
 
 				$this->add_control(
 					'widthcoursescarousel_dot_nav_background_opacity_active',
 					[
-						'label' => esc_html__( 'Opacity', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Opacity', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ '%' ],
 						'range' => [
@@ -1888,7 +1888,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_background_color_hover',
 					[
-						'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						
 						'selectors' => [
@@ -1900,7 +1900,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_width_hover',
 					[
-						'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -1918,7 +1918,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_height_hover',
 					[
-						'label' => esc_html__( 'Height', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Height', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', '%' ],
 						'range' => [
@@ -1937,7 +1937,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				$this->add_control(
 					'thcoursescarousel_dot_nav_rad_hover',
 					[
-						'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+						'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px'],
 						'range' => [
@@ -1973,7 +1973,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	    $this->start_controls_section(
             'thcoursescarousel_box_style_section',
 	            [
-	                'label' => esc_html__( 'Box Style', ONE_CORE_SLUG ),
+	                'label' => esc_html__( 'Box Style', 'ONE_CORE_SLUG' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -1981,7 +1981,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         		\Elementor\Group_Control_Border::get_type(),
         		[
         			'name' => 'thcoursescarousel_border',
-        			'label' => esc_html__( 'Box Border', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Border', 'ONE_CORE_SLUG' ),
         			'selector' => '{{WRAPPER}} .th-course-block',
         		]
         	);
@@ -1994,20 +1994,20 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_control(
 				'thcoursescarousel_select_layout',
 				[
-					'label' => esc_html__( 'Select Layout', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Select Layout', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'top',
 					'options' => [
-						'top'  		=> esc_html__( 'Image Top', ONE_CORE_SLUG ),
-						'thumb-left'  	=> esc_html__( 'Image Left', ONE_CORE_SLUG ),
-						'thumb-right'  	=> esc_html__( 'Image Right', ONE_CORE_SLUG ),
+						'top'  		=> esc_html__( 'Image Top', 'ONE_CORE_SLUG' ),
+						'thumb-left'  	=> esc_html__( 'Image Left', 'ONE_CORE_SLUG' ),
+						'thumb-right'  	=> esc_html__( 'Image Right', 'ONE_CORE_SLUG' ),
 					],
 				]
 			);
 			$this->add_responsive_control(
 				'thcoursescarousel_thumb_width',
 				[
-					'label' => esc_html__( 'Thumbnail Width', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Thumbnail Width', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -2035,7 +2035,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'thcoursescarousel_thumb_height',
         		[
-        			'label' => esc_html__( 'Thumbnail Height', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Thumbnail Height', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::SLIDER,
         			'size_units' => [ 'px' ],
         			'range' => [
@@ -2057,7 +2057,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'thcoursescarousel_thumb_top_spacing',
         		[
-        			'label' => esc_html__( 'Thumbnail Top Spacing', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Thumbnail Top Spacing', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::SLIDER,
         			'size_units' => [ 'px' ],
         			'range' => [
@@ -2080,7 +2080,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'thcoursescarousel_box_margin',
         		[
-        			'label' => esc_html__( 'Box margin', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Box margin', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			'selectors' => [
@@ -2099,7 +2099,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'thcoursescarousel_box_padding',
         		[
-        			'label' => esc_html__( 'Box Padding', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Padding', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			'selectors' => [
@@ -2110,7 +2110,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'thcoursescarousel_content_padding',
         		[
-        			'label' => esc_html__( 'Content Padding', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Content Padding', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			'selectors' => [
@@ -2128,7 +2128,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_responsive_control(
         		'thcoursescarousel_image_border_radius',
         		[
-        			'label' => esc_html__( 'Image Border Radius', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Image Border Radius', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::DIMENSIONS,
         			'size_units' => [ 'px' ],
         			
@@ -2140,7 +2140,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         	$this->add_control(
         		'thcoursescarousel_box_border_radius',
         		[
-        			'label' => esc_html__( 'Box Border Radius', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Border Radius', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::SLIDER,
         			'size_units' => [ 'px', '%' ],
         			'range' => [
@@ -2167,7 +2167,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         		\Elementor\Group_Control_Box_Shadow::get_type(),
         		[
         			'name' => 'thcoursescarousel_course_box_shadow',
-        			'label' => esc_html__( 'Box Shadow', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Shadow', 'ONE_CORE_SLUG' ),
         			'selector' => '{{WRAPPER}} .th-course-block',
         		]
         	);
@@ -2175,14 +2175,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         		\Elementor\Group_Control_Box_Shadow::get_type(),
         		[
         			'name' => 'thcoursescarousel_course_box_shadow_hover',
-        			'label' => esc_html__( 'Box Shadow on hover', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Box Shadow on hover', 'ONE_CORE_SLUG' ),
         			'selector' => '{{WRAPPER}} .th-course-block:hover',
         		]
         	);
         	$this->add_control(
         		'thcoursescarousel_course_block_bg',
         		[
-        			'label' => esc_html__( 'Background', ONE_CORE_SLUG ),
+        			'label' => esc_html__( 'Background', 'ONE_CORE_SLUG' ),
         			'type' => \Elementor\Controls_Manager::COLOR,
         			
         			'selectors' => [
@@ -2203,14 +2203,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'thcoursescarousel_cat_style_section',
 	            [
-	                'label' => esc_html__( 'Content', ONE_CORE_SLUG ),
+	                'label' => esc_html__( 'Content', 'ONE_CORE_SLUG' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_category_heading',
 	        	[
-	        		'label' => esc_html__('Catogory', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Catogory', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING
 	        	]
 	        );
@@ -2224,10 +2224,10 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_show_cat_bg',
 	        	[
-	        		'label' => esc_html__( 'Show Category Background', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Show Category Background', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SWITCHER,
-	        		'label_on' => esc_html__( 'Yes', ONE_CORE_SLUG ),
-	        		'label_off' => esc_html__( 'No', ONE_CORE_SLUG ),
+	        		'label_on' => esc_html__( 'Yes', 'ONE_CORE_SLUG' ),
+	        		'label_off' => esc_html__( 'No', 'ONE_CORE_SLUG' ),
 	        		'return_value' => 'yes',
 	        		'default' => 'yes',
 	        	]
@@ -2235,7 +2235,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_cat_padding',
 	        	[
-	        		'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px', '%', 'em' ],
 	        		'selectors' => [
@@ -2253,7 +2253,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_cat_margin',
 	        	[
-	        		'label' => esc_html__( 'Margin', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Margin', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px', '%', 'em' ],
 	        		'selectors' => [
@@ -2271,7 +2271,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_cat_br',
 	        	[
-	        		'label' => esc_html__( 'Border Radius', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Border Radius', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px', '%' ],
 	        		'range' => [
@@ -2299,7 +2299,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_title_header',
 	        	[
-	        		'label' => esc_html__('Title', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Title', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2309,14 +2309,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_title_typo',
-	        		'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .course-block-title',
 	        	]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_title_color',
 	        	[
-	        		'label' => esc_html__( 'Title Color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Title Color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2327,7 +2327,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_title_hover_color',
 	        	[
-	        		'label' => esc_html__( 'Title Hover Color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Title Hover Color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2338,7 +2338,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_title_margin',
 	        	[
-	        		'label' => esc_html__( 'Title Margin', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Title Margin', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px' ],
 	        		'selectors' => [
@@ -2356,7 +2356,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_tag_header',
 	        	[
-	        		'label' => esc_html__('Course tag', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Course tag', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2365,7 +2365,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_tag_typography',
-	        		'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 	        		
 	        		'selector' => '{{WRAPPER}} .course-tags',
 	        	]
@@ -2373,7 +2373,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 	        	'thcoursescarousel_tags_vertical_position',
 	        	[
-	        		'label' => esc_html__( 'Vertical Position', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Vertical Position', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px', '%' ],
 	        		'range' => [
@@ -2391,7 +2391,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 	        	'thcoursescarousel_tags_horizontal_position',
 	        	[
-	        		'label' => esc_html__( 'Horizontal Position', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Horizontal Position', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px', '%' ],
 	        		'range' => [
@@ -2410,7 +2410,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 	        	'thcoursescarousel_course_tag_padding',
 	        	[
-	        		'label' => esc_html__( 'Padding', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Padding', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px', '%', 'em' ],
 	        		'selectors' => [
@@ -2427,7 +2427,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_desc_header',
 	        	[
-	        		'label' => esc_html__('Description', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Description', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2436,14 +2436,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_desc_typography',
-	        		'label' => esc_html__( 'Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .th-description',
 	        	]
 	        );
 	        $this->add_control(
 				'thcoursescarousel_th_course_item_desc_color',
 				[
-					'label' => esc_html__( 'Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -2455,7 +2455,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_desc_margin',
 	        	[
-	        		'label' => esc_html__( 'Description Margin', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Description Margin', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::DIMENSIONS,
 	        		'size_units' => [ 'px'],
 	        		'selectors' => [
@@ -2473,7 +2473,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_pricing_header',
 	        	[
-	        		'label' => esc_html__('Pricing', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Pricing', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2483,14 +2483,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_pricing_typo',
-	        		'label' => esc_html__( 'Pricing Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Pricing Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .th-sale-price',
 	        	]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_price_color',
 	        	[
-	        		'label' => esc_html__( 'Price Color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Price Color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'default' => '#ffffff',
@@ -2502,7 +2502,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_price_color_bg',
 	        	[
-	        		'label' => esc_html__( 'Price Color Background', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Price Color Background', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2513,7 +2513,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'thcoursescarousel_price_border_rad',
 				[
-					'label' => esc_html__( 'Pricing Border Radius', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Pricing Border Radius', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -2535,7 +2535,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_price_section_padding',
 				[
-					'label' => esc_html__( 'Price Section Padding', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Price Section Padding', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -2553,7 +2553,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'thcoursescarousel_price_pos_top',
 				[
-					'label' => esc_html__( 'Position Top', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Position Top', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -2580,7 +2580,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'thcoursescarousel_price_pos_rt',
 				[
-					'label' => esc_html__( 'Position Right', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Position Right', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -2607,7 +2607,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'thcoursescarousel_price_section_width',
 				[
-					'label' => esc_html__( 'Width', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Width', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -2630,14 +2630,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_prev_pricing_typo',
-	        		'label' => esc_html__( 'Previous Pricing Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Previous Pricing Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .th-original-price',
 	        	]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_prev_price_color',
 	        	[
-	        		'label' => esc_html__( 'Original Pricing Color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Original Pricing Color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2655,14 +2655,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
         $this->start_controls_section(
 			'thcoursescarousel_footer_section',
 				[
-					'label' => esc_html__( 'Footer', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Footer', 'ONE_CORE_SLUG' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
         	$this->add_control(
 	        	'thcoursescarousel_footer_header',
 	        	[
-	        		'label' => esc_html__('Footer', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Footer', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2671,7 +2671,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'thcoursescarousel_footer_border',
-					'label' => esc_html__( 'Footer Border', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Footer Border', 'ONE_CORE_SLUG' ),
 					'selector' => '{{WRAPPER}} .th-course-footer'
 				]
 			);
@@ -2679,7 +2679,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 			$this->add_control(
 				'thcoursescarousel_footer_padding',
 				[
-					'label' => esc_html__( 'Footer Padding', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Footer Padding', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -2698,7 +2698,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_author_header',
 	        	[
-	        		'label' => esc_html__('Author', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Author', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2708,14 +2708,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_author_typography',
-	        		'label' => esc_html__( 'Author Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Author Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .course-author a',
 	        	]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_author_color',
 	        	[
-	        		'label' => esc_html__( 'Author Color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Author Color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2732,7 +2732,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_level_header',
 	        	[
-	        		'label' => esc_html__('Course Level', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Course Level', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2742,14 +2742,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_course_level_typography',
-	        		'label' => esc_html__( 'Course Level Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Course Level Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .course-level',
 	        	]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_Course_Level_color',
 	        	[
-	        		'label' => esc_html__( 'Course Level Color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Course Level Color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2760,7 +2760,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_Course_Level_img_width',
 	        	[
-	        		'label' => esc_html__( 'Level Icon size', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Level Icon size', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px', '%' ],
 	        		'range' => [
@@ -2784,7 +2784,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_lessons_header',
 	        	[
-	        		'label' => esc_html__('Lessons', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Lessons', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2794,14 +2794,14 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 	        	[
 	        		'name' => 'thcoursescarousel_lessons_typography',
-	        		'label' => esc_html__( 'Lessons Typography', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Lessons Typography', 'ONE_CORE_SLUG' ),
 	        		'selector' => '{{WRAPPER}} .course-lessons',
 	        	]
 	        );
 	        $this->add_control(
 	        	'thcoursescarousel_lessons_color',
 	        	[
-	        		'label' => esc_html__( 'Lessons color', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Lessons color', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::COLOR,
 	        		
 	        		'selectors' => [
@@ -2812,19 +2812,19 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 			'thcoursescarousel_lessons_align',
 				[
-					'label' => esc_html__( 'Alignment', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Alignment', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'ec-text-left' => [
-							'title' => esc_html__( 'Left', ONE_CORE_SLUG ),
+							'title' => esc_html__( 'Left', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-left',
 						],
 						'ec-text-center' => [
-							'title' => esc_html__( 'Center', ONE_CORE_SLUG ),
+							'title' => esc_html__( 'Center', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-center',
 						],
 						'ec-text-right' => [
-							'title' => esc_html__( 'Right', ONE_CORE_SLUG ),
+							'title' => esc_html__( 'Right', 'ONE_CORE_SLUG' ),
 							'icon' => 'fa fa-align-right',
 						],
 					],
@@ -2841,7 +2841,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_rating_header',
 	        	[
-	        		'label' => esc_html__('Ratings', ONE_CORE_SLUG),
+	        		'label' => esc_html__('Ratings', 'ONE_CORE_SLUG'),
 	        		'type' => \Elementor\Controls_Manager::HEADING,
 	        		'seperator' => 'before'
 	        	]
@@ -2849,7 +2849,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_rating_font_size',
 	        	[
-	        		'label' => esc_html__( 'Size', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Size', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px' ],
 	        		'range' => [
@@ -2872,7 +2872,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 	        	'thcoursescarousel_rating_position',
 	        	[
-	        		'label' => esc_html__( 'Vertical Position', ONE_CORE_SLUG ),
+	        		'label' => esc_html__( 'Vertical Position', 'ONE_CORE_SLUG' ),
 	        		'type' => \Elementor\Controls_Manager::SLIDER,
 	        		'size_units' => [ 'px' ],
 	        		'range' => [
@@ -2894,7 +2894,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 	        $this->add_control(
 			'thcoursescarousel_star_color',
 				[
-					'label' => esc_html__( 'Rating Color', ONE_CORE_SLUG ),
+					'label' => esc_html__( 'Rating Color', 'ONE_CORE_SLUG' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					
 					'selectors' => [
@@ -2963,13 +2963,13 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
 		<div class="ec-filtering-section">
 			<ul class="th-course-trending-popular-filter <?php echo $settings['filter_text_align'] ?>" data-settings="<?php echo htmlspecialchars(json_encode($json_settings)) ?>">
 				<?php if( $settings['thcoursescarousel_show_latest_filter_tabs'] ): ?>
-					<li data-id="ec-swiper-container-<?php echo $slider_sl?>" data-cat="<?php echo htmlspecialchars(json_encode($settings['thcoursescarousel_select_categories'])); ?>" data-sort="latest"><?php echo esc_html__('Latest', ONE_CORE_SLUG); ?></li>
+					<li data-id="ec-swiper-container-<?php echo $slider_sl?>" data-cat="<?php echo htmlspecialchars(json_encode($settings['thcoursescarousel_select_categories'])); ?>" data-sort="latest"><?php echo esc_html__('Latest', 'ONE_CORE_SLUG'); ?></li>
 				<?php endif; ?>
 				<?php if( $settings['thcoursescarousel_show_popular_filter_tabs'] ): ?>
-					<li data-id="ec-swiper-container-<?php echo $slider_sl?>" data-cat="<?php echo htmlspecialchars(json_encode($settings['thcoursescarousel_select_categories'])); ?>" data-sort="popular"><?php echo esc_html__('Most Popular', ONE_CORE_SLUG); ?></li>
+					<li data-id="ec-swiper-container-<?php echo $slider_sl?>" data-cat="<?php echo htmlspecialchars(json_encode($settings['thcoursescarousel_select_categories'])); ?>" data-sort="popular"><?php echo esc_html__('Most Popular', 'ONE_CORE_SLUG'); ?></li>
 				<?php endif; ?>
 				<?php if( $settings['thcoursescarousel_show_treanding_filter_tabs'] ): ?>
-					<li data-id="ec-swiper-container-<?php echo $slider_sl?>" data-cat="<?php echo htmlspecialchars(json_encode($settings['thcoursescarousel_select_categories'])); ?>" data-sort="treanding"><?php echo esc_html__('Treanding', ONE_CORE_SLUG); ?></li>
+					<li data-id="ec-swiper-container-<?php echo $slider_sl?>" data-cat="<?php echo htmlspecialchars(json_encode($settings['thcoursescarousel_select_categories'])); ?>" data-sort="treanding"><?php echo esc_html__('Treanding', 'ONE_CORE_SLUG'); ?></li>
 				<?php endif; ?>
 			</ul>
 		</div>	
@@ -3077,7 +3077,7 @@ class OneElementorCoursesCarousel extends \Elementor\Widget_Base {
     	$categories_count = count($categories);
     	$html = '';
     	if( $categories_count > 1 ){
-	    	$html .= '<li data-id="'. $id .'" data-cat="all">'. esc_html__('All', ONE_CORE_SLUG) .'</li>';
+	    	$html .= '<li data-id="'. $id .'" data-cat="all">'. esc_html__('All', 'ONE_CORE_SLUG') .'</li>';
 	    	foreach ($categories as $key => $value) {
 	    		$html .= '<li data-id="'. $id .'" data-cat="'. $value .'">'. $value .'</li>';
 	    	}

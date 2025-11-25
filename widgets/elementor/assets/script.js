@@ -238,15 +238,29 @@ jQuery(document).ready(function(jQuery) {
 	jQuery('ul.tophive-advanced-tab-nav li:first a').click();
 
 
-	jQuery('.tophive-forum-tabs li a').on('click', function(e){
-		e.preventDefault();
-		var target = jQuery(this).attr('href');
-		jQuery('.tophive-forum-tabs li').removeClass('active');
-		jQuery(this).parent().addClass('active');
-		jQuery('.tophive-forum-recent-topics-tab-container').fadeOut(200, function(){
-			jQuery(target).fadeIn(200);
-		});
-	});
+	// jQuery('.tophive-forum-tabs li a').on('click', function(e){
+	// 	e.preventDefault();
+	// 	var target = jQuery(this).attr('href');
+	// 	jQuery('.tophive-forum-tabs li').removeClass('active');
+	// 	jQuery(this).parent().addClass('active');
+	// 	jQuery('.tophive-forum-recent-topics-tab-container').fadeOut(200, function(){
+	// 		jQuery(target).fadeIn(200);
+	// 	});
+	// });
+
+  jQuery('.tophive-forum-tabs #forum-search').on('keypress', function(e) {
+    if (e.which === 13) { 
+        e.preventDefault();
+        let value = jQuery(this).val().trim();
+
+        if (value) {
+            let url = window.location.origin + window.location.pathname;
+            window.location.href = url + '?search=' + encodeURIComponent(value);
+        }
+        }
+   });
+
+
 	if( jQuery('#thbbpresspostdesc').length ){
 		var quillEditor = new Quill('#thbbpresspostdesc', {
 		  modules: {

@@ -1206,7 +1206,7 @@
             {
                 "id": 1420,
                 "title": "Timeline",
-                "url": "\/members\/one\/activity\/",
+                "url": "\/members\/me\/activity\/",
                 "parent": "0",
                 "order": 1,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/08\/Activity-4-4.svg",
@@ -1215,7 +1215,7 @@
             {
                 "id": 1418,
                 "title": "Friends",
-                "url": "\/members\/one\/friends\/",
+                "url": "\/members\/me\/friends\/",
                 "parent": "0",
                 "order": 2,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/08\/Profile-Add-1-2.svg",
@@ -1224,7 +1224,7 @@
             {
                 "id": 1422,
                 "title": "Groups",
-                "url": "\/members\/one\/groups\/",
+                "url": "\/members\/me\/groups\/",
                 "parent": "0",
                 "order": 3,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/08\/Group-3-1.svg",
@@ -1233,7 +1233,7 @@
             {
                 "id": 1419,
                 "title": "Messages",
-                "url": "\/members\/one\/messages\/",
+                "url": "\/members\/me\/messages\/",
                 "parent": "0",
                 "order": 4,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/08\/Message-7-1.svg",
@@ -1269,7 +1269,7 @@
             {
                 "id": 4290,
                 "title": "Account Settings",
-                "url": "\/members\/one\/settings\/",
+                "url": "\/members\/me\/settings\/",
                 "parent": "0",
                 "order": 1,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/07\/Setting.svg",
@@ -1278,7 +1278,7 @@
             {
                 "id": 10373,
                 "title": "Notifications",
-                "url": "\/members\/one\/notifications\/",
+                "url": "\/members\/me\/notifications\/",
                 "parent": "0",
                 "order": 2,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/07\/Notification-1.svg",
@@ -1296,7 +1296,7 @@
             {
                 "id": 4292,
                 "title": "Log Out",
-                "url": "\/wp-login.php?action=logout&_wpnonce=e1177853a0&redirect_to=https%3A%2F%2Fone.tophivetheme.com%2Fwp-admin%2Fnav-menus.php%3Faction%3Dedit%26menu%3D58%26loggedout%3Dtrue",
+                "url": "\/wp-login.php?action=logout&_wpnonce=e1177853a0&redirect_to=/",
                 "parent": "0",
                 "order": 4,
                 "icon": "https:\/\/one.tophivetheme.com\/wp-content\/uploads\/2025\/06\/logout-square-02.svg",

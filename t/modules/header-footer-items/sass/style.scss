@@ -92,43 +92,18 @@
         }
     }
 
-    @include for_device( desktop ) {
-        &.align-desktop-left {
-            .lang-switcher-list {
-                left: 0px;
+    @each $device in (desktop, tablet, mobile) {
+        @include for_device($device) {
+            &.align-#{$device}-left {
+                .lang-switcher-list {
+                    left: 0;
+                }
             }
-        }
-        &.align-desktop-right {
-            .lang-switcher-list {
-                right: 0px;
-                left: auto;
-            }
-        }
-    }
-
-    @include for_device( tablet ) {
-        &.align-tablet-left {
-            .lang-switcher-list {
-                left: 0px;
-            }
-        }
-        &.align-tablet-right {
-            .lang-switcher-list {
-                right: 0px;
-                left: auto;
-            }
-        }
-    }
-    @include for_device( mobile ) {
-        &.align-mobile-left {
-            .lang-switcher-list {
-                left: 0px;
-            }
-        }
-        &.align-mobile-right {
-            .lang-switcher-list {
-                right: 0px;
-                left: auto;
+            &.align-#{$device}-right {
+                .lang-switcher-list {
+                    right: 0;
+                    left: auto;
+                }
             }
         }
     }
@@ -267,7 +242,7 @@
     }
 
     &.cont-desktop-vertical {
-        @include mq( min-xs ){
+        @include for_device( tablet_up ){
             display: block;
             li {
                 display: flex;
@@ -277,7 +252,7 @@
 	}
 	
 	&.cont-mobile-vertical {
-        @include mq( max-xs ){
+        @include for_device( mobile ){
             display: block;
             li {
                 display: flex;
@@ -341,4 +316,3 @@
         display: none !important;
     }
 }
-

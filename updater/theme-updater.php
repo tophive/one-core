@@ -16,11 +16,12 @@ class OneThemeUpdater{
 		wp_localize_script( 'th-theme-updater', 'th_theme_updater_ajax',
 	        array(
 	            'ajaxurl' => admin_url( 'admin-ajax.php' ),
-	            'btn_text' => esc_html__( 'Update Fundocean', ONE_CORE_SLUG ),
-	            'updating' => esc_html__( 'Updating...', ONE_CORE_SLUG ),
-	            'update_failed' => esc_html__( 'Theme Update Failed.Please try again after few moments', ONE_CORE_SLUG ),
-	            'update_success' => esc_html__( 'Theme Updated Successfully', ONE_CORE_SLUG ),
-	            'update_available' => $update
+	            'btn_text' => esc_html__( 'Update Fundocean', 'ONE_CORE_SLUG' ),
+	            'updating' => esc_html__( 'Updating...', 'ONE_CORE_SLUG' ),
+	            'update_failed' => esc_html__( 'Theme Update Failed.Please try again after few moments', 'ONE_CORE_SLUG' ),
+	            'update_success' => esc_html__( 'Theme Updated Successfully', 'ONE_CORE_SLUG' ),
+	            'update_available' => $update,
+	            'nonce' => wp_create_nonce( 'update_theme_nonce' ),
 	        )
 	    );
 	}
@@ -44,6 +45,13 @@ class OneThemeUpdater{
 		return $body;
 	}
 	public function updateTheme(){
+		// Capability and nonce checks to prevent unauthorized updates
+		if ( ! current_user_can( 'update_themes' ) ) {
+			wp_send_json_error( __( 'Unauthorized', 'ONE_CORE_SLUG' ), 403 );
+		}
+
+		check_ajax_referer( 'update_theme_nonce' );
+
 		$upload_dir = wp_upload_dir();
 
 		$updated_theme_url = $this->getThemeUrl();
@@ -99,8 +107,8 @@ class OneThemeUpdater{
 	public function themePlaceHolder(){
 		if( version_compare( $this->getCurrentVersion(), $this->getInstalledVersion(), '>') ){
 			?>
-				<h3 class="tophive-section-heading"><?php esc_html_e( 'A new version of one is available', ONE_CORE_SLUG ); ?></h3>
-				<a href="" class="tophive-admin-big-button tophive-update-theme"><?php esc_html_e( 'Update One', ONE_CORE_SLUG ); ?></a>
+				<h3 class="tophive-section-heading"><?php esc_html_e( 'A new version of one is available', 'ONE_CORE_SLUG' ); ?></h3>
+				<a href="" class="tophive-admin-big-button tophive-update-theme"><?php esc_html_e( 'Update One', 'ONE_CORE_SLUG' ); ?></a>
 				<span class="tophive-messages"></span>
 			<?php
 		}else{

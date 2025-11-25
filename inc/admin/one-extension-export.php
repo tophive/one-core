@@ -19,25 +19,28 @@ class One_Extension_Export {
     add_action('admin_post_one_ext_import_demos', [__CLASS__, 'handle_import_demos']);
   }
 
-  public static function register_menu() {
+  public static function register_menu()
+  {
     add_options_page(
-      __('One Extension Export', 'one-core'),
-      __('One Extension Export', 'one-core'),
+      __('One Extension Export', 'ONE_CORE_SLUG'),
+      __('One Extension Export', 'ONE_CORE_SLUG'),
       'manage_options',
       'one-extension-export',
       [__CLASS__, 'render_admin_page']
     );
   }
 
-  public static function render_admin_page() {
+  public static function render_admin_page()
+  {
     if (!current_user_can('manage_options')) {
       wp_die(__('You do not have sufficient permissions to access this page.'));
     }
     $export_url = admin_url('admin-post.php?action=one_ext_export&_wpnonce=' . wp_create_nonce('one_ext_export'));
-    ?>
+?>
     <div class="wrap">
-      <h1><?php echo esc_html__('One Extension Export', 'one-core'); ?></h1>
+      <h1><?php echo esc_html__('One Extension Export', 'ONE_CORE_SLUG'); ?></h1>
 
+<<<<<<< HEAD
       <?php
       // Display success/error messages
       if (isset($_GET['installed'])) {
@@ -70,23 +73,32 @@ class One_Extension_Export {
 
       <h2 class="title"><?php echo esc_html__('Export', 'one-core'); ?></h2>
       <p><?php echo esc_html__('Exports up to 5 items from Tutor LMS, Directorist, WP Events, WooCommerce, and WP Job Manager into a single JSON file.', 'one-core'); ?></p>
+=======
+      <h2 class="title"><?php echo esc_html__('Export', 'ONE_CORE_SLUG'); ?></h2>
+      <p><?php echo esc_html__('Exports up to 5 items from Tutor LMS, Directorist, WP Events, WooCommerce, and WP Job Manager into a single JSON file.', 'ONE_CORE_SLUG'); ?></p>
+>>>>>>> origin/master
       <p>
-        <a href="<?php echo esc_url($export_url); ?>" class="button button-primary"><?php echo esc_html__('Download Export (JSON)', 'one-core'); ?></a>
+        <a href="<?php echo esc_url($export_url); ?>" class="button button-primary"><?php echo esc_html__('Download Export (JSON)', 'ONE_CORE_SLUG'); ?></a>
       </p>
 
       <?php $menus_url = admin_url('admin-post.php?action=one_ext_export_menus&_wpnonce=' . wp_create_nonce('one_ext_export_menus')); ?>
-      <h2 class="title"><?php echo esc_html__('Menu Export', 'one-core'); ?></h2>
-      <p><?php echo esc_html__('Exports all menus with items and item meta (including icon/icon SVG) as JSON.', 'one-core'); ?></p>
+      <h2 class="title"><?php echo esc_html__('Menu Export', 'ONE_CORE_SLUG'); ?></h2>
+      <p><?php echo esc_html__('Exports all menus with items and item meta (including icon/icon SVG) as JSON.', 'ONE_CORE_SLUG'); ?></p>
       <p>
-        <a href="<?php echo esc_url($menus_url); ?>" class="button"><?php echo esc_html__('Download Menus (JSON)', 'one-core'); ?></a>
+        <a href="<?php echo esc_url($menus_url); ?>" class="button"><?php echo esc_html__('Download Menus (JSON)', 'ONE_CORE_SLUG'); ?></a>
       </p>
 
+<<<<<<< HEAD
       <h2 class="title"><?php echo esc_html__('Install Required Plugins', 'one-core'); ?></h2>
       <p><?php echo esc_html__('Click to install and activate Tutor LMS, Directorist, WP Event Manager, WP Job Manager, and Elementor.', 'one-core'); ?></p>
+=======
+      <h2 class="title"><?php echo esc_html__('Install Required Plugins', 'ONE_CORE_SLUG'); ?></h2>
+      <p><?php echo esc_html__('Click to install and activate Tutor LMS, Directorist, WP Event Manager, and WP Job Manager.', 'ONE_CORE_SLUG'); ?></p>
+>>>>>>> origin/master
       <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('one_ext_install_plugins', '_one_ext_install_plugins_nonce'); ?>
         <input type="hidden" name="action" value="one_ext_install_plugins" />
-        <button type="submit" class="button"><?php echo esc_html__('Install Required Plugins', 'one-core'); ?></button>
+        <button type="submit" class="button"><?php echo esc_html__('Install Required Plugins', 'ONE_CORE_SLUG'); ?></button>
       </form>
 
       <h2 class="title"><?php echo esc_html__('Import Demo Content', 'one-core'); ?></h2>
@@ -106,7 +118,7 @@ class One_Extension_Export {
 
       <hr />
 
-      <h2 class="title"><?php echo esc_html__('Import', 'one-core'); ?></h2>
+      <h2 class="title"><?php echo esc_html__('Import', 'ONE_CORE_SLUG'); ?></h2>
       <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" enctype="multipart/form-data">
         <?php wp_nonce_field('one_ext_import', '_one_ext_import_nonce'); ?>
         <input type="hidden" name="action" value="one_ext_import" />
@@ -114,16 +126,17 @@ class One_Extension_Export {
           <input type="file" name="one_ext_file" accept="application/json,.json" required />
         </p>
         <p>
-          <button type="submit" class="button button-secondary"><?php echo esc_html__('Import JSON', 'one-core'); ?></button>
+          <button type="submit" class="button button-secondary"><?php echo esc_html__('Import JSON', 'ONE_CORE_SLUG'); ?></button>
         </p>
       </form>
     </div>
-    <?php
+<?php
   }
 
-  public static function handle_export_menus() {
+  public static function handle_export_menus()
+  {
     if (!current_user_can('manage_options')) {
-      wp_die(__('Unauthorized', 'one-core'));
+      wp_die(__('Unauthorized', 'ONE_CORE_SLUG'));
     }
     check_admin_referer('one_ext_export_menus');
 
@@ -191,7 +204,8 @@ class One_Extension_Export {
     exit;
   }
 
-  private static function resolve_existing_post_type(array $candidates, $fallback = 'post') {
+  private static function resolve_existing_post_type(array $candidates, $fallback = 'post')
+  {
     foreach ($candidates as $pt) {
       if (post_type_exists($pt)) {
         return $pt;
@@ -200,7 +214,8 @@ class One_Extension_Export {
     return post_type_exists($fallback) ? $fallback : 'post';
   }
 
-  private static function fetch_posts_payload($post_type, $limit = 5) {
+  private static function fetch_posts_payload($post_type, $limit = 5)
+  {
     if (!post_type_exists($post_type)) {
       return [];
     }
@@ -217,7 +232,9 @@ class One_Extension_Export {
     $data = [];
     foreach ($q->posts as $post_id) {
       $post = get_post($post_id);
-      if (!$post) { continue; }
+      if (!$post) {
+        continue;
+      }
       $meta = get_post_meta($post_id);
       // Flatten single-value metas
       $meta_clean = [];
@@ -247,9 +264,10 @@ class One_Extension_Export {
     return $data;
   }
 
-  public static function handle_export() {
+  public static function handle_export()
+  {
     if (!current_user_can('manage_options')) {
-      wp_die(__('Unauthorized', 'one-core'));
+      wp_die(__('Unauthorized', 'ONE_CORE_SLUG'));
     }
     check_admin_referer('one_ext_export');
 
@@ -303,9 +321,10 @@ class One_Extension_Export {
     exit;
   }
 
-  public static function handle_install_plugins() {
+  public static function handle_install_plugins()
+  {
     if (!current_user_can('install_plugins')) {
-      wp_die(__('You do not have permission to install plugins.', 'one-core'));
+      wp_die(__('You do not have permission to install plugins.', 'ONE_CORE_SLUG'));
     }
     check_admin_referer('one_ext_install_plugins', '_one_ext_install_plugins_nonce');
 
@@ -336,7 +355,10 @@ class One_Extension_Export {
       $installed_plugins = get_plugins();
       $plugin_file = '';
       foreach ($installed_plugins as $file => $data) {
-        if (strpos($file, "{$slug}/") === 0) { $plugin_file = $file; break; }
+        if (strpos($file, "{$slug}/") === 0) {
+          $plugin_file = $file;
+          break;
+        }
       }
       if ($plugin_file) {
         $activate = activate_plugin($plugin_file);
@@ -347,7 +369,7 @@ class One_Extension_Export {
       // Fetch from WordPress.org
       $api = plugins_api('plugin_information', [
         'slug' => $slug,
-        'fields' => [ 'sections' => false ],
+        'fields' => ['sections' => false],
       ]);
       if (is_wp_error($api) || empty($api->download_link)) {
         $results[$slug] = 'not_found';
@@ -365,7 +387,10 @@ class One_Extension_Export {
       $installed_plugins = get_plugins();
       $plugin_file = '';
       foreach ($installed_plugins as $file => $data) {
-        if (strpos($file, "{$slug}/") === 0) { $plugin_file = $file; break; }
+        if (strpos($file, "{$slug}/") === 0) {
+          $plugin_file = $file;
+          break;
+        }
       }
       if ($plugin_file) {
         $activate = activate_plugin($plugin_file);
@@ -383,24 +408,25 @@ class One_Extension_Export {
     exit;
   }
 
-  public static function handle_import() {
+  public static function handle_import()
+  {
     if (!current_user_can('manage_options')) {
-      wp_die(__('Unauthorized', 'one-core'));
+      wp_die(__('Unauthorized', 'ONE_CORE_SLUG'));
     }
     check_admin_referer('one_ext_import', '_one_ext_import_nonce');
 
     if (empty($_FILES['one_ext_file']) || !isset($_FILES['one_ext_file']['tmp_name'])) {
-      wp_die(__('No file uploaded', 'one-core'));
+      wp_die(__('No file uploaded', 'ONE_CORE_SLUG'));
     }
 
     $raw = file_get_contents($_FILES['one_ext_file']['tmp_name']);
     if (!$raw) {
-      wp_die(__('Failed to read file', 'one-core'));
+      wp_die(__('Failed to read file', 'ONE_CORE_SLUG'));
     }
 
     $data = json_decode($raw, true);
     if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
-      wp_die(__('Invalid JSON file', 'one-core'));
+      wp_die(__('Invalid JSON file', 'ONE_CORE_SLUG'));
     }
 
     // Detect Tutor LMS export schema and import accordingly
@@ -443,10 +469,14 @@ class One_Extension_Export {
           // Meta (generic import skips protected meta)
           if (!empty($item['meta']) && is_array($item['meta'])) {
             foreach ($item['meta'] as $key => $val) {
-              if (is_protected_meta($key, 'post')) { continue; }
+              if (is_protected_meta($key, 'post')) {
+                continue;
+              }
               delete_post_meta($new_id, $key);
               if (is_array($val)) {
-                foreach ($val as $v) { add_post_meta($new_id, $key, maybe_serialize($v), false); }
+                foreach ($val as $v) {
+                  add_post_meta($new_id, $key, maybe_serialize($v), false);
+                }
               } else {
                 update_post_meta($new_id, $key, maybe_serialize($val));
               }
@@ -456,7 +486,9 @@ class One_Extension_Export {
           // Taxonomies (create terms if missing)
           if (!empty($item['tax']) && is_array($item['tax'])) {
             foreach ($item['tax'] as $tax => $terms) {
-              if (!taxonomy_exists($tax) || empty($terms)) { continue; }
+              if (!taxonomy_exists($tax) || empty($terms)) {
+                continue;
+              }
               $term_ids = [];
               foreach ((array)$terms as $term_name) {
                 $term = term_exists($term_name, $tax);
@@ -486,7 +518,8 @@ class One_Extension_Export {
     exit;
   }
 
-  public static function import_tutor_export_schema(array $data) {
+  public static function import_tutor_export_schema(array $data)
+  {
     $created = 0;
 
     // Determine post type slugs on this site
@@ -524,7 +557,9 @@ class One_Extension_Export {
           foreach ($course['meta'] as $key => $val) {
             delete_post_meta($course_id, $key);
             if (is_array($val)) {
-              foreach ($val as $v) { add_post_meta($course_id, $key, maybe_serialize($v), false); }
+              foreach ($val as $v) {
+                add_post_meta($course_id, $key, maybe_serialize($v), false);
+              }
             } else {
               update_post_meta($course_id, $key, maybe_serialize($val));
             }
@@ -537,9 +572,13 @@ class One_Extension_Export {
           if (!empty($course['taxonomies']['categories']) && is_array($course['taxonomies']['categories'])) {
             $term_ids = [];
             foreach ($course['taxonomies']['categories'] as $term_obj) {
-              if (empty($term_obj['taxonomy']) || empty($term_obj['name'])) { continue; }
+              if (empty($term_obj['taxonomy']) || empty($term_obj['name'])) {
+                continue;
+              }
               $tax = $term_obj['taxonomy'];
-              if (!taxonomy_exists($tax)) { continue; }
+              if (!taxonomy_exists($tax)) {
+                continue;
+              }
               $term = term_exists($term_obj['name'], $tax);
               if (!$term) {
                 $created_term = wp_insert_term($term_obj['name'], $tax);
@@ -551,16 +590,24 @@ class One_Extension_Export {
               }
             }
             foreach ($term_ids as $tax => $ids) {
-              if (!empty($ids)) { wp_set_object_terms($course_id, $ids, $tax, false); }
+              if (!empty($ids)) {
+                wp_set_object_terms($course_id, $ids, $tax, false);
+              }
             }
           }
           // Tags (may be associative array)
           if (!empty($course['taxonomies']['tags']) && is_array($course['taxonomies']['tags'])) {
             foreach ($course['taxonomies']['tags'] as $term_obj) {
-              if (!is_array($term_obj)) { continue; }
-              if (empty($term_obj['taxonomy']) || empty($term_obj['name'])) { continue; }
+              if (!is_array($term_obj)) {
+                continue;
+              }
+              if (empty($term_obj['taxonomy']) || empty($term_obj['name'])) {
+                continue;
+              }
               $tax = $term_obj['taxonomy'];
-              if (!taxonomy_exists($tax)) { continue; }
+              if (!taxonomy_exists($tax)) {
+                continue;
+              }
               $term = term_exists($term_obj['name'], $tax);
               $term_id = 0;
               if (!$term) {
@@ -571,7 +618,9 @@ class One_Extension_Export {
               } else {
                 $term_id = (int)(is_array($term) ? $term['term_id'] : $term);
               }
-              if ($term_id) { wp_set_object_terms($course_id, [$term_id], $tax, true); }
+              if ($term_id) {
+                wp_set_object_terms($course_id, [$term_id], $tax, true);
+              }
             }
           }
         }
@@ -600,12 +649,19 @@ class One_Extension_Export {
               foreach ($topic['children'] as $child) {
                 $child_type = isset($child['post_type']) ? $child['post_type'] : '';
                 $dest_type = false;
-                if ($child_type === 'lesson' && $pt_lesson) { $dest_type = $pt_lesson; }
-                elseif ($child_type === 'tutor_quiz' && $pt_quiz) { $dest_type = $pt_quiz; }
-                elseif ($child_type === 'tutor_assignments' && $pt_assignment) { $dest_type = $pt_assignment; }
-                elseif ($pt_lesson && $child_type) { $dest_type = $pt_lesson; }
+                if ($child_type === 'lesson' && $pt_lesson) {
+                  $dest_type = $pt_lesson;
+                } elseif ($child_type === 'tutor_quiz' && $pt_quiz) {
+                  $dest_type = $pt_quiz;
+                } elseif ($child_type === 'tutor_assignments' && $pt_assignment) {
+                  $dest_type = $pt_assignment;
+                } elseif ($pt_lesson && $child_type) {
+                  $dest_type = $pt_lesson;
+                }
 
-                if (!$dest_type) { continue; }
+                if (!$dest_type) {
+                  continue;
+                }
 
                 $child_post = [
                   'post_type' => $dest_type,
@@ -626,7 +682,9 @@ class One_Extension_Export {
                   foreach ($child['meta'] as $key => $val) {
                     delete_post_meta($child_id, $key);
                     if (is_array($val)) {
-                      foreach ($val as $v) { add_post_meta($child_id, $key, maybe_serialize($v), false); }
+                      foreach ($val as $v) {
+                        add_post_meta($child_id, $key, maybe_serialize($v), false);
+                      }
                     } else {
                       update_post_meta($child_id, $key, maybe_serialize($val));
                     }
@@ -642,7 +700,8 @@ class One_Extension_Export {
     return $created;
   }
 
-  public static function import_from_file(string $path, array $only_sections = null) {
+  public static function import_from_file(string $path, array $only_sections = null)
+  {
     if (!file_exists($path)) {
       return 0;
     }
@@ -679,8 +738,11 @@ class One_Extension_Export {
             foreach ($item['meta'] as $mk => $mv) {
               if (is_protected_meta($mk, 'post')) continue;
               delete_post_meta($new_id, $mk);
-              if (is_array($mv)) { foreach ($mv as $vv) add_post_meta($new_id, $mk, maybe_serialize($vv), false); }
-              else { update_post_meta($new_id, $mk, maybe_serialize($mv)); }
+              if (is_array($mv)) {
+                foreach ($mv as $vv) add_post_meta($new_id, $mk, maybe_serialize($vv), false);
+              } else {
+                update_post_meta($new_id, $mk, maybe_serialize($mv));
+              }
             }
           }
           if (!empty($item['tax']) && is_array($item['tax'])) {
