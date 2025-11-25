@@ -4,6 +4,11 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
+// Include WordPress plugin functions
+if (!function_exists('is_plugin_active')) {
+  require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
 class One_Extension_Export {
   public static function init() {
     add_action('admin_menu', [__CLASS__, 'register_menu']);
@@ -11,6 +16,7 @@ class One_Extension_Export {
     add_action('admin_post_one_ext_import', [__CLASS__, 'handle_import']);
     add_action('admin_post_one_ext_install_plugins', [__CLASS__, 'handle_install_plugins']);
     add_action('admin_post_one_ext_export_menus', [__CLASS__, 'handle_export_menus']);
+    add_action('admin_post_one_ext_import_demos', [__CLASS__, 'handle_import_demos']);
   }
 
   public static function register_menu() {
@@ -32,6 +38,36 @@ class One_Extension_Export {
     <div class="wrap">
       <h1><?php echo esc_html__('One Extension Export', 'one-core'); ?></h1>
 
+      <?php
+      // Display success/error messages
+      if (isset($_GET['installed'])) {
+        $results = json_decode(urldecode($_GET['installed']), true);
+        if (is_array($results)) {
+          echo '<div class="notice notice-success is-dismissible"><p><strong>Plugin Installation Results:</strong></p><ul>';
+          foreach ($results as $plugin => $status) {
+            $status_text = ucfirst(str_replace('_', ' ', $status));
+            echo '<li><strong>' . esc_html(ucfirst($plugin)) . ':</strong> ' . esc_html($status_text) . '</li>';
+          }
+          echo '</ul></div>';
+        }
+      }
+
+      if (isset($_GET['demos_imported'])) {
+        $results = json_decode(urldecode($_GET['demos_imported']), true);
+        if (is_array($results)) {
+          echo '<div class="notice notice-success is-dismissible"><p><strong>Demo Content Import Results:</strong></p><ul>';
+          foreach ($results as $plugin => $count) {
+            if ($count === 'plugin_not_active') {
+              echo '<li><strong>' . esc_html(ucfirst(str_replace('_', ' ', $plugin))) . ':</strong> Plugin not active</li>';
+            } else {
+              echo '<li><strong>' . esc_html(ucfirst(str_replace('_', ' ', $plugin))) . ':</strong> ' . esc_html($count) . ' items created</li>';
+            }
+          }
+          echo '</ul></div>';
+        }
+      }
+      ?>
+
       <h2 class="title"><?php echo esc_html__('Export', 'one-core'); ?></h2>
       <p><?php echo esc_html__('Exports up to 5 items from Tutor LMS, Directorist, WP Events, WooCommerce, and WP Job Manager into a single JSON file.', 'one-core'); ?></p>
       <p>
@@ -46,11 +82,26 @@ class One_Extension_Export {
       </p>
 
       <h2 class="title"><?php echo esc_html__('Install Required Plugins', 'one-core'); ?></h2>
-      <p><?php echo esc_html__('Click to install and activate Tutor LMS, Directorist, WP Event Manager, and WP Job Manager.', 'one-core'); ?></p>
+      <p><?php echo esc_html__('Click to install and activate Tutor LMS, Directorist, WP Event Manager, WP Job Manager, and Elementor.', 'one-core'); ?></p>
       <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('one_ext_install_plugins', '_one_ext_install_plugins_nonce'); ?>
         <input type="hidden" name="action" value="one_ext_install_plugins" />
         <button type="submit" class="button"><?php echo esc_html__('Install Required Plugins', 'one-core'); ?></button>
+      </form>
+
+      <h2 class="title"><?php echo esc_html__('Import Demo Content', 'one-core'); ?></h2>
+      <p><?php echo esc_html__('Import demo content for Tutor LMS, Directorist, WP Events, WooCommerce, and WP Job Manager.', 'one-core'); ?></p>
+      
+      <?php if (!is_plugin_active('elementor/elementor.php')): ?>
+        <div class="notice notice-warning">
+          <p><strong>Elementor Required:</strong> Please install and activate Elementor first to ensure proper demo content display.</p>
+        </div>
+      <?php endif; ?>
+      
+      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+        <?php wp_nonce_field('one_ext_import_demos', '_one_ext_import_demos_nonce'); ?>
+        <input type="hidden" name="action" value="one_ext_import_demos" />
+        <button type="submit" class="button button-secondary"><?php echo esc_html__('Import Demo Content', 'one-core'); ?></button>
       </form>
 
       <hr />
@@ -268,6 +319,7 @@ class One_Extension_Export {
       'directorist',      // Directorist
       'wp-event-manager', // WP Event Manager
       'wp-job-manager',   // WP Job Manager
+      'elementor',        // Elementor
     ];
 
     $results = [];
@@ -650,6 +702,284 @@ class One_Extension_Export {
         }
       }
     }
+    return $created;
+  }
+
+  public static function handle_import_demos() {
+    if (!current_user_can('manage_options')) {
+      wp_die(__('Unauthorized', 'one-core'));
+    }
+    check_admin_referer('one_ext_import_demos', '_one_ext_import_demos_nonce');
+
+    $results = [];
+    
+    // Import demo content for each plugin
+    $results['tutor_lms'] = self::import_tutor_demo_content();
+    $results['directorist'] = self::import_directorist_demo_content();
+    $results['events'] = self::import_events_demo_content();
+    $results['woocommerce'] = self::import_woocommerce_demo_content();
+    $results['wp_job_manager'] = self::import_wp_job_manager_demo_content();
+
+    $redirect = add_query_arg([
+      'page' => 'one-extension-export',
+      'demos_imported' => urlencode(wp_json_encode($results)),
+    ], admin_url('options-general.php'));
+    wp_safe_redirect($redirect);
+    exit;
+  }
+
+  public static function import_tutor_demo_content() {
+    if (!post_type_exists('tutor_course')) {
+      return 'plugin_not_active';
+    }
+
+    $demo_courses = [
+      [
+        'title' => 'Complete Web Development Course',
+        'content' => 'Learn web development from scratch with this comprehensive course covering HTML, CSS, JavaScript, and more.',
+        'excerpt' => 'Master web development fundamentals and build real-world projects.',
+        'meta' => [
+          '_course_price' => '99.00',
+          '_course_duration' => '20 hours',
+          '_course_level' => 'Beginner'
+        ]
+      ],
+      [
+        'title' => 'Advanced JavaScript Programming',
+        'content' => 'Deep dive into JavaScript ES6+, async programming, and modern frameworks.',
+        'excerpt' => 'Take your JavaScript skills to the next level.',
+        'meta' => [
+          '_course_price' => '149.00',
+          '_course_duration' => '25 hours',
+          '_course_level' => 'Advanced'
+        ]
+      ]
+    ];
+
+    $created = 0;
+    foreach ($demo_courses as $course_data) {
+      $course_id = wp_insert_post([
+        'post_type' => 'tutor_course',
+        'post_title' => $course_data['title'],
+        'post_content' => $course_data['content'],
+        'post_excerpt' => $course_data['excerpt'],
+        'post_status' => 'publish'
+      ]);
+
+      if (!is_wp_error($course_id)) {
+        foreach ($course_data['meta'] as $key => $value) {
+          update_post_meta($course_id, $key, $value);
+        }
+        $created++;
+      }
+    }
+
+    return $created;
+  }
+
+  public static function import_directorist_demo_content() {
+    if (!post_type_exists('at_biz_dir')) {
+      return 'plugin_not_active';
+    }
+
+    $demo_listings = [
+      [
+        'title' => 'Tech Solutions Inc.',
+        'content' => 'Professional IT services and consulting for businesses of all sizes.',
+        'excerpt' => 'Your trusted partner for technology solutions.',
+        'meta' => [
+          '_directorist_phone' => '+1-555-0123',
+          '_directorist_email' => 'info@techsolutions.com',
+          '_directorist_website' => 'https://techsolutions.com'
+        ]
+      ],
+      [
+        'title' => 'Creative Design Studio',
+        'content' => 'Full-service design agency specializing in branding, web design, and marketing materials.',
+        'excerpt' => 'Bringing your creative vision to life.',
+        'meta' => [
+          '_directorist_phone' => '+1-555-0456',
+          '_directorist_email' => 'hello@creativestudio.com',
+          '_directorist_website' => 'https://creativestudio.com'
+        ]
+      ]
+    ];
+
+    $created = 0;
+    foreach ($demo_listings as $listing_data) {
+      $listing_id = wp_insert_post([
+        'post_type' => 'at_biz_dir',
+        'post_title' => $listing_data['title'],
+        'post_content' => $listing_data['content'],
+        'post_excerpt' => $listing_data['excerpt'],
+        'post_status' => 'publish'
+      ]);
+
+      if (!is_wp_error($listing_id)) {
+        foreach ($listing_data['meta'] as $key => $value) {
+          update_post_meta($listing_id, $key, $value);
+        }
+        $created++;
+      }
+    }
+
+    return $created;
+  }
+
+  public static function import_events_demo_content() {
+    if (!post_type_exists('event') && !post_type_exists('tribe_events')) {
+      return 'plugin_not_active';
+    }
+
+    $post_type = post_type_exists('event') ? 'event' : 'tribe_events';
+    
+    $demo_events = [
+      [
+        'title' => 'Tech Conference 2024',
+        'content' => 'Join us for the biggest tech conference of the year featuring industry leaders and innovative sessions.',
+        'excerpt' => 'A must-attend event for tech professionals.',
+        'meta' => [
+          '_event_start_date' => date('Y-m-d H:i:s', strtotime('+30 days')),
+          '_event_end_date' => date('Y-m-d H:i:s', strtotime('+30 days +8 hours')),
+          '_event_location' => 'Convention Center, Downtown'
+        ]
+      ],
+      [
+        'title' => 'Design Workshop',
+        'content' => 'Hands-on design workshop covering UX/UI principles and modern design tools.',
+        'excerpt' => 'Learn practical design skills in an interactive environment.',
+        'meta' => [
+          '_event_start_date' => date('Y-m-d H:i:s', strtotime('+14 days')),
+          '_event_end_date' => date('Y-m-d H:i:s', strtotime('+14 days +6 hours')),
+          '_event_location' => 'Creative Hub, Arts District'
+        ]
+      ]
+    ];
+
+    $created = 0;
+    foreach ($demo_events as $event_data) {
+      $event_id = wp_insert_post([
+        'post_type' => $post_type,
+        'post_title' => $event_data['title'],
+        'post_content' => $event_data['content'],
+        'post_excerpt' => $event_data['excerpt'],
+        'post_status' => 'publish'
+      ]);
+
+      if (!is_wp_error($event_id)) {
+        foreach ($event_data['meta'] as $key => $value) {
+          update_post_meta($event_id, $key, $value);
+        }
+        $created++;
+      }
+    }
+
+    return $created;
+  }
+
+  public static function import_woocommerce_demo_content() {
+    if (!post_type_exists('product')) {
+      return 'plugin_not_active';
+    }
+
+    $demo_products = [
+      [
+        'title' => 'Premium Wireless Headphones',
+        'content' => 'High-quality wireless headphones with noise cancellation and premium sound quality.',
+        'excerpt' => 'Experience crystal clear audio with premium comfort.',
+        'meta' => [
+          '_regular_price' => '199.99',
+          '_sale_price' => '149.99',
+          '_price' => '149.99',
+          '_stock_status' => 'instock',
+          '_manage_stock' => 'yes',
+          '_stock' => '50'
+        ]
+      ],
+      [
+        'title' => 'Smart Fitness Watch',
+        'content' => 'Advanced fitness tracking watch with heart rate monitoring and GPS capabilities.',
+        'excerpt' => 'Track your fitness goals with precision and style.',
+        'meta' => [
+          '_regular_price' => '299.99',
+          '_sale_price' => '249.99',
+          '_price' => '249.99',
+          '_stock_status' => 'instock',
+          '_manage_stock' => 'yes',
+          '_stock' => '25'
+        ]
+      ]
+    ];
+
+    $created = 0;
+    foreach ($demo_products as $product_data) {
+      $product_id = wp_insert_post([
+        'post_type' => 'product',
+        'post_title' => $product_data['title'],
+        'post_content' => $product_data['content'],
+        'post_excerpt' => $product_data['excerpt'],
+        'post_status' => 'publish'
+      ]);
+
+      if (!is_wp_error($product_id)) {
+        foreach ($product_data['meta'] as $key => $value) {
+          update_post_meta($product_id, $key, $value);
+        }
+        $created++;
+      }
+    }
+
+    return $created;
+  }
+
+  public static function import_wp_job_manager_demo_content() {
+    if (!post_type_exists('job_listing')) {
+      return 'plugin_not_active';
+    }
+
+    $demo_jobs = [
+      [
+        'title' => 'Senior Web Developer',
+        'content' => 'We are looking for an experienced web developer to join our growing team. Must have strong skills in PHP, JavaScript, and modern frameworks.',
+        'excerpt' => 'Join our dynamic team and work on exciting projects.',
+        'meta' => [
+          '_job_location' => 'New York, NY',
+          '_job_type' => 'Full-time',
+          '_job_salary' => '$80,000 - $120,000',
+          '_company_name' => 'TechCorp Solutions'
+        ]
+      ],
+      [
+        'title' => 'UX/UI Designer',
+        'content' => 'Creative designer needed to create beautiful and functional user experiences. Experience with Figma, Sketch, and design systems required.',
+        'excerpt' => 'Shape the future of digital experiences.',
+        'meta' => [
+          '_job_location' => 'Remote',
+          '_job_type' => 'Contract',
+          '_job_salary' => '$60,000 - $90,000',
+          '_company_name' => 'Design Studio Pro'
+        ]
+      ]
+    ];
+
+    $created = 0;
+    foreach ($demo_jobs as $job_data) {
+      $job_id = wp_insert_post([
+        'post_type' => 'job_listing',
+        'post_title' => $job_data['title'],
+        'post_content' => $job_data['content'],
+        'post_excerpt' => $job_data['excerpt'],
+        'post_status' => 'publish'
+      ]);
+
+      if (!is_wp_error($job_id)) {
+        foreach ($job_data['meta'] as $key => $value) {
+          update_post_meta($job_id, $key, $value);
+        }
+        $created++;
+      }
+    }
+
     return $created;
   }
 }

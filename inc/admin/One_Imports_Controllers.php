@@ -2,7 +2,7 @@
 
 class One_Imports_Controllers
 {
-  private $API_ROOT = "https://tophive.up.railway.app/api";
+  private $API_ROOT = "https://www.tophivetheme.com/wp-json/v1";
   private $API_ENDPOINT = "";
   private $API_ENDPOINT_LICENSE_ACTIVATE = "";
   private $API_ENDPOINT_LICENSE_CHECK = "";
@@ -68,6 +68,7 @@ class One_Imports_Controllers
     $product_id =  $this->get_product_id();
     $domain = get_site_url();
     $url = "{$this->API_ENDPOINT_UPDATE_CHECK}/{$product_id}?domain={$domain}";
+    
 
     $remote_response  = wp_remote_request($url, [
       "method" => "GET",
@@ -257,9 +258,11 @@ class One_Imports_Controllers
     //ADD LICENSE ADD PRODUCT_ID
     $license_value = $this->get_licence();
     $product_id = $this->get_product_id();
+    
     $url .= "?product_id={$product_id}";
     $domain = get_site_url();
     $url .= "&domain={$domain}";
+
 
     $res = wp_remote_request($url, [
       "method" => "GET",
@@ -270,8 +273,11 @@ class One_Imports_Controllers
       ],
     ]);
 
+
     $body = wp_remote_retrieve_body($res);
+
     $data = json_decode($body, true);
+
     return $data['templates'] ?? [];
   }
 

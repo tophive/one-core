@@ -97,6 +97,14 @@ jQuery(document).ready(function ($) {
             if (sel.woocommerce) done.woocommerce = true;
             if (sel.job_manager) done.job_manager = true;
           }
+          if (step === 'import_extension_demos') {
+            const sel = JSON.parse(localStorage.getItem('one_demo_selected') || '{}');
+            if (sel.courses) done.courses = true;
+            if (sel.directory) done.directory = true;
+            if (sel.events) done.events = true;
+            if (sel.woocommerce) done.woocommerce = true;
+            if (sel.job_manager) done.job_manager = true;
+          }
           localStorage.setItem('one_demo_done', JSON.stringify(done));
         } catch(e){}
       } else {
@@ -229,7 +237,8 @@ jQuery(document).ready(function($) {
         $('#import-page-selector').prev('p').hide();
         $('#new-page-title').prev('p').hide();
       } else {
-        alert('Import failed: ' + (response.data?.message || 'Unknown error'));
+        console.log(response);
+        alert('Import failure: ' + (response.data?.message || 'Unknown error'));
       }
     });
   });

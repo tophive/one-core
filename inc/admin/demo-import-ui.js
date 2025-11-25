@@ -182,7 +182,23 @@
       if (selected.woocommerce && !done.woocommerce) sections['woocommerce'] = true;
       if (selected.job_manager && !done.job_manager) sections['wp_job_manager'] = true;
       if (demoPath && Object.keys(sections).length) {
-        steps.push({ step: 'import_exported_demo', payload: { path: demoPath, sections: Object.keys(sections) } });
+        steps.push({ 
+          step: 'import_exported_demo', 
+          payload: { 
+            path: demoPath, 
+            sections: Object.keys(sections),
+            label: 'Importing exported demo data...'
+          } 
+        });
+      } else if (Object.keys(sections).length) {
+        // If no demo file, import extension demo content directly
+        steps.push({ 
+          step: 'import_extension_demos', 
+          payload: { 
+            sections: Object.keys(sections),
+            label: 'Importing extension demo content...'
+          } 
+        });
       }
 
       if (selected.buddypress && !done.buddypress) {

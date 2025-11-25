@@ -3,6 +3,11 @@ if (! defined('ABSPATH')) exit;
 
 require_once __DIR__ . '/One_Imports_Controllers.php';
 
+// Include WordPress plugin functions
+if (!function_exists('is_plugin_active')) {
+  require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
 
 // 1. Enqueue JS + Modal Styles + Localize Steps
 add_action('admin_enqueue_scripts', function () {
@@ -38,7 +43,14 @@ add_action('admin_enqueue_scripts', function () {
     'defaults' => [
       'customizer' => true,
       'menus' => true,
-      'buddypress' => true
+      'buddypress' => true,
+      'courses' => !is_plugin_active('tutor/tutor.php'),
+      'directory' => !is_plugin_active('directorist/directorist.php'),
+      'events' => !is_plugin_active('the-events-manager/the-events-manager.php'),
+      'woocommerce' => !is_plugin_active('woocommerce/woocommerce.php'),
+      'job_manager' => !is_plugin_active('wp-job-manager/wp-job-manager.php'),
+      'forums' => !is_plugin_active('bbpress/bbpress.php'),
+      'pmp' => !is_plugin_active('paid-memberships-pro/paid-memberships-pro.php')
     ],
     'elementor_installed' => is_plugin_active('elementor/elementor.php') || file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php')
   ]);
@@ -118,7 +130,7 @@ function bp_demo_import_page()
   echo '<br />';
   echo '<h2 style="font-size: 24px; font-weight: 600; margin: 30px 0 20px 0; color: #1d2327;">Page templates</h2>';
 
-  do_action('tophive-core/activation-required');
+  // do_action('tophive-core/activation-required');
 
 
   $templates = $importer->get_templates();
@@ -215,6 +227,28 @@ add_action('wp_ajax_bp_demo_import_step', function () {
         foreach ($sections as $k) { $map[$k] = true; }
         $count = One_Extension_Export::import_from_file($path, $map);
         wp_send_json_success(['message' => 'Demo data imported (' . intval($count) . ' items).']);
+        return;
+      case 'import_extension_demos':
+        // Import demo content for Tutor LMS, Directorist, WP Events, WooCommerce, and WP Job Manager
+        require_once __DIR__ . '/one-extension-export.php';
+        $results = [];
+        $results['tutor_lms'] = One_Extension_Export::import_tutor_demo_content();
+        $results['directorist'] = One_Extension_Export::import_directorist_demo_content();
+        $results['events'] = One_Extension_Export::import_events_demo_content();
+        $results['woocommerce'] = One_Extension_Export::import_woocommerce_demo_content();
+        $results['wp_job_manager'] = One_Extension_Export::import_wp_job_manager_demo_content();
+        
+        $total_created = 0;
+        foreach ($results as $plugin => $count) {
+          if (is_numeric($count)) {
+            $total_created += $count;
+          }
+        }
+        
+        wp_send_json_success([
+          'message' => 'Extension demo content imported successfully (' . $total_created . ' items created).',
+          'results' => $results
+        ]);
         return;
       case 'setup_homepage':
         bp_demo_setup_activity_home();
