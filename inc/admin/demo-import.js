@@ -112,6 +112,7 @@ jQuery(document).ready(function ($) {
       try {
         const done = JSON.parse(localStorage.getItem('one_demo_done') || '{}');
         if (step === 'import_customizer') done.customizer = true;
+        if (step === 'import_pages') done.pages = true;
         if (step === 'import_menus') done.menus = true;
         if (step === 'import_forums') done.forums = true;
         if (step === 'configure_buddypress') done.buddypress = true;

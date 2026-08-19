@@ -104,6 +104,7 @@ add_action('admin_enqueue_scripts', function () {
     // steps will be built dynamically by UI selections
     'default_steps' => [],
     'is_fresh_install' => $is_fresh_install,
+    'setup_imported' => get_option('one_theme_core_demo_imported') === 'yes',
     'plugin_map' => [
       'buddypress' => 'buddypress',
       'bbpress' => 'bbpress',
@@ -114,7 +115,8 @@ add_action('admin_enqueue_scripts', function () {
       'menus' => true,
       'buddypress' => true,
       'forums' => false,
-    ]
+    ],
+    'pages' => one_demo_page_library(),
   ]);
 
   wp_enqueue_style('bp-demo-import-style', plugin_dir_url(__FILE__) . '/demo-import.css', [], $style_version);
@@ -190,6 +192,8 @@ add_action('wp_ajax_bp_demo_import_step', function () {
   }
   $step = sanitize_text_field($_POST['step'] ?? '');
   $payload_slugs = isset($_POST['slugs']) && is_array($_POST['slugs']) ? array_map('sanitize_text_field', $_POST['slugs']) : [];
+  $payload_pages = isset($_POST['pages']) && is_array($_POST['pages']) ? array_map('sanitize_key', $_POST['pages']) : [];
+  $reimport_pages = !empty($_POST['reimport']);
 
   // Guard instantiation to avoid diagnostics when class not loaded yet
   $Tophovive_License_Instance = class_exists('Tophive_Licence') ? new Tophive_Licence() : null;
@@ -208,7 +212,7 @@ add_action('wp_ajax_bp_demo_import_step', function () {
         bp_demo_setup_activity_home();
         break;
       case 'import_pages':
-        $response = bp_demo_import_pages();
+        $response = bp_demo_import_pages($payload_pages, $reimport_pages);
         break;
       case 'import_users':
         bp_demo_import_users();
@@ -735,26 +739,113 @@ function bp_demo_install_plugins($slugs = [])
 }
 
 
-function bp_demo_import_pages()
+function one_demo_read_pages_data()
 {
   $file_path = plugin_dir_path(__FILE__) . '/demo-data/pages.json';
+  if (!file_exists($file_path)) return [];
+  $pages = json_decode((string) file_get_contents($file_path), true);
+  return is_array($pages) ? $pages : [];
+}
 
-  if (!file_exists($file_path)) {
-    return ['success' => false, 'message' => 'Pages JSON file not found.'];
+function one_demo_page_library()
+{
+  $items = [];
+  foreach (one_demo_read_pages_data() as $page) {
+    $key = sanitize_key($page['meta']['_one_demo_page'] ?? '');
+    if (!$key || empty($page['post_title'])) continue;
+    $slug = sanitize_title($page['post_name'] ?? $page['post_title']);
+    $existing = get_page_by_path($slug, OBJECT, 'page');
+    $owned = $existing instanceof WP_Post && $key === (string) get_post_meta($existing->ID, '_one_demo_page', true);
+    $items[] = [
+      'key' => $key,
+      'title' => sanitize_text_field($page['post_title']),
+      'description' => sanitize_text_field($page['excerpt'] ?? 'Starter page for One Theme.'),
+      'slug' => $slug,
+      'status' => $owned ? 'imported' : ($existing instanceof WP_Post ? 'conflict' : 'available'),
+      'edit_url' => $owned ? get_edit_post_link($existing->ID, 'raw') : '',
+      'view_url' => $owned ? get_permalink($existing->ID) : '',
+    ];
   }
+  return $items;
+}
 
-  $json = file_get_contents($file_path);
-  $pages = json_decode($json, true);
+function bp_demo_import_pages(array $page_keys = [], bool $reimport = false)
+{
+  $pages = one_demo_read_pages_data();
+  if (empty($pages)) return ['success' => false, 'message' => 'No starter page data found.'];
+  $page_keys = array_values(array_filter(array_map('sanitize_key', $page_keys)));
+  if (empty($page_keys)) return ['success' => false, 'message' => 'Choose at least one page to import.'];
 
-  if (empty($pages) || !is_array($pages)) {
-    return ['success' => false, 'message' => 'Invalid pages data.'];
-  }
+  $imported = 0;
+  $skipped = 0;
 
   foreach ($pages as $page) {
-    import_post($page, 'page');
+    $page_key = sanitize_key($page['meta']['_one_demo_page'] ?? '');
+    if (!$page_key || !in_array($page_key, $page_keys, true)) continue;
+    if (empty($page['post_title'])) {
+      $skipped++;
+      continue;
+    }
+
+    $slug = !empty($page['post_name'])
+      ? sanitize_title($page['post_name'])
+      : sanitize_title($page['post_title']);
+    $existing = get_page_by_path($slug, OBJECT, 'page');
+    $post_id = 0;
+
+    if ($existing instanceof WP_Post) {
+      // Never overwrite a customer's page that happens to use the same slug.
+      $incoming_marker = isset($page['meta']['_one_demo_page'])
+        ? (string) $page['meta']['_one_demo_page']
+        : '';
+      $existing_marker = (string) get_post_meta($existing->ID, '_one_demo_page', true);
+
+      if ('' === $incoming_marker || $incoming_marker !== $existing_marker) {
+        $skipped++;
+        continue;
+      }
+
+      if (!$reimport) {
+        $skipped++;
+        continue;
+      }
+
+      $post_id = wp_update_post([
+        'ID'           => $existing->ID,
+        'post_title'   => sanitize_text_field($page['post_title']),
+        'post_content' => isset($page['content']) ? wp_kses_post($page['content']) : '',
+        'post_excerpt' => isset($page['excerpt']) ? sanitize_textarea_field($page['excerpt']) : '',
+        'post_status'  => 'publish',
+      ], true);
+    } else {
+      $post_id = wp_insert_post([
+        'post_type'    => 'page',
+        'post_title'   => sanitize_text_field($page['post_title']),
+        'post_name'    => $slug,
+        'post_content' => isset($page['content']) ? wp_kses_post($page['content']) : '',
+        'post_excerpt' => isset($page['excerpt']) ? sanitize_textarea_field($page['excerpt']) : '',
+        'post_status'  => 'publish',
+        'post_author'  => get_current_user_id(),
+      ], true);
+    }
+
+    if (is_wp_error($post_id) || !$post_id) {
+      $skipped++;
+      continue;
+    }
+
+    import_post($page, 'page', (int) $post_id);
+    $imported++;
   }
 
-  return ['success' => true, 'message' => 'Pages imported successfully!'];
+  return [
+    'success' => true,
+    'message' => sprintf(
+      'Starter pages processed: %d imported, %d skipped.',
+      $imported,
+      $skipped
+    ),
+  ];
 }
 
 function bp_demo_import_forums()
@@ -908,6 +999,20 @@ function import_post(array $post, string $post_type, int $post_id)
       //update meta `_thumbnail_id` so this post thumbnail point this new image 
       $post["meta"]["_thumbnail_id"] = ["{$attachment['attachment_id']}"];
     };
+  }
+
+  // Resolve packaged One Core asset placeholders before Elementor meta is stored.
+  // This keeps starter-page JSON portable across local, staging, and production URLs.
+  if (!empty($post["meta"]["_elementor_data"])) {
+    $raw_elementor = $post["meta"]["_elementor_data"];
+    $encoded_elementor = is_string($raw_elementor) ? $raw_elementor : wp_json_encode($raw_elementor);
+    if (is_string($encoded_elementor)) {
+      $encoded_elementor = str_replace('{{ONE_CORE_URL}}', trailingslashit(WP_MF_CORE_URL), $encoded_elementor);
+      $decoded_elementor = json_decode($encoded_elementor, true);
+      if (is_array($decoded_elementor)) {
+        $post["meta"]["_elementor_data"] = $decoded_elementor;
+      }
+    }
   }
 
   $result = $post_id;

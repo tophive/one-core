@@ -206,6 +206,7 @@ class OneCore
     wp_enqueue_style('th-wp-widget-styles', WP_MF_CORE_URL . 'widgets/wordpress/assets/styles.css');
     wp_enqueue_style('th-elementor-css', WP_MF_CORE_URL . 'widgets/elementor/assets/style.min.css');
     wp_enqueue_style('th-widget-css', WP_MF_CORE_URL . 'widgets/onewidgets/assets/css/frontend.css');
+
     wp_localize_script(
       'th-elementor-js',
       'th_elem_ajax_obj',
